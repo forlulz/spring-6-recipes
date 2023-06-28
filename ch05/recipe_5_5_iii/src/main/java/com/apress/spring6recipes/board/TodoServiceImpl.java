@@ -1,6 +1,7 @@
 package com.apress.spring6recipes.board;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,9 +34,10 @@ class TodoServiceImpl implements TodoService {
 	@Override
 	@PreAuthorize("hasAuthority('USER')")
 	public void complete(long id) {
-		Todo todo = findById(id);
-		todo.setCompleted(true);
-		todoRepository.save(todo);
+		findById(id).ifPresent(todo -> {
+			todo.setCompleted(true);
+			todoRepository.save(todo);
+		});
 	}
 
 	@Override
@@ -46,7 +48,7 @@ class TodoServiceImpl implements TodoService {
 
 	@Override
 	@PreAuthorize("hasAuthority('USER')")
-	public Todo findById(long id) {
+	public Optional<Todo> findById(long id) {
 		return todoRepository.findOne(id);
 	}
 

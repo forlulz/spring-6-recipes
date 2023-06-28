@@ -57,6 +57,6 @@ public class ReactiveBookstoreConfiguration {
 
 	@Bean
 	public TransactionalR2dbcBookShop bookShop(TransactionalOperator to, ConnectionFactory cf) {
-		return new TransactionalR2dbcBookShop(to, cf);
+		return new TransactionalR2dbcBookShop(cf);
 	}
 }

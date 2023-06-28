@@ -36,6 +36,6 @@ public class JobScheduler {
 
 	@Scheduled(fixedDelay = 1000 * 10)
 	public void runRegistrationsJobOnASchedule() throws Throwable {
-		runRegistrationsJob(new Date());
+		runRegistrationsJob(LocalDateTime.now());
 	}
 }

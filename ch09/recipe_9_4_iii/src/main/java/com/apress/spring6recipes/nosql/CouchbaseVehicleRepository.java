@@ -17,7 +17,7 @@ public class CouchbaseVehicleRepository implements VehicleRepository {
 
 	@Override
 	public void delete(Vehicle vehicle) {
-		couchbase.removeById(Vehicle.class).one(vehicle.getVehicleNo());
+		couchbase.removeById(Vehicle.class).one(vehicle.vehicleNo());
 	}
 
 	@Override

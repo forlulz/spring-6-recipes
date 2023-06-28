@@ -23,6 +23,12 @@ include 'shared-resources'
 
 def includeDirs = ~/^(?i)(ch|recipe|appendix).*$/
 def preDir = {
+    // Temporary exclude
+    switch (it.name) {
+        case 'ch05': // WebSecurityConfigurerAdapter
+        case 'ch13': // ModelMap <-> Model
+            return SKIP_SUBTREE
+    }
     // For now exclude directories not working on to increase performance
     if (!includeDirs.matcher(it.name).matches()) {
         return SKIP_SUBTREE

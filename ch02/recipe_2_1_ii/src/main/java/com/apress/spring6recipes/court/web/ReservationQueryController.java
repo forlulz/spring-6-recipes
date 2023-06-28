@@ -1,5 +1,7 @@
 package com.apress.spring6recipes.court.web;
 
+import com.apress.spring6recipes.court.domain.Reservation;
+import com.apress.spring6recipes.court.service.ReservationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

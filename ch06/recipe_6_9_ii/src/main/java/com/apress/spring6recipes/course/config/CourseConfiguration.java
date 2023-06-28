@@ -25,7 +25,7 @@ public class CourseConfiguration {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
 
 		var emf = new LocalContainerEntityManagerFactoryBean();
-		emf.setPackagesToScan("com.apress.springrecipes.course");
+		emf.setPackagesToScan("com.apress.spring6recipes.course");
 		emf.setDataSource(dataSource);
 		emf.setJpaVendorAdapter(jpaVendorAdapter());
 		return emf;

@@ -3,7 +3,7 @@
 
 <aspectj>
     <weaver>
-        <include within="com.apress.springrecipes.calculator.*"/>
+        <include within="com.apress.spring6recipes.calculator.*"/>
     </weaver>
 
     <aspects>

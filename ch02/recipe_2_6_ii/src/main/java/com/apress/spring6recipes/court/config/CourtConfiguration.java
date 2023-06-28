@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * Configuration class for the Court reservation application. Enables component scannig so
  * that all services and controllers will be detected (as long as they are part of the
- * {@code com.apress.springrecipes.court} package (or in a sub-package).
+ * {@code com.apress.spring6recipes.court} package (or in a sub-package).
  *
  * @author Marten Deinum
  */

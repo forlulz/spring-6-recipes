@@ -9,5 +9,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.apress.springrecipes.court")
+@ComponentScan(basePackages = "com.apress.spring6recipes.court")
 public class CourtRestConfiguration { }

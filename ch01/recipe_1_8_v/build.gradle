@@ -4,5 +4,5 @@ dependencies {
 }
 
 jar {
-    manifest.attributes('Main-Class': 'com.apress.springrecipes.shop.Main')
+    manifest.attributes('Main-Class': 'com.apress.spring6recipes.shop.Main')
 }
