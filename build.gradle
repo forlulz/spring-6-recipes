@@ -1,9 +1,9 @@
 plugins {
-    id 'com.github.ben-manes.versions' version '0.44.0'
-    id 'com.palantir.docker' version '0.34.0' apply false
-    id 'com.palantir.docker-run' version '0.34.0' apply false
-    id 'com.intershop.gradle.jaxb' version '5.2.1' apply false
-    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+    id 'com.github.ben-manes.versions' version '0.47.0'
+    id 'com.palantir.docker' version '0.35.0' apply false
+    id 'com.palantir.docker-run' version '0.35.0' apply false
+    id 'com.intershop.gradle.jaxb' version '6.0.0' apply false
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
 
 allprojects {
@@ -51,7 +51,7 @@ subprojects { subproject ->
 
         java {
             toolchain {
-                languageVersion = JavaLanguageVersion.of(19)
+                languageVersion = JavaLanguageVersion.of(20)
             }
         }
 
@@ -65,12 +65,12 @@ subprojects { subproject ->
 
             withType(Test).configureEach {
                 useJUnitPlatform()
-                jvmArgs.add('--enable-preview')
+                it.jvmArgs('--enable-preview')
                 systemProperty("java.awt.headless", "true")
             }
 
             withType(JavaExec).configureEach {
-                jvmArgs.add('--enable-preview')
+                it.jvmArgs('--enable-preview')
                 systemProperty("java.awt.headless", "true")
             }
 
