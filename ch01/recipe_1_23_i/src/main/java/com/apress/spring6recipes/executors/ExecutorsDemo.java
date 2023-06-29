@@ -31,14 +31,13 @@ public class ExecutorsDemo {
     // support sending a job with a known result
     try (var es = Executors.newCachedThreadPool()) {
       if (es.submit(task, Boolean.TRUE).get().equals(Boolean.TRUE))
-        System.out.println("Job has finished!");
+        printStatus(es);
     }
 
     // Create a Virtual Thread per Launched task
     try (var vt = Executors.newVirtualThreadPerTaskExecutor()) {
-      if (vt.submit(task).get() == null) {
+      if (vt.submit(task).get() == null)
         printStatus(vt);
-      }
     }
 
     // mimic TimerTask
