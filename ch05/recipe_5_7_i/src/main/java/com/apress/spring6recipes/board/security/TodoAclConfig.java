@@ -29,68 +29,68 @@ import java.time.Duration;
 @Configuration
 public class TodoAclConfig {
 
-	private final DataSource dataSource;
+  private final DataSource dataSource;
 
-	public TodoAclConfig(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+  public TodoAclConfig(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
 
-	@Bean
-	public AclEntryVoter aclEntryVoter(AclService aclService) {
-		return new AclEntryVoter(aclService, "ACL_MESSAGE_DELETE",
-				new Permission[] { BasePermission.ADMINISTRATION, BasePermission.DELETE });
-	}
+  @Bean
+  public AclEntryVoter aclEntryVoter(AclService aclService) {
+    return new AclEntryVoter(aclService, "ACL_MESSAGE_DELETE",
+      new Permission[]{BasePermission.ADMINISTRATION, BasePermission.DELETE});
+  }
 
-	@Bean
-	public Caffeine<Object, Object> caffeine() {
-		return Caffeine.newBuilder().expireAfterWrite(Duration.ofMinutes(15));
-	}
+  @Bean
+  public Caffeine<Object, Object> caffeine() {
+    return Caffeine.newBuilder().expireAfterWrite(Duration.ofMinutes(15));
+  }
 
-	@Bean
-	public CacheManager cacheManager(Caffeine<Object, Object> caffeine) {
-		var cacheManager = new CaffeineCacheManager();
-		cacheManager.setCaffeine(caffeine);
-		return cacheManager;
-	}
+  @Bean
+  public CacheManager cacheManager(Caffeine<Object, Object> caffeine) {
+    var cacheManager = new CaffeineCacheManager();
+    cacheManager.setCaffeine(caffeine);
+    return cacheManager;
+  }
 
-	@Bean
-	public AuditLogger auditLogger() {
-		return new ConsoleAuditLogger();
-	}
+  @Bean
+  public AuditLogger auditLogger() {
+    return new ConsoleAuditLogger();
+  }
 
-	@Bean
-	public PermissionGrantingStrategy permissionGrantingStrategy(AuditLogger auditLogger) {
-		return new DefaultPermissionGrantingStrategy(auditLogger);
-	}
+  @Bean
+  public PermissionGrantingStrategy permissionGrantingStrategy(AuditLogger auditLogger) {
+    return new DefaultPermissionGrantingStrategy(auditLogger);
+  }
 
-	@Bean
-	public AclAuthorizationStrategy aclAuthorizationStrategy() {
-		return new AclAuthorizationStrategyImpl(new SimpleGrantedAuthority("ADMIN"));
-	}
+  @Bean
+  public AclAuthorizationStrategy aclAuthorizationStrategy() {
+    return new AclAuthorizationStrategyImpl(new SimpleGrantedAuthority("ADMIN"));
+  }
 
-	@Bean
-	public AclCache aclCache(CacheManager cacheManager,
-													 PermissionGrantingStrategy permissionGrantingStrategy,
-													 AclAuthorizationStrategy aclAuthorizationStrategy) {
-		var aclCache = cacheManager.getCache("aclCache");
-		return new SpringCacheBasedAclCache(aclCache, permissionGrantingStrategy,
-				aclAuthorizationStrategy);
-	}
+  @Bean
+  public AclCache aclCache(CacheManager cacheManager,
+                           PermissionGrantingStrategy permissionGrantingStrategy,
+                           AclAuthorizationStrategy aclAuthorizationStrategy) {
+    var aclCache = cacheManager.getCache("aclCache");
+    return new SpringCacheBasedAclCache(aclCache, permissionGrantingStrategy,
+      aclAuthorizationStrategy);
+  }
 
-	@Bean
-	public LookupStrategy lookupStrategy(AclCache aclCache,
-																			 PermissionGrantingStrategy permissionGrantingStrategy,
-																			 AclAuthorizationStrategy aclAuthorizationStrategy) {
-		return new BasicLookupStrategy(this.dataSource, aclCache, aclAuthorizationStrategy, permissionGrantingStrategy);
-	}
+  @Bean
+  public LookupStrategy lookupStrategy(AclCache aclCache,
+                                       PermissionGrantingStrategy permissionGrantingStrategy,
+                                       AclAuthorizationStrategy aclAuthorizationStrategy) {
+    return new BasicLookupStrategy(this.dataSource, aclCache, aclAuthorizationStrategy, permissionGrantingStrategy);
+  }
 
-	@Bean
-	public AclService aclService(LookupStrategy lookupStrategy, AclCache aclCache) {
-		return new JdbcMutableAclService(this.dataSource, lookupStrategy, aclCache);
-	}
+  @Bean
+  public AclService aclService(LookupStrategy lookupStrategy, AclCache aclCache) {
+    return new JdbcMutableAclService(this.dataSource, lookupStrategy, aclCache);
+  }
 
-	@Bean
-	public AclPermissionEvaluator permissionEvaluator(AclService aclService) {
-		return new AclPermissionEvaluator(aclService);
-	}
+  @Bean
+  public AclPermissionEvaluator permissionEvaluator(AclService aclService) {
+    return new AclPermissionEvaluator(aclService);
+  }
 }

@@ -7,11 +7,11 @@ import org.springframework.jmx.support.ConnectorServerFactoryBean;
 @Configuration
 public class JmxServerConfig {
 
-	@Bean
-	public ConnectorServerFactoryBean connectorServerFactoryBean() throws Exception {
-		var connectorServer = new ConnectorServerFactoryBean();
-		connectorServer.setObjectName("connector:name=rmi");
-		connectorServer.setServiceUrl("service:jmx:rmi://localhost/jndi/rmi://localhost:1099/replicator");
-		return connectorServer;
-	}
+  @Bean
+  public ConnectorServerFactoryBean connectorServerFactoryBean() throws Exception {
+    var connectorServer = new ConnectorServerFactoryBean();
+    connectorServer.setObjectName("connector:name=rmi");
+    connectorServer.setServiceUrl("service:jmx:rmi://localhost/jndi/rmi://localhost:1099/replicator");
+    return connectorServer;
+  }
 }

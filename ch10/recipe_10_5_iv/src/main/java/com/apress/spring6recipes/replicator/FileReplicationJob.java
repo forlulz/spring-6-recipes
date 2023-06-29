@@ -8,18 +8,18 @@ import java.io.IOException;
 
 public class FileReplicationJob extends QuartzJobBean {
 
-	private FileReplicator fileReplicator;
+  private FileReplicator fileReplicator;
 
-	public void setFileReplicator(FileReplicator fileReplicator) {
-		this.fileReplicator = fileReplicator;
-	}
+  public void setFileReplicator(FileReplicator fileReplicator) {
+    this.fileReplicator = fileReplicator;
+  }
 
-	protected void executeInternal(JobExecutionContext context)
-					throws JobExecutionException {
-		try {
-			fileReplicator.replicate();
-		} catch (IOException e) {
-			throw new JobExecutionException(e);
-		}
-	}
+  protected void executeInternal(JobExecutionContext context)
+    throws JobExecutionException {
+    try {
+      fileReplicator.replicate();
+    } catch (IOException e) {
+      throw new JobExecutionException(e);
+    }
+  }
 }

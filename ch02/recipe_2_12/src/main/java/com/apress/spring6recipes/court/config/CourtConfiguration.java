@@ -19,14 +19,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class CourtConfiguration implements WebMvcConfigurer {
 
-	private final SportTypeConverter sportTypeConverter;
+  private final SportTypeConverter sportTypeConverter;
 
-	public CourtConfiguration(SportTypeConverter reservationService) {
-		this.sportTypeConverter = reservationService;
-	}
+  public CourtConfiguration(SportTypeConverter reservationService) {
+    this.sportTypeConverter = reservationService;
+  }
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(sportTypeConverter);
-	}
+  @Override
+  public void addFormatters(FormatterRegistry registry) {
+    registry.addConverter(sportTypeConverter);
+  }
 }

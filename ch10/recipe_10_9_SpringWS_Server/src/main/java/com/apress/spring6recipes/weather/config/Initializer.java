@@ -5,13 +5,13 @@ import org.springframework.ws.transport.http.support.AbstractAnnotationConfigMes
 
 public class Initializer extends AbstractAnnotationConfigMessageDispatcherServletInitializer {
 
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return null;
-	}
+  @Override
+  protected Class<?>[] getRootConfigClasses() {
+    return null;
+  }
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[]{SpringWsConfiguration.class};
-	}
+  @Override
+  protected Class<?>[] getServletConfigClasses() {
+    return new Class<?>[]{SpringWsConfiguration.class};
+  }
 }

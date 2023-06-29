@@ -11,23 +11,21 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 public class RedisConfig {
 
-	@Bean
-	public RedisTemplate<String, Vehicle> redisTemplate(
-					RedisConnectionFactory connectionFactory) {
-		var template = new RedisTemplate<String, Vehicle>();
-		template.setConnectionFactory(connectionFactory);
-		return template;
-	}
+  @Bean
+  public RedisTemplate<String, Vehicle> redisTemplate(
+    RedisConnectionFactory connectionFactory) {
+    var template = new RedisTemplate<String, Vehicle>();
+    template.setConnectionFactory(connectionFactory);
+    return template;
+  }
 
-	@Bean
-	public RedisConnectionFactory redisConnectionFactory() {
-		return new JedisConnectionFactory();
-	}
+  @Bean
+  public RedisConnectionFactory redisConnectionFactory() {
+    return new JedisConnectionFactory();
+  }
 
-	@Bean
-	public RedisVehicleRepository vehicleRepository(RedisTemplate<String, Vehicle> redis) {
-		return new RedisVehicleRepository(redis);
-	}
+  @Bean
+  public RedisVehicleRepository vehicleRepository(RedisTemplate<String, Vehicle> redis) {
+    return new RedisVehicleRepository(redis);
+  }
 }
-
-

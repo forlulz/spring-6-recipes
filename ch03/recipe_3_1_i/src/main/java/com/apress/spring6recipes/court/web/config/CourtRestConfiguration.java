@@ -20,21 +20,21 @@ import static jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 @ComponentScan(basePackages = "com.apress.spring6recipes.court")
 public class CourtRestConfiguration {
 
-	@Bean
-	public MarshallingView membertemplate(Marshaller marshaller) {
-		return new MarshallingView(marshaller);
-	}
+  @Bean
+  public MarshallingView membertemplate(Marshaller marshaller) {
+    return new MarshallingView(marshaller);
+  }
 
-	@Bean
-	public Jaxb2Marshaller jaxb2Marshaller() {
-		var marshaller = new Jaxb2Marshaller();
-		marshaller.setClassesToBeBound(Member.class, Members.class);
-		marshaller.setMarshallerProperties(Map.of(JAXB_FORMATTED_OUTPUT, Boolean.TRUE));
-		return marshaller;
-	}
+  @Bean
+  public Jaxb2Marshaller jaxb2Marshaller() {
+    var marshaller = new Jaxb2Marshaller();
+    marshaller.setClassesToBeBound(Member.class, Members.class);
+    marshaller.setMarshallerProperties(Map.of(JAXB_FORMATTED_OUTPUT, Boolean.TRUE));
+    return marshaller;
+  }
 
-	@Bean
-	public BeanNameViewResolver viewResolver() {
-		return new BeanNameViewResolver();
-	}
+  @Bean
+  public BeanNameViewResolver viewResolver() {
+    return new BeanNameViewResolver();
+  }
 }

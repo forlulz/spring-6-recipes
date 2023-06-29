@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @Order(0)
 public class CalculatorValidationAspect {
 
-	@Before("execution(* *.*(double, double))")
-	public void validateBefore(JoinPoint joinPoint) {
-		for (var arg : joinPoint.getArgs()) {
-			validate((Double) arg);
-		}
-	}
+  @Before("execution(* *.*(double, double))")
+  public void validateBefore(JoinPoint joinPoint) {
+    for (var arg : joinPoint.getArgs()) {
+      validate((Double) arg);
+    }
+  }
 
-	private void validate(double a) {
-		if (a < 0) {
-			throw new IllegalArgumentException("Positive numbers only");
-		}
-	}
+  private void validate(double a) {
+    if (a < 0) {
+      throw new IllegalArgumentException("Positive numbers only");
+    }
+  }
 }

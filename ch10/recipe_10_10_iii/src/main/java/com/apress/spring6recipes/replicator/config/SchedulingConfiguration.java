@@ -1,7 +1,6 @@
 package com.apress.spring6recipes.replicator.config;
 
 import com.apress.spring6recipes.replicator.FileReplicator;
-
 import org.springframework.context.ApplicationStartupAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,37 +18,37 @@ import java.time.Duration;
 @EnableScheduling
 public class SchedulingConfiguration implements SchedulingConfigurer, ApplicationStartupAware {
 
-	private final FileReplicator fileReplicator;
-	private ApplicationStartup applicationStartup;
+  private final FileReplicator fileReplicator;
+  private ApplicationStartup applicationStartup;
 
-	public SchedulingConfiguration(FileReplicator fileReplicator) {
-		this.fileReplicator = fileReplicator;
-	}
+  public SchedulingConfiguration(FileReplicator fileReplicator) {
+    this.fileReplicator = fileReplicator;
+  }
 
-	@Override
-	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		var step = applicationStartup.start("s6r.register-task");
-		step.tag("task", "file-replicator");
-		taskRegistrar.addFixedDelayTask(() -> {
-			try {
-				fileReplicator.replicate();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}, Duration.ofSeconds(60));
-		step.end();
-	}
+  @Override
+  public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+    var step = applicationStartup.start("s6r.register-task");
+    step.tag("task", "file-replicator");
+    taskRegistrar.addFixedDelayTask(() -> {
+      try {
+        fileReplicator.replicate();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }, Duration.ofSeconds(60));
+    step.end();
+  }
 
-	@Bean
-	public TaskScheduler taskScheduler() {
-		var taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setThreadNamePrefix("s6r-scheduler-");
-		taskScheduler.setPoolSize(10);
-		return taskScheduler;
-	}
+  @Bean
+  public TaskScheduler taskScheduler() {
+    var taskScheduler = new ThreadPoolTaskScheduler();
+    taskScheduler.setThreadNamePrefix("s6r-scheduler-");
+    taskScheduler.setPoolSize(10);
+    return taskScheduler;
+  }
 
-	@Override
-	public void setApplicationStartup(ApplicationStartup applicationStartup) {
-		this.applicationStartup=applicationStartup;
-	}
+  @Override
+  public void setApplicationStartup(ApplicationStartup applicationStartup) {
+    this.applicationStartup = applicationStartup;
+  }
 }

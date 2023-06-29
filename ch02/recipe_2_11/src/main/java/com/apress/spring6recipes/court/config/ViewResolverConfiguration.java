@@ -13,30 +13,30 @@ import org.springframework.web.servlet.view.BeanNameViewResolver;
 @Configuration
 public class ViewResolverConfiguration implements WebMvcConfigurer {
 
-	public static final MediaType APPLICATION_EXCEL = MediaType.valueOf("application/vnd.ms-excel");
+  public static final MediaType APPLICATION_EXCEL = MediaType.valueOf("application/vnd.ms-excel");
 
-	@Override
-	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		configurer.mediaType("html", MediaType.TEXT_HTML);
-		configurer.mediaType("pdf", MediaType.APPLICATION_PDF);
-		configurer.mediaType("xls", APPLICATION_EXCEL);
-		configurer.favorPathExtension(true);
-	}
+  @Override
+  public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    configurer.mediaType("html", MediaType.TEXT_HTML);
+    configurer.mediaType("pdf", MediaType.APPLICATION_PDF);
+    configurer.mediaType("xls", APPLICATION_EXCEL);
+    configurer.favorPathExtension(true);
+  }
 
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.enableContentNegotiation();
-		registry.jsp("/WEB-INF/jsp/", ".jsp");
-		registry.viewResolver(new BeanNameViewResolver());
-	}
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+    registry.enableContentNegotiation();
+    registry.jsp("/WEB-INF/jsp/", ".jsp");
+    registry.viewResolver(new BeanNameViewResolver());
+  }
 
-	@Bean(name = "reservationSummary.pdf")
-	public PdfReservationSummary pdfReservationSummaryView() {
-		return new PdfReservationSummary();
-	}
+  @Bean(name = "reservationSummary.pdf")
+  public PdfReservationSummary pdfReservationSummaryView() {
+    return new PdfReservationSummary();
+  }
 
-	@Bean(name = "reservationSummary.xls")
-	public ExcelReservationSummary excelReservationSummaryView() {
-		return new ExcelReservationSummary();
-	}
+  @Bean(name = "reservationSummary.xls")
+  public ExcelReservationSummary excelReservationSummaryView() {
+    return new ExcelReservationSummary();
+  }
 }

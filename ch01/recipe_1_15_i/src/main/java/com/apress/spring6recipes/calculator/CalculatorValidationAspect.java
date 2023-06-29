@@ -10,21 +10,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class CalculatorValidationAspect implements Ordered {
 
-	@Before("execution(* *.*(double, double))")
-	public void validateBefore(JoinPoint joinPoint) {
-		for (var arg : joinPoint.getArgs()) {
-			validate((Double) arg);
-		}
-	}
+  @Before("execution(* *.*(double, double))")
+  public void validateBefore(JoinPoint joinPoint) {
+    for (var arg : joinPoint.getArgs()) {
+      validate((Double) arg);
+    }
+  }
 
-	private void validate(double a) {
-		if (a < 0) {
-			throw new IllegalArgumentException("Positive numbers only");
-		}
-	}
+  private void validate(double a) {
+    if (a < 0) {
+      throw new IllegalArgumentException("Positive numbers only");
+    }
+  }
 
-	@Override
-	public int getOrder() {
-		return 0;
-	}
+  @Override
+  public int getOrder() {
+    return 0;
+  }
 }

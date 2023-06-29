@@ -10,21 +10,21 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @Configuration
 public class MongoConfiguration {
 
-	private static final String DB_NAME = "vehicledb";
-	private static final String COLLECTION_NAME = "vehicles";
+  private static final String DB_NAME = "vehicledb";
+  private static final String COLLECTION_NAME = "vehicles";
 
-	@Bean
-	public MongoTemplate mongo(MongoClient mongo) throws Exception {
-		return new MongoTemplate(mongo, DB_NAME);
-	}
+  @Bean
+  public MongoTemplate mongo(MongoClient mongo) throws Exception {
+    return new MongoTemplate(mongo, DB_NAME);
+  }
 
-	@Bean
-	public MongoClientFactoryBean mongoFactoryBean() {
-		return new MongoClientFactoryBean();
-	}
+  @Bean
+  public MongoClientFactoryBean mongoFactoryBean() {
+    return new MongoClientFactoryBean();
+  }
 
-	@Bean
-	public MongoVehicleRepository vehicleRepository(MongoTemplate mongo) {
-		return new MongoVehicleRepository(mongo, COLLECTION_NAME);
-	}
+  @Bean
+  public MongoVehicleRepository vehicleRepository(MongoTemplate mongo) {
+    return new MongoVehicleRepository(mongo, COLLECTION_NAME);
+  }
 }

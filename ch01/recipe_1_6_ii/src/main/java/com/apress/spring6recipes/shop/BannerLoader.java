@@ -10,17 +10,17 @@ import java.nio.file.Path;
 
 public class BannerLoader {
 
-	private final Resource banner;
+  private final Resource banner;
 
-	public BannerLoader(Resource banner) {
-		this.banner = banner;
-	}
+  public BannerLoader(Resource banner) {
+    this.banner = banner;
+  }
 
-	@PostConstruct
-	public void showBanner() throws IOException {
-		var path = Path.of(banner.getURI());
-		try (var lines = Files.lines(path, StandardCharsets.UTF_8)) {
-			lines.forEachOrdered(System.out::println);
-		}
-	}
+  @PostConstruct
+  public void showBanner() throws IOException {
+    var path = Path.of(banner.getURI());
+    try (var lines = Files.lines(path, StandardCharsets.UTF_8)) {
+      lines.forEachOrdered(System.out::println);
+    }
+  }
 }

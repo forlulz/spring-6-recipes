@@ -20,63 +20,63 @@ import static org.springframework.security.acls.domain.BasePermission.WRITE;
 @Transactional
 class TodoServiceImpl implements TodoService {
 
-	private final TodoRepository todoRepository;
-	private final MutableAclService mutableAclService;
+  private final TodoRepository todoRepository;
+  private final MutableAclService mutableAclService;
 
-	TodoServiceImpl(TodoRepository todoRepository, MutableAclService mutableAclService) {
-		this.todoRepository = todoRepository;
-		this.mutableAclService = mutableAclService;
-	}
+  TodoServiceImpl(TodoRepository todoRepository, MutableAclService mutableAclService) {
+    this.todoRepository = todoRepository;
+    this.mutableAclService = mutableAclService;
+  }
 
-	@Override
-	@PreAuthorize("hasAuthority('USER')")
-	@PostFilter("hasAnyAuthority('ADMIN') or hasPermission(filterObject, 'read')")
-	public List<Todo> listTodos() {
-		return todoRepository.findAll();
-	}
+  @Override
+  @PreAuthorize("hasAuthority('USER')")
+  @PostFilter("hasAnyAuthority('ADMIN') or hasPermission(filterObject, 'read')")
+  public List<Todo> listTodos() {
+    return todoRepository.findAll();
+  }
 
-	@Override
-	@PreAuthorize("hasAuthority('USER')")
-	public void save(Todo todo) {
+  @Override
+  @PreAuthorize("hasAuthority('USER')")
+  public void save(Todo todo) {
 
-		this.todoRepository.save(todo);
+    this.todoRepository.save(todo);
 
-		var oid = new ObjectIdentityImpl(Todo.class, todo.getId());
-		var acl = mutableAclService.createAcl(oid);
-		var principalSid = new PrincipalSid(todo.getOwner());
-		var authoritySid = new GrantedAuthoritySid("ADMIN");
+    var oid = new ObjectIdentityImpl(Todo.class, todo.getId());
+    var acl = mutableAclService.createAcl(oid);
+    var principalSid = new PrincipalSid(todo.getOwner());
+    var authoritySid = new GrantedAuthoritySid("ADMIN");
 
-		acl.insertAce(0, READ, principalSid, true);
-		acl.insertAce(1, WRITE, principalSid, true);
-		acl.insertAce(2, DELETE, principalSid, true);
+    acl.insertAce(0, READ, principalSid, true);
+    acl.insertAce(1, WRITE, principalSid, true);
+    acl.insertAce(2, DELETE, principalSid, true);
 
-		acl.insertAce(3, READ, authoritySid, true);
-		acl.insertAce(4, WRITE, authoritySid, true);
-		acl.insertAce(5, DELETE, authoritySid, true);
-	}
+    acl.insertAce(3, READ, authoritySid, true);
+    acl.insertAce(4, WRITE, authoritySid, true);
+    acl.insertAce(5, DELETE, authoritySid, true);
+  }
 
-	@Override
-	@PreAuthorize("hasPermission(#id, 'com.apress.spring6recipes.board.Todo', 'write')")
-	public void complete(long id) {
-		findById(id)
-						.ifPresent((todo) -> {
-							todo.setCompleted(true);
-							todoRepository.save(todo);
-						});
-	}
+  @Override
+  @PreAuthorize("hasPermission(#id, 'com.apress.spring6recipes.board.Todo', 'write')")
+  public void complete(long id) {
+    findById(id)
+      .ifPresent((todo) -> {
+        todo.setCompleted(true);
+        todoRepository.save(todo);
+      });
+  }
 
-	@Override
-	@PreAuthorize("hasPermission(#id, 'com.apress.spring6recipes.board.Todo', 'delete')")
-	public void remove(long id) {
-		todoRepository.remove(id);
+  @Override
+  @PreAuthorize("hasPermission(#id, 'com.apress.spring6recipes.board.Todo', 'delete')")
+  public void remove(long id) {
+    todoRepository.remove(id);
 
-		var oid = new ObjectIdentityImpl(Todo.class, id);
-		mutableAclService.deleteAcl(oid, false);
-	}
+    var oid = new ObjectIdentityImpl(Todo.class, id);
+    mutableAclService.deleteAcl(oid, false);
+  }
 
-	@Override
-	@PostFilter("hasPermission(filterObject, 'read')")
-	public Optional<Todo> findById(long id) {
-		return todoRepository.findOne(id);
-	}
+  @Override
+  @PostFilter("hasPermission(filterObject, 'read')")
+  public Optional<Todo> findById(long id) {
+    return todoRepository.findOne(id);
+  }
 }

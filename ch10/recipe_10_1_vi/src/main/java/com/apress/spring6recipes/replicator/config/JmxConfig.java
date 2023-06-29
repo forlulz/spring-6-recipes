@@ -8,9 +8,8 @@ import org.springframework.jmx.export.annotation.AnnotationMBeanExporter;
 @Configuration
 public class JmxConfig {
 
-	@Bean
-	public MBeanExporter mbeanExporter() {
-		return new AnnotationMBeanExporter();
-	}
+  @Bean
+  public MBeanExporter mbeanExporter() {
+    return new AnnotationMBeanExporter();
+  }
 }
-

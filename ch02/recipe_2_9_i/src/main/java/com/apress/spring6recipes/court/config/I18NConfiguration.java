@@ -15,30 +15,30 @@ import java.util.Locale;
 @Configuration
 public class I18NConfiguration implements WebMvcConfigurer {
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(localeChangeInterceptor());
-	}
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(localeChangeInterceptor());
+  }
 
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
-		var localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("language");
-		return localeChangeInterceptor;
-	}
+  @Bean
+  public LocaleChangeInterceptor localeChangeInterceptor() {
+    var localeChangeInterceptor = new LocaleChangeInterceptor();
+    localeChangeInterceptor.setParamName("language");
+    return localeChangeInterceptor;
+  }
 
-	@Bean
-	public CookieLocaleResolver localeResolver() {
-		var cookieLocaleResolver = new CookieLocaleResolver("language");
-		cookieLocaleResolver.setCookieMaxAge(Duration.ofHours(1));
-		cookieLocaleResolver.setDefaultLocale(Locale.of("en"));
-		return cookieLocaleResolver;
-	}
+  @Bean
+  public CookieLocaleResolver localeResolver() {
+    var cookieLocaleResolver = new CookieLocaleResolver("language");
+    cookieLocaleResolver.setCookieMaxAge(Duration.ofHours(1));
+    cookieLocaleResolver.setDefaultLocale(Locale.of("en"));
+    return cookieLocaleResolver;
+  }
 
-	@Bean
-	public MessageSource messageSource() {
-		var messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasename("messages");
-		return messageSource;
-	}
+  @Bean
+  public MessageSource messageSource() {
+    var messageSource = new ResourceBundleMessageSource();
+    messageSource.setBasename("messages");
+    return messageSource;
+  }
 }

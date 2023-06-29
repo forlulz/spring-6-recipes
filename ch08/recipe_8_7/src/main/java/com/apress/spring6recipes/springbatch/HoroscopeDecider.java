@@ -9,14 +9,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class HoroscopeDecider implements JobExecutionDecider {
 
-	private boolean isMercuryIsInRetrograde() {
-		return ThreadLocalRandom.current().nextDouble() > .9;
-	}
+  private boolean isMercuryIsInRetrograde() {
+    return ThreadLocalRandom.current().nextDouble() > .9;
+  }
 
-	public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
-		if (isMercuryIsInRetrograde()) {
-			return FlowExecutionStatus.FAILED;
-		}
-		return FlowExecutionStatus.COMPLETED;
-	}
+  public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
+    if (isMercuryIsInRetrograde()) {
+      return FlowExecutionStatus.FAILED;
+    }
+    return FlowExecutionStatus.COMPLETED;
+  }
 }

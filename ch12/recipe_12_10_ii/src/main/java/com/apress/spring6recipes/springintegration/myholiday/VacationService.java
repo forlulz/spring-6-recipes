@@ -9,6 +9,6 @@ import java.util.List;
 @MessagingGateway
 public interface VacationService {
 
-    @Gateway
-    List<HotelReservation> findHotels(HotelReservationSearch search);
+  @Gateway
+  List<HotelReservation> findHotels(HotelReservationSearch search);
 }

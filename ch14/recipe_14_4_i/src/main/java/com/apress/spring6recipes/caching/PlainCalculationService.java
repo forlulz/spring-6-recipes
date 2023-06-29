@@ -7,14 +7,14 @@ import java.math.BigDecimal;
 
 public class PlainCalculationService implements CalculationService {
 
-	@Override
-	@Cacheable("calculations")
-	public BigDecimal heavyCalculation(BigDecimal base, int power) {
-		return calculate(base, power);
-	}
+  @Override
+  @Cacheable("calculations")
+  public BigDecimal heavyCalculation(BigDecimal base, int power) {
+    return calculate(base, power);
+  }
 
-	private BigDecimal calculate(BigDecimal base, int power) {
-		Utils.sleep(500);
-		return base.pow(power);
-	}
+  private BigDecimal calculate(BigDecimal base, int power) {
+    Utils.sleep(500);
+    return base.pow(power);
+  }
 }

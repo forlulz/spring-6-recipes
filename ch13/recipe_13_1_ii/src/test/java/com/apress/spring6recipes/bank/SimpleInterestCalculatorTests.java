@@ -12,41 +12,41 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SimpleInterestCalculatorTests {
 
-	private InterestCalculator interestCalculator;
+  private InterestCalculator interestCalculator;
 
-	@BeforeEach
-	void init() {
-		interestCalculator = new SimpleInterestCalculator();
-		interestCalculator.setRate(0.05);
-	}
+  private static Stream<Arguments> calculateSource() {
+    return Stream.of(
+      Arguments.of(10000.0, 2, 1000.0),
+      Arguments.of(10000.0, 1, 500.0)
+    );
+  }
 
-	private static Stream<Arguments> calculateSource() {
-		return Stream.of(
-						Arguments.of(10000.0, 2, 1000.0),
-						Arguments.of(10000.0, 1, 500.0)
-		);
-	}
+  private static Stream<Arguments> illegalCalculateSource() {
+    return Stream.of(
+      Arguments.of(-10000.0, 2),
+      Arguments.of(10000.0, -2),
+      Arguments.of(-10000.0, -2)
+    );
+  }
 
-	private static Stream<Arguments> illegalCalculateSource() {
-		return Stream.of(
-						Arguments.of(-10000.0, 2),
-						Arguments.of(10000.0, -2),
-						Arguments.of(-10000.0, -2)
-		);
-	}
+  @BeforeEach
+  void init() {
+    interestCalculator = new SimpleInterestCalculator();
+    interestCalculator.setRate(0.05);
+  }
 
-	@ParameterizedTest
-	@MethodSource("calculateSource")
-	void calculate(double amount, double year, double expectedInterest) {
-		var interest = interestCalculator.calculate(amount, year);
-		assertEquals(expectedInterest,interest, 0);
-	}
+  @ParameterizedTest
+  @MethodSource("calculateSource")
+  void calculate(double amount, double year, double expectedInterest) {
+    var interest = interestCalculator.calculate(amount, year);
+    assertEquals(expectedInterest, interest, 0);
+  }
 
-	@ParameterizedTest
-	@MethodSource("illegalCalculateSource")
-	void illegalCalculate(double amount, double year) {
-		assertThrows(IllegalArgumentException.class,
-						() -> interestCalculator.calculate(amount, year));
-	}
+  @ParameterizedTest
+  @MethodSource("illegalCalculateSource")
+  void illegalCalculate(double amount, double year) {
+    assertThrows(IllegalArgumentException.class,
+      () -> interestCalculator.calculate(amount, year));
+  }
 
 }

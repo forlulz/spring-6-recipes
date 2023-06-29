@@ -5,10 +5,14 @@ import java.util.Optional;
 
 public interface TodoService {
 
-	List<Todo> listTodos();
-	void save(Todo todo);
-	void complete(long id);
-	void remove(long id);
-	Optional<Todo> findById(long id);
+  List<Todo> listTodos();
+
+  void save(Todo todo);
+
+  void complete(long id);
+
+  void remove(long id);
+
+  Optional<Todo> findById(long id);
 
 }

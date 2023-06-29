@@ -12,29 +12,29 @@ import org.springframework.data.couchbase.core.convert.MappingCouchbaseConverter
 @Configuration
 public class CouchbaseConfiguration {
 
-	@Bean
-	public Cluster cluster() {
-		return Cluster.connect("couchbase://127.0.0.1", "s6r-user", "s6r-password");
-	}
+  @Bean
+  public Cluster cluster() {
+    return Cluster.connect("couchbase://127.0.0.1", "s6r-user", "s6r-password");
+  }
 
-	@Bean
-	public CouchbaseClientFactory couchbaseClientFactory(Cluster cluster) {
-		return new SimpleCouchbaseClientFactory(cluster, "vehicles", null);
-	}
+  @Bean
+  public CouchbaseClientFactory couchbaseClientFactory(Cluster cluster) {
+    return new SimpleCouchbaseClientFactory(cluster, "vehicles", null);
+  }
 
-	@Bean
-	public CouchbaseConverter couchbaseConverter() {
-		return new MappingCouchbaseConverter();
-	}
+  @Bean
+  public CouchbaseConverter couchbaseConverter() {
+    return new MappingCouchbaseConverter();
+  }
 
-	@Bean
-	public CouchbaseTemplate couchbaseTemplate(CouchbaseClientFactory ccf,
-																						 CouchbaseConverter couchbaseConverter) {
-		return new CouchbaseTemplate(ccf, couchbaseConverter);
-	}
+  @Bean
+  public CouchbaseTemplate couchbaseTemplate(CouchbaseClientFactory ccf,
+                                             CouchbaseConverter couchbaseConverter) {
+    return new CouchbaseTemplate(ccf, couchbaseConverter);
+  }
 
-	@Bean
-	public CouchbaseVehicleRepository vehicleRepository(CouchbaseTemplate template) {
-		return new CouchbaseVehicleRepository(template);
-	}
+  @Bean
+  public CouchbaseVehicleRepository vehicleRepository(CouchbaseTemplate template) {
+    return new CouchbaseVehicleRepository(template);
+  }
 }

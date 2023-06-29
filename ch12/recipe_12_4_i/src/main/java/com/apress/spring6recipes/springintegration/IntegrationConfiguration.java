@@ -17,17 +17,17 @@ public class IntegrationConfiguration {
 
   @Bean
   public InboundHelloWorldFileMessageProcessor messageProcessor() {
-      return new InboundHelloWorldFileMessageProcessor();
+    return new InboundHelloWorldFileMessageProcessor();
   }
 
   @Bean
   public IntegrationFlow inboundFileFlow(
-				@Value("${user.home}/inboundFiles/new/") File directory) {
+    @Value("${user.home}/inboundFiles/new/") File directory) {
     return IntegrationFlow
-            .from(
-                Files.inboundAdapter(directory).patternFilter("*.csv"),
-                c -> c.poller(Pollers.fixedRate(Duration.ofSeconds(10))))
-            .handle(messageProcessor())
-            .get();
+      .from(
+        Files.inboundAdapter(directory).patternFilter("*.csv"),
+        c -> c.poller(Pollers.fixedRate(Duration.ofSeconds(10))))
+      .handle(messageProcessor())
+      .get();
   }
 }

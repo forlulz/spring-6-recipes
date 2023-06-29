@@ -15,23 +15,23 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/members")
 public class MemberController {
 
-	private final MemberService memberService;
+  private final MemberService memberService;
 
-	public MemberController(MemberService memberService) {
-		this.memberService = memberService;
-	}
+  public MemberController(MemberService memberService) {
+    this.memberService = memberService;
+  }
 
-	@GetMapping
-	public Mono<String> add(Model model) {
-		model.addAttribute("member", new Member(null, null, null));
-		return Mono.just("member");
-	}
+  @GetMapping
+  public Mono<String> add(Model model) {
+    model.addAttribute("member", new Member(null, null, null));
+    return Mono.just("member");
+  }
 
-	@PostMapping
-	public Mono<String> create(@ModelAttribute("member") Member member,
-														 BindingResult bindingResult) {
-		return Mono.just(member)
-						.map(memberService::save)
-						.then(Mono.just("redirect:member-success"));
-	}
+  @PostMapping
+  public Mono<String> create(@ModelAttribute("member") Member member,
+                             BindingResult bindingResult) {
+    return Mono.just(member)
+      .map(memberService::save)
+      .then(Mono.just("redirect:member-success"));
+  }
 }

@@ -12,16 +12,16 @@ import java.time.Duration;
 @Configuration
 public class AsyncConfiguration implements WebMvcConfigurer {
 
-	@Override
-	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
-		configurer.setDefaultTimeout(Duration.ofSeconds(5).toMillis());
-		configurer.setTaskExecutor(mvcTaskExecutor());
-	}
+  @Override
+  public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+    configurer.setDefaultTimeout(Duration.ofSeconds(5).toMillis());
+    configurer.setTaskExecutor(mvcTaskExecutor());
+  }
 
-	@Bean
-	public AsyncTaskExecutor mvcTaskExecutor() {
-		var taskExecutor = new ThreadPoolTaskExecutor();
-		taskExecutor.setThreadGroupName("mvcTaskExecutor");
-		return taskExecutor;
-	}
+  @Bean
+  public AsyncTaskExecutor mvcTaskExecutor() {
+    var taskExecutor = new ThreadPoolTaskExecutor();
+    taskExecutor.setThreadGroupName("mvcTaskExecutor");
+    return taskExecutor;
+  }
 }

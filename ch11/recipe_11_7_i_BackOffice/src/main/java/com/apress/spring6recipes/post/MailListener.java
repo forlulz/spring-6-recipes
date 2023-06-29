@@ -4,8 +4,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 
 public class MailListener {
 
-    @KafkaListener(topics = "mails")
-    public void displayMail(String mail) {
-        System.out.printf(" Received: %s%n", mail);
-    }
+  @KafkaListener(topics = "mails")
+  public void displayMail(String mail) {
+    System.out.printf(" Received: %s%n", mail);
+  }
 }

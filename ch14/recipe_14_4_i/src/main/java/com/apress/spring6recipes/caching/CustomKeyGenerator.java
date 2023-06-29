@@ -6,8 +6,8 @@ import java.lang.reflect.Method;
 
 public class CustomKeyGenerator implements KeyGenerator {
 
-	@Override
-	public Object generate(Object target, Method method, Object... params) {
-		return params[0] + "^" + params[1];
-	}
+  @Override
+  public Object generate(Object target, Method method, Object... params) {
+    return params[0] + "^" + params[1];
+  }
 }

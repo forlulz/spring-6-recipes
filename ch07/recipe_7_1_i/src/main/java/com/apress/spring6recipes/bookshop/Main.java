@@ -5,11 +5,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Main {
 
-	public static void main(String[] args) {
-		var cfg = BookstoreConfiguration.class;
-		try(var context = new AnnotationConfigApplicationContext(cfg)) {
-			var bookShop = context.getBean(BookShop.class);
-			bookShop.purchase("0001", "user1");
-		}
-	}
+  public static void main(String[] args) {
+    var cfg = BookstoreConfiguration.class;
+    try (var context = new AnnotationConfigApplicationContext(cfg)) {
+      var bookShop = context.getBean(BookShop.class);
+      bookShop.purchase("0001", "user1");
+    }
+  }
 }

@@ -2,8 +2,8 @@ package com.apress.spring6recipes.calculator;
 
 public interface UnitCalculator {
 
-	double kilogramToPound(double kilogram);
+  double kilogramToPound(double kilogram);
 
-	double kilometerToMile(double kilometer);
+  double kilometerToMile(double kilometer);
 
 }

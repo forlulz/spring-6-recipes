@@ -1,4 +1,4 @@
-description='Spring 6 Recipes :: Chapter 8 :: Spring Batch'
+description = 'Spring 6 Recipes :: Chapter 8 :: Spring Batch'
 
 subprojects { subproject ->
 

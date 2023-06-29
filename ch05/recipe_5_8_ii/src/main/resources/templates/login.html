@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
-    <link type="text/css" rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet"
+          type="text/css">
     <style type="text/css">
         body {
             background-color: #DADADA;
@@ -23,23 +23,23 @@
 <div class="ui middle aligned center aligned grid">
     <div class="column">
         <h2 class="ui header">Log-in to your account</h2>
-        <form method="POST" th:action="@{/login}" class="ui large form">
+        <form class="ui large form" method="POST" th:action="@{/login}">
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="text" name="username" placeholder="E-mail address">
+                        <input name="username" placeholder="E-mail address" type="text">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="Password">
+                        <input name="password" placeholder="Password" type="password">
                     </div>
                 </div>
                 <button class="ui fluid large submit green button">Login</button>
             </div>
-            <div th:if="${param.error !=null}" class="ui error message" style="display: block;">
+            <div class="ui error message" style="display: block;" th:if="${param.error !=null}">
                 Authentication Failed<br/>
             </div>
         </form>

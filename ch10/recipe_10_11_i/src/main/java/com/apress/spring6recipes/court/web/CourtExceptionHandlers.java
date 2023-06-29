@@ -16,23 +16,23 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CourtExceptionHandlers extends ResponseEntityExceptionHandler {
 
-	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-																																HttpHeaders headers, HttpStatusCode status,
-																																WebRequest request) {
-		var errors = ex.getAllErrors().stream()
-						.collect(Collectors.toMap(this::getKey, this::resolveMessage));
-		ex.getBody().setProperty("errors", errors);
-		return super.handleExceptionInternal(ex, null, headers, status, request);
-	}
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                HttpHeaders headers, HttpStatusCode status,
+                                                                WebRequest request) {
+    var errors = ex.getAllErrors().stream()
+      .collect(Collectors.toMap(this::getKey, this::resolveMessage));
+    ex.getBody().setProperty("errors", errors);
+    return super.handleExceptionInternal(ex, null, headers, status, request);
+  }
 
-	private String getKey(ObjectError error) {
-		return (error instanceof FieldError fe) ? fe.getCode() : error.getObjectName();
-	}
+  private String getKey(ObjectError error) {
+    return (error instanceof FieldError fe) ? fe.getCode() : error.getObjectName();
+  }
 
-	private String resolveMessage(ObjectError error) {
-		return getMessageSource() != null
-						? getMessageSource().getMessage(error, LocaleContextHolder.getLocale())
-						: error.getDefaultMessage();
-	}
+  private String resolveMessage(ObjectError error) {
+    return getMessageSource() != null
+      ? getMessageSource().getMessage(error, LocaleContextHolder.getLocale())
+      : error.getDefaultMessage();
+  }
 }

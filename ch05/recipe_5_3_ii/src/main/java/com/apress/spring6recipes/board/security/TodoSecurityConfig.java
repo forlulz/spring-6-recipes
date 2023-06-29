@@ -18,45 +18,45 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class TodoSecurityConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("login");
-		registry.addViewController("/logout-success").setViewName("logout-success");
-	}
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/login").setViewName("login");
+    registry.addViewController("/logout-success").setViewName("logout-success");
+  }
 
-	@Bean
-	public UserDetailsManager userDetailsService(DataSource dataSource) {
-		var userDetailsManager = new JdbcUserDetailsManager(dataSource);
-		initializeUsers(userDetailsManager);
-		return userDetailsManager;
-	}
+  @Bean
+  public UserDetailsManager userDetailsService(DataSource dataSource) {
+    var userDetailsManager = new JdbcUserDetailsManager(dataSource);
+    initializeUsers(userDetailsManager);
+    return userDetailsManager;
+  }
 
-	private void initializeUsers(JdbcUserDetailsManager users) {
-		var user1 = User.withDefaultPasswordEncoder()
-			.username("marten@deinum.biz").password("user").authorities("USER").build();
-		var user2 = User.withDefaultPasswordEncoder()
-			.username("jdoe@does.net").password("unknown").disabled(true).authorities("USER").build();
-		var admin = User.withDefaultPasswordEncoder()
-			.username("admin@ya2do.io").password("admin").authorities("USER", "ADMIN").build();
+  private void initializeUsers(JdbcUserDetailsManager users) {
+    var user1 = User.withDefaultPasswordEncoder()
+      .username("marten@deinum.biz").password("user").authorities("USER").build();
+    var user2 = User.withDefaultPasswordEncoder()
+      .username("jdoe@does.net").password("unknown").disabled(true).authorities("USER").build();
+    var admin = User.withDefaultPasswordEncoder()
+      .username("admin@ya2do.io").password("admin").authorities("USER", "ADMIN").build();
 
-		users.createUser(user1);
-		users.createUser(user2);
-		users.createUser(admin);
-	}
+    users.createUser(user1);
+    users.createUser(user2);
+    users.createUser(admin);
+  }
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http)
-					throws Exception {
-		http.httpBasic().disable();
-		http.formLogin()
-						.loginPage("/login").permitAll()
-						.defaultSuccessUrl("/todos")
-						.failureUrl("/login?error=true");
-		http.logout().logoutSuccessUrl("/logout-success").permitAll();
-		http.authorizeHttpRequests(auth ->
-						auth
-										.requestMatchers(HttpMethod.DELETE, "/todos/*").hasAuthority("ADMIN")
-										.requestMatchers("/todos", "/todos/*").hasAuthority("USER"));
-		return http.build();
-	}
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http)
+    throws Exception {
+    http.httpBasic().disable();
+    http.formLogin()
+      .loginPage("/login").permitAll()
+      .defaultSuccessUrl("/todos")
+      .failureUrl("/login?error=true");
+    http.logout().logoutSuccessUrl("/logout-success").permitAll();
+    http.authorizeHttpRequests(auth ->
+      auth
+        .requestMatchers(HttpMethod.DELETE, "/todos/*").hasAuthority("ADMIN")
+        .requestMatchers("/todos", "/todos/*").hasAuthority("USER"));
+    return http.build();
+  }
 }

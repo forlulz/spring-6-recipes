@@ -9,12 +9,12 @@ import java.net.MalformedURLException;
 @Configuration
 public class JmxClientConfiguration {
 
-	@Bean
-	public MBeanServerConnectionFactoryBean mbeanServerConnection()
-					throws MalformedURLException {
-		var url = "service:jmx:rmi://localhost/jndi/rmi://localhost:1099/replicator";
-		var mBeanServerConnectionFactoryBean = new MBeanServerConnectionFactoryBean();
-		mBeanServerConnectionFactoryBean.setServiceUrl(url);
-		return mBeanServerConnectionFactoryBean;
-	}
+  @Bean
+  public MBeanServerConnectionFactoryBean mbeanServerConnection()
+    throws MalformedURLException {
+    var url = "service:jmx:rmi://localhost/jndi/rmi://localhost:1099/replicator";
+    var mBeanServerConnectionFactoryBean = new MBeanServerConnectionFactoryBean();
+    mBeanServerConnectionFactoryBean.setServiceUrl(url);
+    return mBeanServerConnectionFactoryBean;
+  }
 }

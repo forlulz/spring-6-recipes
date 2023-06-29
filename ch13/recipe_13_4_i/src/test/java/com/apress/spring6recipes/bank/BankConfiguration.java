@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BankConfiguration {
 
-	@Bean
-	public InMemoryAccountDao accountDao() {
-		return new InMemoryAccountDao();
-	}
+  @Bean
+  public InMemoryAccountDao accountDao() {
+    return new InMemoryAccountDao();
+  }
 
 }

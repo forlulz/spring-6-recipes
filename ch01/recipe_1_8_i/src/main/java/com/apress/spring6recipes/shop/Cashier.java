@@ -10,30 +10,30 @@ import java.time.LocalDateTime;
 
 public class Cashier {
 
-	private final String filename;
-	private final String path;
-	private BufferedWriter writer;
+  private final String filename;
+  private final String path;
+  private BufferedWriter writer;
 
-	public Cashier(String filename, String path) {
-		this.filename = filename;
-		this.path = path;
-	}
+  public Cashier(String filename, String path) {
+    this.filename = filename;
+    this.path = path;
+  }
 
-	public void openFile() throws IOException {
-		var checkoutPath = Path.of(path, filename + ".txt");
-		if (Files.notExists(checkoutPath.getParent())) {
-			Files.createDirectories(checkoutPath.getParent());
-		}
-		this.writer = Files.newBufferedWriter(checkoutPath, StandardCharsets.UTF_8,
-						StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-	}
+  public void openFile() throws IOException {
+    var checkoutPath = Path.of(path, filename + ".txt");
+    if (Files.notExists(checkoutPath.getParent())) {
+      Files.createDirectories(checkoutPath.getParent());
+    }
+    this.writer = Files.newBufferedWriter(checkoutPath, StandardCharsets.UTF_8,
+      StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+  }
 
-	public void checkout(ShoppingCart cart) throws IOException {
-		writer.write(LocalDateTime.now() + "\t" + cart.getItems() + "\r\n");
-		writer.flush();
-	}
+  public void checkout(ShoppingCart cart) throws IOException {
+    writer.write(LocalDateTime.now() + "\t" + cart.getItems() + "\r\n");
+    writer.flush();
+  }
 
-	public void closeFile() throws IOException {
-		writer.close();
-	}
+  public void closeFile() throws IOException {
+    writer.close();
+  }
 }

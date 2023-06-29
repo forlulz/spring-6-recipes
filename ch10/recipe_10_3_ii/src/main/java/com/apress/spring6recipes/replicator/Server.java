@@ -5,9 +5,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Server {
 
-	public static void main(String[] args) throws Exception {
-		try (var ctx = new AnnotationConfigApplicationContext(JmxServerConfiguration.class)) {
-			System.in.read();
-		}
-	}
+  public static void main(String[] args) throws Exception {
+    try (var ctx = new AnnotationConfigApplicationContext(JmxServerConfiguration.class)) {
+      System.in.read();
+    }
+  }
 }

@@ -10,10 +10,10 @@ import reactor.core.publisher.Mono;
 @ControllerAdvice
 public class SecurityControllerAdvice {
 
-	@ModelAttribute
-	public Mono<CsrfToken> csrfToken(ServerWebExchange exchange) {
-		Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
-		return csrfToken.doOnSuccess( (token) -> exchange.getAttributes()
-						.put(CsrfRequestDataValueProcessor.DEFAULT_CSRF_ATTR_NAME, token));
-	}
+  @ModelAttribute
+  public Mono<CsrfToken> csrfToken(ServerWebExchange exchange) {
+    Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
+    return csrfToken.doOnSuccess((token) -> exchange.getAttributes()
+      .put(CsrfRequestDataValueProcessor.DEFAULT_CSRF_ATTR_NAME, token));
+  }
 }

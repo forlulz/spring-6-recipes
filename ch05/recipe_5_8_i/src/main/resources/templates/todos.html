@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>To-do List</title>
-    <link type="text/css" rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet"
+          type="text/css">
 </head>
 
 <body>
@@ -25,21 +25,21 @@
             <td th:text="${todo.completed}">Not Even Close</td>
             <td>
                     <span th:if="${!todo.completed}">
-                        <form th:action="@{/todos/{id}/completed(id=${todo.id})}" action="#" method="post"
-                              style="float: left;">
-                            <input type="hidden" name="_method" value="PUT"/>
+                        <form action="#" method="post" style="float: left;"
+                              th:action="@{/todos/{id}/completed(id=${todo.id})}">
+                            <input name="_method" type="hidden" value="PUT"/>
                             <button class="ui mini green icon button"><i class="check circle icon"></i></button>
                         </form>
                     </span>
-                <form th:action="@{/todos/{id}(id=${todo.id})}" action="#" method="post" style="float: left;">
-                    <input type="hidden" name="_method" value="DELETE"/>
+                <form action="#" method="post" style="float: left;" th:action="@{/todos/{id}(id=${todo.id})}">
+                    <input name="_method" type="hidden" value="DELETE"/>
                     <button class="ui mini red icon button"><i class="remove circle icon"></i></button>
                 </form>
             </td>
         </tr>
         <tr>
             <td colspan="4">
-                <a class="ui mini icon button" th:href="@{/todos/new}" href="#">New To-do <i
+                <a class="ui mini icon button" href="#" th:href="@{/todos/new}">New To-do <i
                         class="add circle icon"></i></a>
             </td>
         </tr>

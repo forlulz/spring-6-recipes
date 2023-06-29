@@ -11,17 +11,17 @@ import java.util.Map;
 @Configuration
 public class JmxConfig {
 
-	@Bean
-	public ReplicationNotificationListener replicationNotificationListener() {
-		return new ReplicationNotificationListener();
-	}
+  @Bean
+  public ReplicationNotificationListener replicationNotificationListener() {
+    return new ReplicationNotificationListener();
+  }
 
-	@Bean
-	public AnnotationMBeanExporter mbeanExporter(NotificationListener nl) {
-		var mbeanExporter = new AnnotationMBeanExporter();
-		mbeanExporter.setDefaultDomain("bean");
-		mbeanExporter.setNotificationListenerMappings(
-				Map.of("bean:name=documentReplicator,type=JMXFileReplicator", nl));
-		return mbeanExporter;
-	}
+  @Bean
+  public AnnotationMBeanExporter mbeanExporter(NotificationListener nl) {
+    var mbeanExporter = new AnnotationMBeanExporter();
+    mbeanExporter.setDefaultDomain("bean");
+    mbeanExporter.setNotificationListenerMappings(
+      Map.of("bean:name=documentReplicator,type=JMXFileReplicator", nl));
+    return mbeanExporter;
+  }
 }

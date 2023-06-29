@@ -28,81 +28,81 @@ import javax.sql.DataSource;
 @Configuration
 public class UserJob {
 
-	private static final String INSERT_REGISTRATION_QUERY = """
-					insert into USER_REGISTRATION (FIRST_NAME, LAST_NAME, COMPANY, ADDRESS,CITY,STATE,ZIP,COUNTY,URL,PHONE_NUMBER,FAX)
-					values
-					(:firstName,:lastName,:company,:address,:city,:state,:zip,:county,:url,:phoneNumber,:fax)""";
+  private static final String INSERT_REGISTRATION_QUERY = """
+    insert into USER_REGISTRATION (FIRST_NAME, LAST_NAME, COMPANY, ADDRESS,CITY,STATE,ZIP,COUNTY,URL,PHONE_NUMBER,FAX)
+    values
+    (:firstName,:lastName,:company,:address,:city,:state,:zip,:county,:url,:phoneNumber,:fax)""";
 
-	private final JobRepository jobRepository;
+  private final JobRepository jobRepository;
 
-	@Value("file:${user.home}/batches/registrations.csv")
-	private Resource input;
+  @Value("file:${user.home}/batches/registrations.csv")
+  private Resource input;
 
-	public UserJob(JobRepository jobRepository) {
-		this.jobRepository = jobRepository;
-	}
+  public UserJob(JobRepository jobRepository) {
+    this.jobRepository = jobRepository;
+  }
 
-	@Bean
-	public Job insertIntoDbFromCsvJob(Step step1) {
-		var name = "User Registration Import Job";
-		var builder = new JobBuilder(name, jobRepository);
-		return builder.start(step1).build();
-	}
+  @Bean
+  public Job insertIntoDbFromCsvJob(Step step1) {
+    var name = "User Registration Import Job";
+    var builder = new JobBuilder(name, jobRepository);
+    return builder.start(step1).build();
+  }
 
-	@Bean
-	public Step step1(ItemReader<UserRegistration> reader,
-										ItemWriter<UserRegistration> writer,
-										PlatformTransactionManager txManager) {
-		var name = "User Registration CSV To DB Step";
-		var builder = new StepBuilder(name, jobRepository);
-		return builder
-						.<UserRegistration, UserRegistration>chunk(5, txManager)
-						.reader(reader)
-						.writer(writer)
-						.build();
-	}
+  @Bean
+  public Step step1(ItemReader<UserRegistration> reader,
+                    ItemWriter<UserRegistration> writer,
+                    PlatformTransactionManager txManager) {
+    var name = "User Registration CSV To DB Step";
+    var builder = new StepBuilder(name, jobRepository);
+    return builder
+      .<UserRegistration, UserRegistration>chunk(5, txManager)
+      .reader(reader)
+      .writer(writer)
+      .build();
+  }
 
-	@Bean
-	public FlatFileItemReader<UserRegistration> csvFileReader(
-					LineMapper<UserRegistration> lineMapper) {
-		var itemReader = new FlatFileItemReader<UserRegistration>();
-		itemReader.setLineMapper(lineMapper);
-		itemReader.setResource(input);
-		return itemReader;
-	}
+  @Bean
+  public FlatFileItemReader<UserRegistration> csvFileReader(
+    LineMapper<UserRegistration> lineMapper) {
+    var itemReader = new FlatFileItemReader<UserRegistration>();
+    itemReader.setLineMapper(lineMapper);
+    itemReader.setResource(input);
+    return itemReader;
+  }
 
-	@Bean
-	public DefaultLineMapper<UserRegistration> lineMapper(LineTokenizer tokenizer,
-																												FieldSetMapper<UserRegistration> mapper) {
-		var lineMapper = new DefaultLineMapper<UserRegistration>();
-		lineMapper.setLineTokenizer(tokenizer);
-		lineMapper.setFieldSetMapper(mapper);
-		return lineMapper;
-	}
+  @Bean
+  public DefaultLineMapper<UserRegistration> lineMapper(LineTokenizer tokenizer,
+                                                        FieldSetMapper<UserRegistration> mapper) {
+    var lineMapper = new DefaultLineMapper<UserRegistration>();
+    lineMapper.setLineTokenizer(tokenizer);
+    lineMapper.setFieldSetMapper(mapper);
+    return lineMapper;
+  }
 
-	@Bean
-	public BeanWrapperFieldSetMapper<UserRegistration> fieldSetMapper() {
-		var fieldSetMapper = new BeanWrapperFieldSetMapper<UserRegistration>();
-		fieldSetMapper.setTargetType(UserRegistration.class);
-		return fieldSetMapper;
-	}
+  @Bean
+  public BeanWrapperFieldSetMapper<UserRegistration> fieldSetMapper() {
+    var fieldSetMapper = new BeanWrapperFieldSetMapper<UserRegistration>();
+    fieldSetMapper.setTargetType(UserRegistration.class);
+    return fieldSetMapper;
+  }
 
-	@Bean
-	public DelimitedLineTokenizer tokenizer() {
-		var tokenizer = new DelimitedLineTokenizer();
-		tokenizer.setDelimiter(",");
-		tokenizer.setNames("firstName", "lastName", "company", "address", "city",
-											 "state", "zip", "county", "url", "phoneNumber", "fax");
-		return tokenizer;
-	}
+  @Bean
+  public DelimitedLineTokenizer tokenizer() {
+    var tokenizer = new DelimitedLineTokenizer();
+    tokenizer.setDelimiter(",");
+    tokenizer.setNames("firstName", "lastName", "company", "address", "city",
+      "state", "zip", "county", "url", "phoneNumber", "fax");
+    return tokenizer;
+  }
 
-	@Bean
-	public JdbcBatchItemWriter<UserRegistration> jdbcItemWriter(DataSource dataSource) {
-		var provider = new BeanPropertyItemSqlParameterSourceProvider<UserRegistration>();
-		var itemWriter = new JdbcBatchItemWriter<UserRegistration>();
-		itemWriter.setDataSource(dataSource);
-		itemWriter.setSql(INSERT_REGISTRATION_QUERY);
-		itemWriter.setItemSqlParameterSourceProvider(provider);
-		return itemWriter;
-	}
+  @Bean
+  public JdbcBatchItemWriter<UserRegistration> jdbcItemWriter(DataSource dataSource) {
+    var provider = new BeanPropertyItemSqlParameterSourceProvider<UserRegistration>();
+    var itemWriter = new JdbcBatchItemWriter<UserRegistration>();
+    itemWriter.setDataSource(dataSource);
+    itemWriter.setSql(INSERT_REGISTRATION_QUERY);
+    itemWriter.setItemSqlParameterSourceProvider(provider);
+    return itemWriter;
+  }
 }

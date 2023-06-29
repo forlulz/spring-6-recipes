@@ -19,17 +19,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableReactiveNeo4jRepositories
 public class StarwarsConfig extends AbstractReactiveNeo4jConfig {
 
-	@Value("${neo4j.url}")
-	private String url;
+  @Value("${neo4j.url}")
+  private String url;
 
-	@Override
-	@Bean
-	public Driver driver() {
-		return GraphDatabase.driver(url);
-	}
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer pspc() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer pspc() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+  @Override
+  @Bean
+  public Driver driver() {
+    return GraphDatabase.driver(url);
+  }
 }

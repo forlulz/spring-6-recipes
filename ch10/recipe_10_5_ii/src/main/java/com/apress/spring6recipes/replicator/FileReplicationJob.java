@@ -8,14 +8,14 @@ import java.io.IOException;
 
 public class FileReplicationJob implements Job {
 
-	public void execute(JobExecutionContext context)
-					throws JobExecutionException {
-		var dataMap = context.getJobDetail().getJobDataMap();
-		var fileReplicator = (FileReplicator) dataMap.get("fileReplicator");
-		try {
-			fileReplicator.replicate();
-		} catch (IOException e) {
-			throw new JobExecutionException(e);
-		}
-	}
+  public void execute(JobExecutionContext context)
+    throws JobExecutionException {
+    var dataMap = context.getJobDetail().getJobDataMap();
+    var fileReplicator = (FileReplicator) dataMap.get("fileReplicator");
+    try {
+      fileReplicator.replicate();
+    } catch (IOException e) {
+      throw new JobExecutionException(e);
+    }
+  }
 }

@@ -10,11 +10,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @EnableScheduling
 public class SchedulingConfiguration {
 
-	@Bean
-	public TaskScheduler taskScheduler() {
-		var taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setThreadNamePrefix("s6r-scheduler-");
-		taskScheduler.setPoolSize(10);
-		return taskScheduler;
-	}
+  @Bean
+  public TaskScheduler taskScheduler() {
+    var taskScheduler = new ThreadPoolTaskScheduler();
+    taskScheduler.setThreadNamePrefix("s6r-scheduler-");
+    taskScheduler.setPoolSize(10);
+    return taskScheduler;
+  }
 }

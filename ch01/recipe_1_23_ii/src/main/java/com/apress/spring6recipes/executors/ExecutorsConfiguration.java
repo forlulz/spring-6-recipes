@@ -17,49 +17,49 @@ import java.util.concurrent.Executors;
 @ComponentScan
 public class ExecutorsConfiguration {
 
-	@Bean
-	public TaskExecutorAdapter taskExecutorAdapter() {
-		return new TaskExecutorAdapter(Executors.newCachedThreadPool());
-	}
+  @Bean
+  public TaskExecutorAdapter taskExecutorAdapter() {
+    return new TaskExecutorAdapter(Executors.newCachedThreadPool());
+  }
 
-	@Bean
-	public SimpleAsyncTaskExecutor simpleAsyncTaskExecutor() {
-		return new SimpleAsyncTaskExecutor();
-	}
+  @Bean
+  public SimpleAsyncTaskExecutor simpleAsyncTaskExecutor() {
+    return new SimpleAsyncTaskExecutor();
+  }
 
-	@Bean
-	public SyncTaskExecutor syncTaskExecutor() {
-		return new SyncTaskExecutor();
-	}
+  @Bean
+  public SyncTaskExecutor syncTaskExecutor() {
+    return new SyncTaskExecutor();
+  }
 
-	@Bean
-	public ScheduledExecutorFactoryBean scheduledExecutorFactoryBean(ScheduledExecutorTask scheduledExecutorTask) {
-		var scheduledExecutorFactoryBean = new ScheduledExecutorFactoryBean();
-		scheduledExecutorFactoryBean.setScheduledExecutorTasks(scheduledExecutorTask);
-		return scheduledExecutorFactoryBean;
-	}
+  @Bean
+  public ScheduledExecutorFactoryBean scheduledExecutorFactoryBean(ScheduledExecutorTask scheduledExecutorTask) {
+    var scheduledExecutorFactoryBean = new ScheduledExecutorFactoryBean();
+    scheduledExecutorFactoryBean.setScheduledExecutorTasks(scheduledExecutorTask);
+    return scheduledExecutorFactoryBean;
+  }
 
-	@Bean
-	public ScheduledExecutorTask scheduledExecutorTask(Runnable runnable) {
-		var scheduledExecutorTask = new ScheduledExecutorTask();
-		scheduledExecutorTask.setPeriod(50);
-		scheduledExecutorTask.setRunnable(runnable);
-		return scheduledExecutorTask;
-	}
+  @Bean
+  public ScheduledExecutorTask scheduledExecutorTask(Runnable runnable) {
+    var scheduledExecutorTask = new ScheduledExecutorTask();
+    scheduledExecutorTask.setPeriod(50);
+    scheduledExecutorTask.setRunnable(runnable);
+    return scheduledExecutorTask;
+  }
 
-	@Bean
-	public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
-		var taskExecutor = new ThreadPoolTaskExecutor();
-		taskExecutor.setCorePoolSize(50);
-		taskExecutor.setMaxPoolSize(100);
-		taskExecutor.setAllowCoreThreadTimeOut(true);
-		taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
-		return taskExecutor;
-	}
+  @Bean
+  public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+    var taskExecutor = new ThreadPoolTaskExecutor();
+    taskExecutor.setCorePoolSize(50);
+    taskExecutor.setMaxPoolSize(100);
+    taskExecutor.setAllowCoreThreadTimeOut(true);
+    taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
+    return taskExecutor;
+  }
 
-	@Bean
-	public ConcurrentTaskExecutor virtualThreadsTaskExecutor() {
-		var virtualThreadsExecutor = Executors.newVirtualThreadPerTaskExecutor();
-		return new ConcurrentTaskExecutor(virtualThreadsExecutor);
-	}
+  @Bean
+  public ConcurrentTaskExecutor virtualThreadsTaskExecutor() {
+    var virtualThreadsExecutor = Executors.newVirtualThreadPerTaskExecutor();
+    return new ConcurrentTaskExecutor(virtualThreadsExecutor);
+  }
 }

@@ -10,14 +10,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CalculationConfiguration {
 
-	@Bean
-	public CacheManager cacheManager() {
-		return new ConcurrentMapCacheManager();
-	}
+  @Bean
+  public CacheManager cacheManager() {
+    return new ConcurrentMapCacheManager();
+  }
 
-	@Bean
-	public CalculationService calculationService(CacheManager cacheManager) {
-		var cache = cacheManager.getCache("calculations");
-		return new PlainCachingCalculationService(cache);
-	}
+  @Bean
+  public CalculationService calculationService(CacheManager cacheManager) {
+    var cache = cacheManager.getCache("calculations");
+    return new PlainCachingCalculationService(cache);
+  }
 }

@@ -15,27 +15,27 @@ import java.util.Map;
 @Configuration
 public class FrontOfficeConfiguration {
 
-    @Bean
-    public KafkaTemplate<Integer, Object> kafkaTemplate(ProducerFactory<Integer, Object> pf) {
-        return new KafkaTemplate<>(pf);
-    }
+  @Bean
+  public KafkaTemplate<Integer, Object> kafkaTemplate(ProducerFactory<Integer, Object> pf) {
+    return new KafkaTemplate<>(pf);
+  }
 
-    @Bean
-    public ProducerFactory<Integer, Object> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerFactoryProperties());
-    }
+  @Bean
+  public ProducerFactory<Integer, Object> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(producerFactoryProperties());
+  }
 
-    @Bean
-    public Map<String, Object> producerFactoryProperties() {
-        var properties  = Map.<String, Object>of(
-        ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
-        ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class,
-        ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        return properties;
-    }
+  @Bean
+  public Map<String, Object> producerFactoryProperties() {
+    var properties = Map.<String, Object>of(
+      ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
+      ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class,
+      ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+    return properties;
+  }
 
-    @Bean
-    public FrontDeskImpl frontDesk(KafkaTemplate<Integer, Object> kafka) {
-        return new FrontDeskImpl(kafka);
-    }
+  @Bean
+  public FrontDeskImpl frontDesk(KafkaTemplate<Integer, Object> kafka) {
+    return new FrontDeskImpl(kafka);
+  }
 }

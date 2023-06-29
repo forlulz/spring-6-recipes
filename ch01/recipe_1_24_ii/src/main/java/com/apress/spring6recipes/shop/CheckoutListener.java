@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class CheckoutListener {
 
-	@EventListener
-	public void onApplicationEvent(CheckoutEvent event) {
-		// Do anything you like with the checkout time
-		System.out.printf("Checkout event [%s]%n", event.getTime());
-	}
+  @EventListener
+  public void onApplicationEvent(CheckoutEvent event) {
+    // Do anything you like with the checkout time
+    System.out.printf("Checkout event [%s]%n", event.getTime());
+  }
 }

@@ -5,14 +5,14 @@ import java.util.List;
 
 public interface VehicleRepository {
 
-	long count();
+  long count();
 
-	void save(Vehicle vehicle);
+  void save(Vehicle vehicle);
 
-	void delete(Vehicle vehicle);
+  void delete(Vehicle vehicle);
 
-	List<Vehicle> findAll();
+  List<Vehicle> findAll();
 
-	Vehicle findByVehicleNo(String vehicleNo);
+  Vehicle findByVehicleNo(String vehicleNo);
 
 }

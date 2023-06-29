@@ -13,15 +13,15 @@ import java.time.Duration;
 @Configuration
 public class CalculationConfiguration {
 
-	@Bean
-	public Cache<String, BigDecimal> calculationsCache() {
-		return Caffeine.newBuilder()
-						.maximumSize(1000)
-						.expireAfterWrite(Duration.ofMinutes(5)).build();
-	}
+  @Bean
+  public Cache<String, BigDecimal> calculationsCache() {
+    return Caffeine.newBuilder()
+      .maximumSize(1000)
+      .expireAfterWrite(Duration.ofMinutes(5)).build();
+  }
 
-	@Bean
-	public CalculationService calculationService(Cache<String, BigDecimal> cache) {
-		return new PlainCachingCalculationService(cache);
-	}
+  @Bean
+  public CalculationService calculationService(Cache<String, BigDecimal> cache) {
+    return new PlainCachingCalculationService(cache);
+  }
 }

@@ -9,9 +9,9 @@ import java.time.LocalDate;
 @Controller
 public class WelcomeController {
 
-	@GetMapping("/welcome")
-	public String welcome(Model model) {
-		model.addAttribute("today", LocalDate.now());
-		return "/WEB-INF/jsp/welcome.jsp";
-	}
+  @GetMapping("/welcome")
+  public String welcome(Model model) {
+    model.addAttribute("today", LocalDate.now());
+    return "/WEB-INF/jsp/welcome.jsp";
+  }
 }

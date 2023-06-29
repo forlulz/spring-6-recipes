@@ -14,28 +14,28 @@ import java.time.Duration;
 
 public class IntegrationConfiguration {
 
-	@Bean
-	public FileToJobLaunchRequestTransformer transformer(Job job) {
-		return new FileToJobLaunchRequestTransformer(job, "filename");
-	}
+  @Bean
+  public FileToJobLaunchRequestTransformer transformer(Job job) {
+    return new FileToJobLaunchRequestTransformer(job, "filename");
+  }
 
-	@Bean
-	public JobLaunchingMessageHandler jobLaunchingMessageHandler(JobLauncher launcher) {
-		return new JobLaunchingMessageHandler(launcher);
-	}
+  @Bean
+  public JobLaunchingMessageHandler jobLaunchingMessageHandler(JobLauncher launcher) {
+    return new JobLaunchingMessageHandler(launcher);
+  }
 
-	@Bean
-	public IntegrationFlow fileToBatchFlow(
-						@Value("file:${user.home}/customerstoimport/new/") File directory,
-				    FileToJobLaunchRequestTransformer transformer,
-				    JobLaunchingMessageHandler handler) {
+  @Bean
+  public IntegrationFlow fileToBatchFlow(
+    @Value("file:${user.home}/customerstoimport/new/") File directory,
+    FileToJobLaunchRequestTransformer transformer,
+    JobLaunchingMessageHandler handler) {
     return IntegrationFlow
-                .from(
-												Files.inboundAdapter(directory)
-																.patternFilter("customers-*.txt"),
-												c -> c.poller(Pollers.fixedRate(Duration.ofSeconds(1))))
-                .transform(transformer)
-                .handle(handler)
-            .get();
-    }
+      .from(
+        Files.inboundAdapter(directory)
+          .patternFilter("customers-*.txt"),
+        c -> c.poller(Pollers.fixedRate(Duration.ofSeconds(1))))
+      .transform(transformer)
+      .handle(handler)
+      .get();
+  }
 }

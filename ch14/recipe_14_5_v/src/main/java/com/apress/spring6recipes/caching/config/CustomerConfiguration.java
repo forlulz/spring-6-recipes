@@ -15,18 +15,18 @@ import java.time.Duration;
 @EnableCaching
 public class CustomerConfiguration {
 
-	@Bean
-	public CacheManager cacheManager() {
-		var caffeine = Caffeine.newBuilder()
-						.maximumSize(1000)
-						.expireAfterWrite(Duration.ofMinutes(5));
-		var cacheManager = new CaffeineCacheManager();
-		cacheManager.setCaffeine(caffeine);
-		return cacheManager;
-	}
+  @Bean
+  public CacheManager cacheManager() {
+    var caffeine = Caffeine.newBuilder()
+      .maximumSize(1000)
+      .expireAfterWrite(Duration.ofMinutes(5));
+    var cacheManager = new CaffeineCacheManager();
+    cacheManager.setCaffeine(caffeine);
+    return cacheManager;
+  }
 
-	@Bean
-	public CustomerRepository customerRepository() {
-		return new MapBasedCustomerRepository();
-	}
+  @Bean
+  public CustomerRepository customerRepository() {
+    return new MapBasedCustomerRepository();
+  }
 }

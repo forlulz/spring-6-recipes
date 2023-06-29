@@ -12,45 +12,45 @@ import static org.mockito.Mockito.when;
 
 class SimpleAccountServiceMockTests {
 
-	private static final String TEST_ACCOUNT_NO = "1234";
+  private static final String TEST_ACCOUNT_NO = "1234";
 
-	private AccountDao accountDao;
-	private SimpleAccountService accountService;
+  private AccountDao accountDao;
+  private SimpleAccountService accountService;
 
-	@BeforeEach
-	public void init() {
-		accountDao = mock(AccountDao.class);
-		accountService = new SimpleAccountService(accountDao);
-	}
+  @BeforeEach
+  public void init() {
+    accountDao = mock(AccountDao.class);
+    accountService = new SimpleAccountService(accountDao);
+  }
 
-	@Test
-	void deposit() {
-		var account = new Account(TEST_ACCOUNT_NO, 100);
-		when(accountDao.findAccount(TEST_ACCOUNT_NO)).thenReturn(account);
+  @Test
+  void deposit() {
+    var account = new Account(TEST_ACCOUNT_NO, 100);
+    when(accountDao.findAccount(TEST_ACCOUNT_NO)).thenReturn(account);
 
-		accountService.deposit(TEST_ACCOUNT_NO, 50);
+    accountService.deposit(TEST_ACCOUNT_NO, 50);
 
-		verify(accountDao, times(1)).findAccount(any(String.class));
-		verify(accountDao, times(1)).updateAccount(account);
-	}
+    verify(accountDao, times(1)).findAccount(any(String.class));
+    verify(accountDao, times(1)).updateAccount(account);
+  }
 
-	@Test
-	void withdrawWithSufficientBalance() {
-		var account = new Account(TEST_ACCOUNT_NO, 100);
-		when(accountDao.findAccount(TEST_ACCOUNT_NO)).thenReturn(account);
+  @Test
+  void withdrawWithSufficientBalance() {
+    var account = new Account(TEST_ACCOUNT_NO, 100);
+    when(accountDao.findAccount(TEST_ACCOUNT_NO)).thenReturn(account);
 
-		accountService.withdraw(TEST_ACCOUNT_NO, 50);
+    accountService.withdraw(TEST_ACCOUNT_NO, 50);
 
-		verify(accountDao, times(1)).findAccount(any(String.class));
-		verify(accountDao, times(1)).updateAccount(account);
-	}
+    verify(accountDao, times(1)).findAccount(any(String.class));
+    verify(accountDao, times(1)).updateAccount(account);
+  }
 
-	@Test
-	public void testWithdrawWithInsufficientBalance() {
-		var account = new Account(TEST_ACCOUNT_NO, 100);
-		when(accountDao.findAccount(TEST_ACCOUNT_NO)).thenReturn(account);
+  @Test
+  public void testWithdrawWithInsufficientBalance() {
+    var account = new Account(TEST_ACCOUNT_NO, 100);
+    when(accountDao.findAccount(TEST_ACCOUNT_NO)).thenReturn(account);
 
-		assertThrows(InsufficientBalanceException.class, () ->
-										accountService.withdraw(TEST_ACCOUNT_NO, 150));
-	}
+    assertThrows(InsufficientBalanceException.class, () ->
+      accountService.withdraw(TEST_ACCOUNT_NO, 150));
+  }
 }

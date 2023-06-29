@@ -15,33 +15,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ContextConfiguration(classes = BankConfiguration.class)
 class AccountServiceContextTests {
 
-	private static final String TEST_ACCOUNT_NO = "1234";
+  private static final String TEST_ACCOUNT_NO = "1234";
 
-	@Autowired
-	private ApplicationContext applicationContext;
-	private AccountService accountService;
+  @Autowired
+  private ApplicationContext applicationContext;
+  private AccountService accountService;
 
-	@BeforeEach
-	public void init() {
-		accountService = applicationContext.getBean(AccountService.class);
-		accountService.createAccount(TEST_ACCOUNT_NO);
-		accountService.deposit(TEST_ACCOUNT_NO, 100);
-	}
+  @BeforeEach
+  public void init() {
+    accountService = applicationContext.getBean(AccountService.class);
+    accountService.createAccount(TEST_ACCOUNT_NO);
+    accountService.deposit(TEST_ACCOUNT_NO, 100);
+  }
 
-	@Test
-	public void deposit() {
-		accountService.deposit(TEST_ACCOUNT_NO, 50);
-		assertEquals(150.0, accountService.getBalance(TEST_ACCOUNT_NO), 0);
-	}
+  @Test
+  public void deposit() {
+    accountService.deposit(TEST_ACCOUNT_NO, 50);
+    assertEquals(150.0, accountService.getBalance(TEST_ACCOUNT_NO), 0);
+  }
 
-	@Test
-	public void withDraw() {
-		accountService.withdraw(TEST_ACCOUNT_NO, 50);
-		assertEquals(50, accountService.getBalance(TEST_ACCOUNT_NO), 50);
-	}
+  @Test
+  public void withDraw() {
+    accountService.withdraw(TEST_ACCOUNT_NO, 50);
+    assertEquals(50, accountService.getBalance(TEST_ACCOUNT_NO), 50);
+  }
 
-	@AfterEach
-	public void cleanup() {
-		accountService.removeAccount(TEST_ACCOUNT_NO);
-	}
+  @AfterEach
+  public void cleanup() {
+    accountService.removeAccount(TEST_ACCOUNT_NO);
+  }
 }

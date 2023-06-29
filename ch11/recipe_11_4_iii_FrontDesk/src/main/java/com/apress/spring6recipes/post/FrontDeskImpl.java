@@ -5,8 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class FrontDeskImpl extends JmsGatewaySupport implements FrontDesk {
 
-	@Transactional
-	public void sendMail(final Mail mail) {
-		getJmsTemplate().convertAndSend(mail);
-	}
+  @Transactional
+  public void sendMail(final Mail mail) {
+    getJmsTemplate().convertAndSend(mail);
+  }
 }

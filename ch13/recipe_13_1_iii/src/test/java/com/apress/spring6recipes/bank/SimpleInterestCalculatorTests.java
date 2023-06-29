@@ -7,23 +7,23 @@ import static org.testng.Assert.assertEquals;
 
 public class SimpleInterestCalculatorTests {
 
-	private InterestCalculator interestCalculator;
+  private InterestCalculator interestCalculator;
 
-	@BeforeMethod
-	public void init() {
-		interestCalculator = new SimpleInterestCalculator();
-		interestCalculator.setRate(0.05);
-	}
+  @BeforeMethod
+  public void init() {
+    interestCalculator = new SimpleInterestCalculator();
+    interestCalculator.setRate(0.05);
+  }
 
-	@Test
-	public void calculate() {
-		var interest = interestCalculator.calculate(10000, 2);
-		assertEquals(interest, 1000.0);
-	}
+  @Test
+  public void calculate() {
+    var interest = interestCalculator.calculate(10000, 2);
+    assertEquals(interest, 1000.0);
+  }
 
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void illegalCalculate() {
-		interestCalculator.calculate(-10000, 2);
-	}
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void illegalCalculate() {
+    interestCalculator.calculate(-10000, 2);
+  }
 
 }

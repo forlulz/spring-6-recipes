@@ -7,9 +7,12 @@ import java.util.Optional;
 
 public interface MemberService {
 
-	void add(Member member);
-	void remove(String memberName);
-	Optional<Member> find(String memberName);
-	List<Member> list();
+  void add(Member member);
+
+  void remove(String memberName);
+
+  Optional<Member> find(String memberName);
+
+  List<Member> list();
 
 }

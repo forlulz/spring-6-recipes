@@ -15,11 +15,11 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @ComponentScan
 public class WebFluxConfiguration implements WebFluxConfigurer {
 
-	@Bean
-	public RouterFunction<ServerResponse> membersRouter(MemberController handler) {
-		return RouterFunctions.route()
-						.GET("/members", handler::list)
-						.POST("/members", handler::create)
-					.build();
-	}
+  @Bean
+  public RouterFunction<ServerResponse> membersRouter(MemberController handler) {
+    return RouterFunctions.route()
+      .GET("/members", handler::list)
+      .POST("/members", handler::create)
+      .build();
+  }
 }

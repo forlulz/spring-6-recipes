@@ -14,12 +14,12 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @ComponentScan
 public class WebFluxConfiguration implements WebFluxConfigurer {
 
-	@Override
-	public void configureHttpMessageCodecs(ServerCodecConfigurer configurer) {
-		var mapper = Jackson2ObjectMapperBuilder.json()
-						.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();
-		var jackson = new Jackson2JsonEncoder(mapper);
+  @Override
+  public void configureHttpMessageCodecs(ServerCodecConfigurer configurer) {
+    var mapper = Jackson2ObjectMapperBuilder.json()
+      .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();
+    var jackson = new Jackson2JsonEncoder(mapper);
 
-		configurer.defaultCodecs().jackson2JsonEncoder(jackson);
-	}
+    configurer.defaultCodecs().jackson2JsonEncoder(jackson);
+  }
 }

@@ -11,32 +11,32 @@ import java.time.LocalDateTime;
 
 public class Cashier {
 
-	private final String fileName;
-	private final String path;
+  private final String fileName;
+  private final String path;
 
-	private BufferedWriter writer;
+  private BufferedWriter writer;
 
-	public Cashier(String fileName, String path) {
-		this.fileName = fileName;
-		this.path = path;
-	}
+  public Cashier(String fileName, String path) {
+    this.fileName = fileName;
+    this.path = path;
+  }
 
-	public void openFile() throws IOException {
-		var options = new OpenOption[] {
-						StandardOpenOption.CREATE,
-						StandardOpenOption.APPEND };
-		Files.createDirectories(Path.of(path));
-		writer = Files.newBufferedWriter(Path.of(path, fileName),
-						StandardCharsets.UTF_8,
-						options);
-	}
+  public void openFile() throws IOException {
+    var options = new OpenOption[]{
+      StandardOpenOption.CREATE,
+      StandardOpenOption.APPEND};
+    Files.createDirectories(Path.of(path));
+    writer = Files.newBufferedWriter(Path.of(path, fileName),
+      StandardCharsets.UTF_8,
+      options);
+  }
 
-	public void checkout(ShoppingCart cart) throws IOException {
-		writer.write(LocalDateTime.now() + "\t" + cart.getItems() + "\r\n");
-		writer.flush();
-	}
+  public void checkout(ShoppingCart cart) throws IOException {
+    writer.write(LocalDateTime.now() + "\t" + cart.getItems() + "\r\n");
+    writer.flush();
+  }
 
-	public void closeFile() throws IOException {
-		writer.close();
-	}
+  public void closeFile() throws IOException {
+    writer.close();
+  }
 }

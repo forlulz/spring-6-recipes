@@ -5,12 +5,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record Member(@NotBlank String name,
-										 @NotBlank @Email String email,
-										 String phone,
-										 @NotNull SportType preferredType) {
+                     @NotBlank @Email String email,
+                     String phone,
+                     @NotNull SportType preferredType) {
 
-	public Member(String name,
-								String email, String phone) {
-		this(name, email, phone, null);
-	}
+  public Member(String name,
+                String email, String phone) {
+    this(name, email, phone, null);
+  }
 }

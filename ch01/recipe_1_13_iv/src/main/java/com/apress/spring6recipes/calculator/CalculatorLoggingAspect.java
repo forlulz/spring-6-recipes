@@ -15,27 +15,27 @@ import java.util.Arrays;
 @Component
 public class CalculatorLoggingAspect {
 
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
+  private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Before("execution(* *.*(..))")
-	public void logBefore(JoinPoint joinPoint) {
-		var name = joinPoint.getSignature().getName();
-		var args = Arrays.toString(joinPoint.getArgs());
-		log.info("The method {}() begins with {} ", name, args);
-	}
+  @Before("execution(* *.*(..))")
+  public void logBefore(JoinPoint joinPoint) {
+    var name = joinPoint.getSignature().getName();
+    var args = Arrays.toString(joinPoint.getArgs());
+    log.info("The method {}() begins with {} ", name, args);
+  }
 
-	@AfterReturning(pointcut = "execution(* *.*(..))", returning = "result")
-	public void logAfterReturning(JoinPoint joinPoint, Object result) {
-		var name = joinPoint.getSignature().getName();
-		log.info("The method {}() ends with {}", name, result);
-	}
+  @AfterReturning(pointcut = "execution(* *.*(..))", returning = "result")
+  public void logAfterReturning(JoinPoint joinPoint, Object result) {
+    var name = joinPoint.getSignature().getName();
+    log.info("The method {}() ends with {}", name, result);
+  }
 
-	@AfterThrowing(
-					pointcut = "execution(* *.*(..))",
-					throwing = "ex")
-	public void logAfterThrowing(JoinPoint joinPoint, IllegalArgumentException ex) {
-		var args = Arrays.toString(joinPoint.getArgs());
-		var name = joinPoint.getSignature().getName();
-		log.error("Illegal argument {} in {}()", args, name);
-	}
+  @AfterThrowing(
+    pointcut = "execution(* *.*(..))",
+    throwing = "ex")
+  public void logAfterThrowing(JoinPoint joinPoint, IllegalArgumentException ex) {
+    var args = Arrays.toString(joinPoint.getArgs());
+    var name = joinPoint.getSignature().getName();
+    log.error("Illegal argument {} in {}()", args, name);
+  }
 }

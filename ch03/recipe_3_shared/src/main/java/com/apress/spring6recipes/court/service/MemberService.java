@@ -6,8 +6,10 @@ import java.util.Optional;
 
 public interface MemberService {
 
-	Iterable<Member> findAll();
-	Optional<Member> findById(long id);
-	Member save(Member member);
+  Iterable<Member> findAll();
+
+  Optional<Member> findById(long id);
+
+  Member save(Member member);
 
 }

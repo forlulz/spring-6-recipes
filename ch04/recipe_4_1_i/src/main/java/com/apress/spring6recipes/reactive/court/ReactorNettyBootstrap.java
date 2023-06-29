@@ -7,12 +7,12 @@ import reactor.netty.http.server.HttpServer;
 
 public class ReactorNettyBootstrap {
 
-	public static void main(String[] args) throws Exception {
-		var context = new AnnotationConfigApplicationContext(WebFluxConfiguration.class);
-		var handler = WebHttpHandlerBuilder.applicationContext(context).build();
+  public static void main(String[] args) throws Exception {
+    var context = new AnnotationConfigApplicationContext(WebFluxConfiguration.class);
+    var handler = WebHttpHandlerBuilder.applicationContext(context).build();
 
-		var adapter = new ReactorHttpHandlerAdapter(handler);
-		HttpServer.create().host("0.0.0.0").port(8080).handle(adapter).bind().block();
-		System.in.read();
-	}
+    var adapter = new ReactorHttpHandlerAdapter(handler);
+    HttpServer.create().host("0.0.0.0").port(8080).handle(adapter).bind().block();
+    System.in.read();
+  }
 }

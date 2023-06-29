@@ -14,4 +14,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @ComponentScan("com.apress.spring6recipes.court")
 @EnableWebMvc
-public class CourtConfiguration { }
+public class CourtConfiguration {
+}

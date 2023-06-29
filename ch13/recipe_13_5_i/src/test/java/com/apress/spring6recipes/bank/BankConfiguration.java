@@ -16,28 +16,28 @@ import javax.sql.DataSource;
 @ComponentScan
 public class BankConfiguration {
 
-	@Bean
-	public SimpleDriverDataSource dataSource() {
-		var dataSource = new SimpleDriverDataSource();
-		dataSource.setDriverClass(Driver.class);
-		dataSource.setUrl("jdbc:h2:mem:bank-testing");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("");
-		return dataSource;
-	}
+  @Bean
+  public SimpleDriverDataSource dataSource() {
+    var dataSource = new SimpleDriverDataSource();
+    dataSource.setDriverClass(Driver.class);
+    dataSource.setUrl("jdbc:h2:mem:bank-testing");
+    dataSource.setUsername("sa");
+    dataSource.setPassword("");
+    return dataSource;
+  }
 
-	@Bean
-	public DataSourceTransactionManager transactionManager(DataSource dataSource) {
-		return new DataSourceTransactionManager(dataSource);
-	}
+  @Bean
+  public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
+  }
 
-	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
-	}
+  @Bean
+  public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+    return new JdbcTemplate(dataSource);
+  }
 
-	@Bean
-	public JdbcAccountDao accountDao(JdbcTemplate jdbcTemplate) {
-		return new JdbcAccountDao(jdbcTemplate);
-	}
+  @Bean
+  public JdbcAccountDao accountDao(JdbcTemplate jdbcTemplate) {
+    return new JdbcAccountDao(jdbcTemplate);
+  }
 }

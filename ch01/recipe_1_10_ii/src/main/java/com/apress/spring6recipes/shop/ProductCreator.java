@@ -4,18 +4,18 @@ import java.util.Map;
 
 public class ProductCreator {
 
-	private final Map<String, Product> products;
+  private final Map<String, Product> products;
 
-	public ProductCreator(Map<String, Product> products) {
-		this.products = products;
-	}
+  public ProductCreator(Map<String, Product> products) {
+    this.products = products;
+  }
 
-	public Product createProduct(String productId) {
-		Product product = products.get(productId);
-		if (product != null) {
-			return product;
-		}
-		var msg = "Unknown product '" + productId + "'";
-		throw new IllegalArgumentException(msg);
-	}
+  public Product createProduct(String productId) {
+    Product product = products.get(productId);
+    if (product != null) {
+      return product;
+    }
+    var msg = "Unknown product '" + productId + "'";
+    throw new IllegalArgumentException(msg);
+  }
 }

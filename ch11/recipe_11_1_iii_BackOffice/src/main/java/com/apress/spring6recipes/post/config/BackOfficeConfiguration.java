@@ -10,22 +10,22 @@ import org.springframework.jms.core.JmsTemplate;
 @Configuration
 public class BackOfficeConfiguration {
 
-	@Bean
-	public ConnectionFactory connectionFactory() {
-		return new ActiveMQConnectionFactory("tcp://localhost:61616");
-	}
+  @Bean
+  public ConnectionFactory connectionFactory() {
+    return new ActiveMQConnectionFactory("tcp://localhost:61616");
+  }
 
-	@Bean
-	public JmsTemplate jmsTemplate(ConnectionFactory cf) {
-		var jmsTemplate = new JmsTemplate();
-		jmsTemplate.setConnectionFactory(cf);
-		jmsTemplate.setDefaultDestinationName("mail.queue");
-		jmsTemplate.setReceiveTimeout(10000);
-		return jmsTemplate;
-	}
+  @Bean
+  public JmsTemplate jmsTemplate(ConnectionFactory cf) {
+    var jmsTemplate = new JmsTemplate();
+    jmsTemplate.setConnectionFactory(cf);
+    jmsTemplate.setDefaultDestinationName("mail.queue");
+    jmsTemplate.setReceiveTimeout(10000);
+    return jmsTemplate;
+  }
 
-	@Bean
-	public BackOfficeImpl backOffice(JmsTemplate jms) {
-		return new BackOfficeImpl(jms);
-	}
+  @Bean
+  public BackOfficeImpl backOffice(JmsTemplate jms) {
+    return new BackOfficeImpl(jms);
+  }
 }

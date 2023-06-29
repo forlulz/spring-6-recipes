@@ -12,18 +12,18 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Members {
 
-	@XmlElement(name = "member")
-	private List<Member> members = new ArrayList<>();
+  @XmlElement(name = "member")
+  private List<Member> members = new ArrayList<>();
 
-	public List<Member> getMembers() {
-		return members;
-	}
+  public List<Member> getMembers() {
+    return members;
+  }
 
-	public void setMembers(List<Member> members) {
-		this.members = members;
-	}
+  public void setMembers(List<Member> members) {
+    this.members = members;
+  }
 
-	public void addMembers(Iterable<Member> members) {
-		members.forEach(member -> this.members.add(member));
-	}
+  public void addMembers(Iterable<Member> members) {
+    members.forEach(member -> this.members.add(member));
+  }
 }

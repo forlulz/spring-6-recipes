@@ -9,15 +9,15 @@ import java.util.Map;
 
 public class InboundHelloWorldJMSMessageProcessor {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@ServiceActivator
-	public void handleIncomingJmsMessage(
-					Message<Map<String, Object>> inboundJmsMessage) {
-		var payload = inboundJmsMessage.getPayload();
-		logger.info("Received: {}", payload);
-		// you can imagine what we could do here: put
-		// the record into the database, call a websrvice,
-		// write it to a file, etc, etc
-	}
+  @ServiceActivator
+  public void handleIncomingJmsMessage(
+    Message<Map<String, Object>> inboundJmsMessage) {
+    var payload = inboundJmsMessage.getPayload();
+    logger.info("Received: {}", payload);
+    // you can imagine what we could do here: put
+    // the record into the database, call a websrvice,
+    // write it to a file, etc, etc
+  }
 }

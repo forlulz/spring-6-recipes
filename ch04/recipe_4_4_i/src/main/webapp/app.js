@@ -9,10 +9,10 @@ function setConnected(connected) {
 
 function connect() {
     ws = webstomp.client(url);
-    ws.connect({}, function(frame) {
+    ws.connect({}, function (frame) {
         setConnected(true);
         log(frame);
-        ws.subscribe('/topic/echo', function(message){
+        ws.subscribe('/topic/echo', function (message) {
             log(message.body);
         })
     });
@@ -25,6 +25,7 @@ function disconnect() {
     }
     setConnected(false);
 }
+
 function echo() {
     if (ws != null) {
         var message = document.getElementById('message').value;

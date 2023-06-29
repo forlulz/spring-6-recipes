@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class RestMemberController {
 
-	private final MemberService memberService;
+  private final MemberService memberService;
 
-	public RestMemberController(MemberService memberService) {
-		this.memberService = memberService;
-	}
+  public RestMemberController(MemberService memberService) {
+    this.memberService = memberService;
+  }
 
-	@GetMapping("/members")
-	@ResponseBody
-	public Members getRestMembers() {
-		var members = new Members();
-		members.addMembers(memberService.findAll());
-		return members;
-	}
+  @GetMapping("/members")
+  @ResponseBody
+  public Members getRestMembers() {
+    var members = new Members();
+    members.addMembers(memberService.findAll());
+    return members;
+  }
 
-	@GetMapping("/members/{memberid}")
-	@ResponseBody
-	public ResponseEntity<Member> getMember(@PathVariable("memberid") long memberID) {
-		return memberService.findById(memberID)
-						.map(ResponseEntity::ok).orElse(null);
-	}
+  @GetMapping("/members/{memberid}")
+  @ResponseBody
+  public ResponseEntity<Member> getMember(@PathVariable("memberid") long memberID) {
+    return memberService.findById(memberID)
+      .map(ResponseEntity::ok).orElse(null);
+  }
 }

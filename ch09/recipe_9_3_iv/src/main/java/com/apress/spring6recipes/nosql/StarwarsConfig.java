@@ -12,18 +12,18 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @PropertySource("classpath:/application.properties")
 public class StarwarsConfig {
 
-	@Bean
-	public Driver driver(@Value("${neo4j.url}") String url) {
-		return GraphDatabase.driver(url);
-	}
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer pspc() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
-	@Bean
-	public Neo4jStarwarsRepository starwarsRepository(Driver driver) {
-		return new Neo4jStarwarsRepository(driver);
-	}
+  @Bean
+  public Driver driver(@Value("${neo4j.url}") String url) {
+    return GraphDatabase.driver(url);
+  }
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer pspc() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+  @Bean
+  public Neo4jStarwarsRepository starwarsRepository(Driver driver) {
+    return new Neo4jStarwarsRepository(driver);
+  }
 }

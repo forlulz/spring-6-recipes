@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class FrontDeskImpl extends JmsGatewaySupport implements FrontDesk {
 
-	public void sendMail(final Mail mail) {
-		var map = Map.of(
-						"mailId", mail.mailId(),
-						"country", mail.country(),
-						"weight", mail.weight());
-		getJmsTemplate().convertAndSend(map);
-	}
+  public void sendMail(final Mail mail) {
+    var map = Map.of(
+      "mailId", mail.mailId(),
+      "country", mail.country(),
+      "weight", mail.weight());
+    getJmsTemplate().convertAndSend(map);
+  }
 }

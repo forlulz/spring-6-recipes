@@ -7,4 +7,5 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan
-public class CalculatorConfiguration { }
+public class CalculatorConfiguration {
+}

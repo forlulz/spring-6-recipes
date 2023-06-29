@@ -7,15 +7,15 @@ import java.time.LocalDateTime;
 
 public class Cashier implements ApplicationEventPublisherAware {
 
-	private ApplicationEventPublisher applicationEventPublisher;
+  private ApplicationEventPublisher applicationEventPublisher;
 
-	@Override
-	public void setApplicationEventPublisher(ApplicationEventPublisher aep) {
-		this.applicationEventPublisher = aep;
-	}
+  @Override
+  public void setApplicationEventPublisher(ApplicationEventPublisher aep) {
+    this.applicationEventPublisher = aep;
+  }
 
-	public void checkout(ShoppingCart cart) {
-		var event = new CheckoutEvent(cart, LocalDateTime.now());
-		applicationEventPublisher.publishEvent(event);
-	}
+  public void checkout(ShoppingCart cart) {
+    var event = new CheckoutEvent(cart, LocalDateTime.now());
+    applicationEventPublisher.publishEvent(event);
+  }
 }

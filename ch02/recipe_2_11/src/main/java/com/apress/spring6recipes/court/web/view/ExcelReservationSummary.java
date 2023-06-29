@@ -13,35 +13,35 @@ import java.util.Map;
 
 public class ExcelReservationSummary extends AbstractXlsxView {
 
-	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-	@Override
-	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook,
-																		HttpServletRequest request, HttpServletResponse response) {
-		@SuppressWarnings({ "unchecked" })
-		var reservations = (List<Reservation>) model.get("reservations");
-		var sheet = workbook.createSheet();
+  @Override
+  protected void buildExcelDocument(Map<String, Object> model, Workbook workbook,
+                                    HttpServletRequest request, HttpServletResponse response) {
+    @SuppressWarnings({"unchecked"})
+    var reservations = (List<Reservation>) model.get("reservations");
+    var sheet = workbook.createSheet();
 
-		addHeaderRow(sheet);
+    addHeaderRow(sheet);
 
-		reservations.forEach(reservation -> createRow(sheet, reservation));
-	}
+    reservations.forEach(reservation -> createRow(sheet, reservation));
+  }
 
-	private void addHeaderRow(Sheet sheet) {
-		var header = sheet.createRow(0);
-		header.createCell(0).setCellValue("Court Name");
-		header.createCell(1).setCellValue("Date");
-		header.createCell(2).setCellValue("Hour");
-		header.createCell(3).setCellValue("Player Name");
-		header.createCell(4).setCellValue("Player Phone");
-	}
+  private void addHeaderRow(Sheet sheet) {
+    var header = sheet.createRow(0);
+    header.createCell(0).setCellValue("Court Name");
+    header.createCell(1).setCellValue("Date");
+    header.createCell(2).setCellValue("Hour");
+    header.createCell(3).setCellValue("Player Name");
+    header.createCell(4).setCellValue("Player Phone");
+  }
 
-	private void createRow(Sheet sheet, Reservation reservation) {
-		var row = sheet.createRow(sheet.getLastRowNum() + 1);
-		row.createCell(0).setCellValue(reservation.getCourtName());
-		row.createCell(1).setCellValue(DATE_FORMAT.format(reservation.getDate()));
-		row.createCell(2).setCellValue(reservation.getHour());
-		row.createCell(3).setCellValue(reservation.getPlayer().getName());
-		row.createCell(4).setCellValue(reservation.getPlayer().getPhone());
-	}
+  private void createRow(Sheet sheet, Reservation reservation) {
+    var row = sheet.createRow(sheet.getLastRowNum() + 1);
+    row.createCell(0).setCellValue(reservation.getCourtName());
+    row.createCell(1).setCellValue(DATE_FORMAT.format(reservation.getDate()));
+    row.createCell(2).setCellValue(reservation.getHour());
+    row.createCell(3).setCellValue(reservation.getPlayer().getName());
+    row.createCell(4).setCellValue(reservation.getPlayer().getPhone());
+  }
 }

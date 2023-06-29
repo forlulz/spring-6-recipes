@@ -13,19 +13,19 @@ import java.util.Properties;
 @Configuration
 public class ErrorHandlingConfiguration implements WebMvcConfigurer {
 
-	@Override
-	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-		resolvers.add(handlerExceptionResolver());
-	}
+  @Override
+  public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+    resolvers.add(handlerExceptionResolver());
+  }
 
-	@Bean
-	public HandlerExceptionResolver handlerExceptionResolver() {
-		var mappings = new Properties();
-		mappings.setProperty(ReservationNotAvailableException.class.getName(), "reservationNotAvailable");
+  @Bean
+  public HandlerExceptionResolver handlerExceptionResolver() {
+    var mappings = new Properties();
+    mappings.setProperty(ReservationNotAvailableException.class.getName(), "reservationNotAvailable");
 
-		var resolver = new SimpleMappingExceptionResolver();
-		resolver.setExceptionMappings(mappings);
-		resolver.setDefaultErrorView("error");
-		return resolver;
-	}
+    var resolver = new SimpleMappingExceptionResolver();
+    resolver.setExceptionMappings(mappings);
+    resolver.setDefaultErrorView("error");
+    return resolver;
+  }
 }

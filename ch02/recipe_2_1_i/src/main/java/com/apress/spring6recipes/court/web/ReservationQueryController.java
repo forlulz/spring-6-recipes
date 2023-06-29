@@ -13,22 +13,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/reservationQuery")
 public class ReservationQueryController {
 
-	private final ReservationService reservationService;
+  private final ReservationService reservationService;
 
-	public ReservationQueryController(ReservationService reservationService) {
-		this.reservationService = reservationService;
-	}
+  public ReservationQueryController(ReservationService reservationService) {
+    this.reservationService = reservationService;
+  }
 
-	@GetMapping
-	public void setupForm() {}
+  @GetMapping
+  public void setupForm() {
+  }
 
-	@PostMapping
-	public String sumbitForm(@RequestParam("courtName") String courtName, Model model) {
-		var reservations = java.util.Collections.<Reservation>emptyList();
-		if (courtName != null) {
-			reservations = reservationService.query(courtName);
-		}
-		model.addAttribute("reservations", reservations);
-		return "/WEB-INF/jsp/reservationQuery.jsp";
-	}
+  @PostMapping
+  public String sumbitForm(@RequestParam("courtName") String courtName, Model model) {
+    var reservations = java.util.Collections.<Reservation>emptyList();
+    if (courtName != null) {
+      reservations = reservationService.query(courtName);
+    }
+    model.addAttribute("reservations", reservations);
+    return "/WEB-INF/jsp/reservationQuery.jsp";
+  }
 }

@@ -8,8 +8,8 @@ import reactor.core.publisher.Mono;
 @RestController
 public class WelcomeController {
 
-	@GetMapping("/welcome")
-	public Mono<String> welcome(@RequestParam String name) {
-		return Mono.just("Hello " + name+" from Spring WebFlux!");
-	}
+  @GetMapping("/welcome")
+  public Mono<String> welcome(@RequestParam String name) {
+    return Mono.just("Hello " + name + " from Spring WebFlux!");
+  }
 }

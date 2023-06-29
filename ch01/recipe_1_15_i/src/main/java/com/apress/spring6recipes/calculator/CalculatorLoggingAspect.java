@@ -14,21 +14,21 @@ import java.util.Arrays;
 @Component
 public class CalculatorLoggingAspect implements Ordered {
 
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
+  private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Before("execution(* *.*(..))")
-	public void logJoinPoint(JoinPoint joinPoint) {
-		log.info("Join point kind : {}", joinPoint.getKind());
-		log.info("Signature declaring type : {}", joinPoint.getSignature().getDeclaringTypeName());
-		log.info("Signature name : {}", joinPoint.getSignature().getName());
-		log.info("Arguments : {}", Arrays.toString(joinPoint.getArgs()));
-		log.info("Target class : {}", joinPoint.getTarget().getClass().getName());
-		log.info("This class : {}", joinPoint.getThis().getClass().getName());
-	}
+  @Before("execution(* *.*(..))")
+  public void logJoinPoint(JoinPoint joinPoint) {
+    log.info("Join point kind : {}", joinPoint.getKind());
+    log.info("Signature declaring type : {}", joinPoint.getSignature().getDeclaringTypeName());
+    log.info("Signature name : {}", joinPoint.getSignature().getName());
+    log.info("Arguments : {}", Arrays.toString(joinPoint.getArgs()));
+    log.info("Target class : {}", joinPoint.getTarget().getClass().getName());
+    log.info("This class : {}", joinPoint.getThis().getClass().getName());
+  }
 
-	@Override
-	public int getOrder() {
-		return 1;
-	}
+  @Override
+  public int getOrder() {
+    return 1;
+  }
 
 }

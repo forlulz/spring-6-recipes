@@ -11,9 +11,9 @@ import java.time.LocalDate;
 @RequestMapping("/welcome")
 public class WelcomeController {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String welcome(Model model) {
-		model.addAttribute("today", LocalDate.now());
-		return "welcome";
-	}
+  @RequestMapping(method = RequestMethod.GET)
+  public String welcome(Model model) {
+    model.addAttribute("today", LocalDate.now());
+    return "welcome";
+  }
 }

@@ -7,30 +7,29 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Sequence {
 
-	private final AtomicInteger counter = new AtomicInteger();
+  private final AtomicInteger counter = new AtomicInteger();
+  private final String suffix;
+  @Autowired
+  @Qualifier("datePrefixGenerator")
+  private PrefixGenerator prefixGenerator;
 
-	@Autowired
-	@Qualifier("datePrefixGenerator")
-	private PrefixGenerator prefixGenerator;
-	private final String suffix;
+  public Sequence(PrefixGenerator prefixGenerator, String suffix, int initial) {
+    this.prefixGenerator = prefixGenerator;
+    this.suffix = suffix;
+    this.counter.set(initial);
+  }
 
-	public Sequence(PrefixGenerator prefixGenerator, String suffix, int initial) {
-		this.prefixGenerator = prefixGenerator;
-		this.suffix = suffix;
-		this.counter.set(initial);
-	}
+  @Autowired
+  public void setPrefixGenerator(
+    @Qualifier("datePrefixGenerator") PrefixGenerator prefixGenerator) {
+    this.prefixGenerator = prefixGenerator;
+  }
 
-	@Autowired
-	public void setPrefixGenerator(
-					@Qualifier("datePrefixGenerator") PrefixGenerator prefixGenerator) {
-		this.prefixGenerator = prefixGenerator;
-	}
+  public void setInitial(int initial) {
+    this.counter.set(initial);
+  }
 
-	public void setInitial(int initial) {
-		this.counter.set(initial);
-	}
-
-	public synchronized String getSequence() {
-		return prefixGenerator.getPrefix() + counter.getAndIncrement() + suffix;
-	}
+  public synchronized String getSequence() {
+    return prefixGenerator.getPrefix() + counter.getAndIncrement() + suffix;
+  }
 }

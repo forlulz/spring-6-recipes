@@ -11,22 +11,22 @@ import java.util.Map;
 
 public class InboundHelloWorldJMSMessageProcessor {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@ServiceActivator
-	public void handleIncomingJmsMessageWithPayloadNotExtracted(
-					Message<jakarta.jms.Message> msgWithJmsMessageAsPayload) throws Throwable {
-		var payload = (MapMessage) msgWithJmsMessageAsPayload.getPayload();
-		logger.debug("Received: {}", convert(payload));
-		// you can imagine what we could do here: put
-		// the record into the database, call a websrvice,
-		// write it to a file, etc, etc
-	}
+  @ServiceActivator
+  public void handleIncomingJmsMessageWithPayloadNotExtracted(
+    Message<jakarta.jms.Message> msgWithJmsMessageAsPayload) throws Throwable {
+    var payload = (MapMessage) msgWithJmsMessageAsPayload.getPayload();
+    logger.debug("Received: {}", convert(payload));
+    // you can imagine what we could do here: put
+    // the record into the database, call a websrvice,
+    // write it to a file, etc, etc
+  }
 
-	private Map<String, Object> convert(MapMessage msg) throws JMSException {
-		return Map.of(
-						"firstName", msg.getString("firstName"),
-						"lastName", msg.getString("lastName"),
-						"id", msg.getLong("id"));
-	}
+  private Map<String, Object> convert(MapMessage msg) throws JMSException {
+    return Map.of(
+      "firstName", msg.getString("firstName"),
+      "lastName", msg.getString("lastName"),
+      "id", msg.getLong("id"));
+  }
 }

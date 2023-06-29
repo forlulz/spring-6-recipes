@@ -17,24 +17,24 @@ public class IntegrationConfiguration {
 
   @Bean
   public CustomerBatchFileSplitter splitter() {
-      return new CustomerBatchFileSplitter();
+    return new CustomerBatchFileSplitter();
   }
 
   @Bean
   public CustomerDeletionServiceActivator customerDeletionServiceActivator() {
-      return new CustomerDeletionServiceActivator();
+    return new CustomerDeletionServiceActivator();
   }
 
   @Bean
   public IntegrationFlow fileSplitAndDelete(
-					@Value("file:${user.home}/customerstoremove/new/") File inputDirectory) {
+    @Value("file:${user.home}/customerstoremove/new/") File inputDirectory) {
 
-		var poller = Pollers.fixedRate(Duration.ofSeconds(1));
+    var poller = Pollers.fixedRate(Duration.ofSeconds(1));
     return IntegrationFlow.from(
-            Files.inboundAdapter(inputDirectory)
-		                .patternFilter("customerstoremove-*.txt"), c -> c.poller(poller))
-            .split(splitter())
-            .handle(customerDeletionServiceActivator())
-            .get();
+        Files.inboundAdapter(inputDirectory)
+          .patternFilter("customerstoremove-*.txt"), c -> c.poller(poller))
+      .split(splitter())
+      .handle(customerDeletionServiceActivator())
+      .get();
   }
 }

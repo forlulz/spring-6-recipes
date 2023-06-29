@@ -6,12 +6,12 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Main {
 
-	public static void main(String[] args) {
-		try (var ctx =
-								 new AnnotationConfigApplicationContext(MailConfiguration.class)) {
+  public static void main(String[] args) {
+    try (var ctx =
+           new AnnotationConfigApplicationContext(MailConfiguration.class)) {
 
-			var errorNotifier = ctx.getBean(ErrorNotifier.class);
-			errorNotifier.notifyCopyError("c:/documents", "d:/documents", "spring.doc");
-		}
-	}
+      var errorNotifier = ctx.getBean(ErrorNotifier.class);
+      errorNotifier.notifyCopyError("c:/documents", "d:/documents", "spring.doc");
+    }
+  }
 }

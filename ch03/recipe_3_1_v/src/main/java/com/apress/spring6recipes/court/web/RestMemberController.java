@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestMemberController {
 
-	private final MemberService memberService;
+  private final MemberService memberService;
 
-	public RestMemberController(MemberService memberService) {
-		this.memberService = memberService;
-	}
+  public RestMemberController(MemberService memberService) {
+    this.memberService = memberService;
+  }
 
-	@GetMapping("/members")
-	public Members getRestMembers() {
-		var members = new Members();
-		members.addMembers(memberService.findAll());
-		return members;
-	}
+  @GetMapping("/members")
+  public Members getRestMembers() {
+    var members = new Members();
+    members.addMembers(memberService.findAll());
+    return members;
+  }
 
-	@GetMapping("/members/{memberid}")
-	public ResponseEntity<Member> getMember(@PathVariable("memberid") long memberID) {
-		return memberService.findById(memberID)
-						.map(ResponseEntity::ok)
-						.orElseGet(() -> ResponseEntity.notFound().build());
-	}
+  @GetMapping("/members/{memberid}")
+  public ResponseEntity<Member> getMember(@PathVariable("memberid") long memberID) {
+    return memberService.findById(memberID)
+      .map(ResponseEntity::ok)
+      .orElseGet(() -> ResponseEntity.notFound().build());
+  }
 }

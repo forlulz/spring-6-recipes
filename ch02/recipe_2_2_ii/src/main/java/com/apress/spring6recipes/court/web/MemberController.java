@@ -13,34 +13,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/member/*")
 public class MemberController {
 
-	private MemberService memberService;
+  private MemberService memberService;
 
-	public MemberController(MemberService memberService) {
-		this.memberService = memberService;
-	}
+  public MemberController(MemberService memberService) {
+    this.memberService = memberService;
+  }
 
-	@RequestMapping("/add")
-	public String addMember(Model model) {
-		model.addAttribute("member", new Member());
-		model.addAttribute("guests", memberService.list());
-		return "memberList";
-	}
+  @RequestMapping("/add")
+  public String addMember(Model model) {
+    model.addAttribute("member", new Member());
+    model.addAttribute("guests", memberService.list());
+    return "memberList";
+  }
 
-	@RequestMapping(path = { "/remove", "/delete" }, method = RequestMethod.GET)
-	public String removeMember(@RequestParam("memberName") String memberName) {
-		memberService.remove(memberName);
-		return "redirect:";
-	}
+  @RequestMapping(path = {"/remove", "/delete"}, method = RequestMethod.GET)
+  public String removeMember(@RequestParam("memberName") String memberName) {
+    memberService.remove(memberName);
+    return "redirect:";
+  }
 
-	@RequestMapping("/display/{member}")
-	public String displayMember(@PathVariable("member") String member, Model model) {
-		model.addAttribute("member", memberService.find(member).orElse(null));
-		return "member";
-	}
+  @RequestMapping("/display/{member}")
+  public String displayMember(@PathVariable("member") String member, Model model) {
+    model.addAttribute("member", memberService.find(member).orElse(null));
+    return "member";
+  }
 
-	@RequestMapping
-	public void memberList() {}
+  @RequestMapping
+  public void memberList() {
+  }
 
-	public void memberLogic(String memberName) {}
+  public void memberLogic(String memberName) {
+  }
 
 }

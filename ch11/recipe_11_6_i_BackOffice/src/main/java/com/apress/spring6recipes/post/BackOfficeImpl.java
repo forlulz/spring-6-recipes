@@ -11,37 +11,37 @@ import java.util.concurrent.TimeoutException;
 
 public class BackOfficeImpl implements BackOffice {
 
-	private static final String QUEUE_NAME = "mail.queue";
+  private static final String QUEUE_NAME = "mail.queue";
 
-	private MailListener mailListener = new MailListener();
+  private MailListener mailListener = new MailListener();
 
-	@Override
-	public Mail receiveMail() {
+  @Override
+  public Mail receiveMail() {
 
-		var connectionFactory = new ConnectionFactory();
-		connectionFactory.setHost("localhost");
-		connectionFactory.setUsername("guest");
-		connectionFactory.setPassword("guest");
-		connectionFactory.setPort(5672);
+    var connectionFactory = new ConnectionFactory();
+    connectionFactory.setHost("localhost");
+    connectionFactory.setUsername("guest");
+    connectionFactory.setPassword("guest");
+    connectionFactory.setPort(5672);
 
-		try (var connection = connectionFactory.newConnection();
-			var channel = connection.createChannel() ) {
-			channel.queueDeclare(QUEUE_NAME, true, false, false, null);
+    try (var connection = connectionFactory.newConnection();
+         var channel = connection.createChannel()) {
+      channel.queueDeclare(QUEUE_NAME, true, false, false, null);
 
-			var consumer = new DefaultConsumer(channel) {
-				@Override
-				public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
-								throws IOException {
-					var mail = new ObjectMapper().readValue(body, Mail.class);
-					mailListener.displayMail(mail);
-				}
-			};
-			channel.basicConsume(QUEUE_NAME, true, consumer);
+      var consumer = new DefaultConsumer(channel) {
+        @Override
+        public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
+          throws IOException {
+          var mail = new ObjectMapper().readValue(body, Mail.class);
+          mailListener.displayMail(mail);
+        }
+      };
+      channel.basicConsume(QUEUE_NAME, true, consumer);
 
-		} catch (IOException | TimeoutException e) {
-			throw new RuntimeException(e);
-		}
+    } catch (IOException | TimeoutException e) {
+      throw new RuntimeException(e);
+    }
 
-		return null;
-	}
+    return null;
+  }
 }

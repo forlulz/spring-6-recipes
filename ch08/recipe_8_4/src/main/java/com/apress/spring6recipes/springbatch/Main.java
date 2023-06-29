@@ -9,30 +9,30 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.util.Date;
 
 public class Main {
-	public static void main(String[] args) throws Throwable {
+  public static void main(String[] args) throws Throwable {
 
-		ApplicationContext context = new AnnotationConfigApplicationContext(BatchConfiguration.class);
+    ApplicationContext context = new AnnotationConfigApplicationContext(BatchConfiguration.class);
 
-		JobLauncher jobLauncher = context.getBean(JobLauncher.class);
-		Job job = context.getBean(Job.class);
+    JobLauncher jobLauncher = context.getBean(JobLauncher.class);
+    Job job = context.getBean(Job.class);
 
-		JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
-		jobParametersBuilder.addDate("date", new Date());
-		JobParameters jobParameters = jobParametersBuilder.toJobParameters();
+    JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
+    jobParametersBuilder.addDate("date", new Date());
+    JobParameters jobParameters = jobParametersBuilder.toJobParameters();
 
-		JobExecution jobExecution = jobLauncher.run(job, jobParameters);
+    JobExecution jobExecution = jobLauncher.run(job, jobParameters);
 
-		BatchStatus batchStatus = jobExecution.getStatus();
+    BatchStatus batchStatus = jobExecution.getStatus();
 
-		while (batchStatus.isRunning()) {
-			System.out.println("Still running...");
-			Thread.sleep(1000);
-		}
-		System.out.println("Exit status: " + jobExecution.getExitStatus().getExitCode());
+    while (batchStatus.isRunning()) {
+      System.out.println("Still running...");
+      Thread.sleep(1000);
+    }
+    System.out.println("Exit status: " + jobExecution.getExitStatus().getExitCode());
 
-		JobInstance jobInstance = jobExecution.getJobInstance();
-		System.out.println("job instance Id: " + jobInstance.getId());
+    JobInstance jobInstance = jobExecution.getJobInstance();
+    System.out.println("job instance Id: " + jobInstance.getId());
 
 
-	}
+  }
 }

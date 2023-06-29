@@ -11,18 +11,18 @@ import java.util.Map;
 @Service
 class InMemoryMemberService implements MemberService {
 
-	private Map<String, Member> members = new HashMap<>();
+  private Map<String, Member> members = new HashMap<>();
 
-	public void add(Member member) {
-		members.put(member.getName(), member);
-	}
+  public void add(Member member) {
+    members.put(member.getName(), member);
+  }
 
-	public void remove(String memberName) {
-		members.remove(memberName);
-	}
+  public void remove(String memberName) {
+    members.remove(memberName);
+  }
 
-	public List<Member> list() {
-		return new ArrayList<>(members.values());
-	}
+  public List<Member> list() {
+    return new ArrayList<>(members.values());
+  }
 
 }

@@ -9,18 +9,18 @@ import java.io.File;
 
 public class FileToJobLaunchRequestTransformer {
 
-    private final Job job;
-    private final String fileParameterName;
+  private final Job job;
+  private final String fileParameterName;
 
-    public FileToJobLaunchRequestTransformer(Job job, String fileParameterName) {
-        this.job=job;
-        this.fileParameterName=fileParameterName;
-    }
+  public FileToJobLaunchRequestTransformer(Job job, String fileParameterName) {
+    this.job = job;
+    this.fileParameterName = fileParameterName;
+  }
 
-    @Transformer
-    public JobLaunchRequest transform(File file) {
-        var builder = new JobParametersBuilder();
-        builder.addString(fileParameterName, file.getAbsolutePath());
-        return new JobLaunchRequest(job, builder.toJobParameters());
-    }
+  @Transformer
+  public JobLaunchRequest transform(File file) {
+    var builder = new JobParametersBuilder();
+    builder.addString(fileParameterName, file.getAbsolutePath());
+    return new JobLaunchRequest(job, builder.toJobParameters());
+  }
 }

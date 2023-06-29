@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MailConfiguration {
 
-	@Bean
-	public ErrorNotifier errorNotifier() {
-		return new EmailErrorNotifier();
-	}
+  @Bean
+  public ErrorNotifier errorNotifier() {
+    return new EmailErrorNotifier();
+  }
 }

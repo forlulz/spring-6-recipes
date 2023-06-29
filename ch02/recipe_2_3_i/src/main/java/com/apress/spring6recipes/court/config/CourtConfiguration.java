@@ -18,11 +18,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 public class CourtConfiguration {
 
-	@Bean
-	public InternalResourceViewResolver internalResourceViewResolver() {
-		var viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
+  @Bean
+  public InternalResourceViewResolver internalResourceViewResolver() {
+    var viewResolver = new InternalResourceViewResolver();
+    viewResolver.setPrefix("/WEB-INF/jsp/");
+    viewResolver.setSuffix(".jsp");
+    return viewResolver;
+  }
 }

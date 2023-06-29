@@ -13,41 +13,42 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpringExecutorsDemo {
 
-	@Autowired
-	private SimpleAsyncTaskExecutor asyncTaskExecutor;
+  @Autowired
+  private SimpleAsyncTaskExecutor asyncTaskExecutor;
 
-	@Autowired
-	private SyncTaskExecutor syncTaskExecutor;
+  @Autowired
+  private SyncTaskExecutor syncTaskExecutor;
 
-	@Autowired
-	private TaskExecutorAdapter taskExecutorAdapter;
+  @Autowired
+  private TaskExecutorAdapter taskExecutorAdapter;
 
-	@Autowired
-	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+  @Autowired
+  private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-	@Autowired
-	private DemonstrationRunnable task;
+  @Autowired
+  private DemonstrationRunnable task;
 
-	@Autowired
-	private ConcurrentTaskExecutor virtualThreadsTaskExecutor;
+  @Autowired
+  private ConcurrentTaskExecutor virtualThreadsTaskExecutor;
 
-	@PostConstruct
-	public void submitJobs() {
-		syncTaskExecutor.execute(task);
-		taskExecutorAdapter.submit(task);
-		asyncTaskExecutor.submit(task);
+  public static void main(String[] args) {
+    var cfg = ExecutorsConfiguration.class;
+    try (var ctx = new AnnotationConfigApplicationContext(cfg)) {
+    }
+  }
 
-		for (int i = 0 ; i < 500; i++) {
-			virtualThreadsTaskExecutor.submit(task);
-		}
+  @PostConstruct
+  public void submitJobs() {
+    syncTaskExecutor.execute(task);
+    taskExecutorAdapter.submit(task);
+    asyncTaskExecutor.submit(task);
 
-		for (int i = 0; i < 500; i++) {
-			threadPoolTaskExecutor.submit(task);
-		}
-	}
+    for (int i = 0; i < 500; i++) {
+      virtualThreadsTaskExecutor.submit(task);
+    }
 
-	public static void main(String[] args) {
-		var cfg = ExecutorsConfiguration.class;
-		try (var ctx = new AnnotationConfigApplicationContext(cfg)) {}
-	}
+    for (int i = 0; i < 500; i++) {
+      threadPoolTaskExecutor.submit(task);
+    }
+  }
 }

@@ -11,19 +11,19 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.apress.spring6recipes.shop")
 public class ShopConfiguration {
 
-	@Bean
-	public Product aaa() {
-		return new Battery("AAA", 2.5, true);
-	}
+  @Bean
+  public Product aaa() {
+    return new Battery("AAA", 2.5, true);
+  }
 
-	@Bean
-	public Product cdrw() {
-		return new Disc("CD-RW", 1.5, 700);
-	}
+  @Bean
+  public Product cdrw() {
+    return new Disc("CD-RW", 1.5, 700);
+  }
 
-	@Bean
-	public Product dvdrw() {
-		return new Disc("DVD-RW", 3.0, 4900);
-	}
+  @Bean
+  public Product dvdrw() {
+    return new Disc("DVD-RW", 3.0, 4900);
+  }
 
 }

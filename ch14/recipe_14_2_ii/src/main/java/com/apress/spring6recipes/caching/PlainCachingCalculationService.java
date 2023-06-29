@@ -9,28 +9,27 @@ import java.math.BigDecimal;
  */
 public class PlainCachingCalculationService implements CalculationService {
 
-	private final Cache cache;
+  private final Cache cache;
 
-	public PlainCachingCalculationService(Cache cache) {
-		this.cache = cache;
-	}
+  public PlainCachingCalculationService(Cache cache) {
+    this.cache = cache;
+  }
 
-	@Override
-	public BigDecimal heavyCalculation(BigDecimal base, int power) {
-		String key = base + "^" + power;
-		BigDecimal result = cache.get(key, BigDecimal.class);
-		if (result != null) {
-			return result;
-		}
-		try {
-			Thread.sleep(500);
-		}
-		catch (InterruptedException e) {
-		}
+  @Override
+  public BigDecimal heavyCalculation(BigDecimal base, int power) {
+    String key = base + "^" + power;
+    BigDecimal result = cache.get(key, BigDecimal.class);
+    if (result != null) {
+      return result;
+    }
+    try {
+      Thread.sleep(500);
+    } catch (InterruptedException e) {
+    }
 
-		BigDecimal calculatedResult = base.pow(power);
-		cache.put(key, calculatedResult);
-		return calculatedResult;
-	}
+    BigDecimal calculatedResult = base.pow(power);
+    cache.put(key, calculatedResult);
+    return calculatedResult;
+  }
 
 }

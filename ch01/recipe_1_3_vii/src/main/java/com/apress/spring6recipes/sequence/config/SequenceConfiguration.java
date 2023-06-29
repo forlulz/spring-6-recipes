@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Import;
 @Import(PrefixConfiguration.class)
 public class SequenceConfiguration {
 
-	@Bean
-	public Sequence sequence(PrefixGenerator prefixGenerator) {
-		return new Sequence(prefixGenerator, "A", 100000);
-	}
+  @Bean
+  public Sequence sequence(PrefixGenerator prefixGenerator) {
+    return new Sequence(prefixGenerator, "A", 100000);
+  }
 }

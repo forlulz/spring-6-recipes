@@ -15,24 +15,24 @@ import java.nio.file.Path;
 @Configuration
 public class FileReplicatorConfig {
 
-	@Value("#{systemProperties['user.home']}/docs")
-	private String srcDir;
-	@Value("#{systemProperties['user.home']}/docs_backup")
-	private String destDir;
+  @Value("#{systemProperties['user.home']}/docs")
+  private String srcDir;
+  @Value("#{systemProperties['user.home']}/docs_backup")
+  private String destDir;
 
-	@Bean
-	public FileCopier fileCopier() {
-		return new NioFileCopier();
-	}
+  @Bean
+  public FileCopier fileCopier() {
+    return new NioFileCopier();
+  }
 
-	@Bean
-	public SimpleFileReplicator documentReplicator(FileCopier fileCopier) {
-		return new SimpleFileReplicator(fileCopier, srcDir, destDir);
-	}
+  @Bean
+  public SimpleFileReplicator documentReplicator(FileCopier fileCopier) {
+    return new SimpleFileReplicator(fileCopier, srcDir, destDir);
+  }
 
-	@PostConstruct
-	public void verifyDirectoriesExist() throws IOException {
-		Files.createDirectories(Path.of(srcDir));
-		Files.createDirectories(Path.of(destDir));
-	}
+  @PostConstruct
+  public void verifyDirectoriesExist() throws IOException {
+    Files.createDirectories(Path.of(srcDir));
+    Files.createDirectories(Path.of(destDir));
+  }
 }

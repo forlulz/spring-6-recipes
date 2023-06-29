@@ -9,11 +9,11 @@ import java.io.File;
 
 public class InboundFileMessageServiceActivator {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @ServiceActivator
-    public void interrogateMessage(Message<File> message) {
-        var headers = message.getHeaders();
-				headers.forEach( (k,v) -> logger.debug("{} : {}", k, v));
-    }
+  @ServiceActivator
+  public void interrogateMessage(Message<File> message) {
+    var headers = message.getHeaders();
+    headers.forEach((k, v) -> logger.debug("{} : {}", k, v));
+  }
 }

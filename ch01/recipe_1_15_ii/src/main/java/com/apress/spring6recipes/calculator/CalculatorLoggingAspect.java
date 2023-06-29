@@ -15,11 +15,11 @@ import java.util.Arrays;
 @Order(1)
 public class CalculatorLoggingAspect {
 
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
+  private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Before("execution(* *.*(..))")
-	public void logBefore(JoinPoint joinPoint) {
-		log.info("The method {}() begins with {}", joinPoint.getSignature().getName(),
-				Arrays.toString(joinPoint.getArgs()));
-	}
+  @Before("execution(* *.*(..))")
+  public void logBefore(JoinPoint joinPoint) {
+    log.info("The method {}() begins with {}", joinPoint.getSignature().getName(),
+      Arrays.toString(joinPoint.getArgs()));
+  }
 }

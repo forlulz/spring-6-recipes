@@ -14,28 +14,28 @@ import java.util.Map;
 @ComponentScan("com.apress.spring6recipes.shop")
 public class ShopConfiguration {
 
-	@Bean
-	public ProductCreator productCreatorFactory() {
+  @Bean
+  public ProductCreator productCreatorFactory() {
 
-		var products = Map.of(
-			"aaa", new Battery("AAA", 2.5, true),
-			"cdrw", new Disc("CD-RW", 1.5, 700),
-			"dvdrw", new Disc("DVD-RW", 3.0, 4700));
-		return new ProductCreator(products);
-	}
+    var products = Map.of(
+      "aaa", new Battery("AAA", 2.5, true),
+      "cdrw", new Disc("CD-RW", 1.5, 700),
+      "dvdrw", new Disc("DVD-RW", 3.0, 4700));
+    return new ProductCreator(products);
+  }
 
-	@Bean
-	public Product aaa(ProductCreator productCreator) {
-		return productCreator.createProduct("aaa");
-	}
+  @Bean
+  public Product aaa(ProductCreator productCreator) {
+    return productCreator.createProduct("aaa");
+  }
 
-	@Bean
-	public Product cdrw(ProductCreator productCreator) {
-		return productCreator.createProduct("cdrw");
-	}
+  @Bean
+  public Product cdrw(ProductCreator productCreator) {
+    return productCreator.createProduct("cdrw");
+  }
 
-	@Bean
-	public Product dvdrw(ProductCreator productCreator) {
-		return productCreator.createProduct("dvdrw");
-	}
+  @Bean
+  public Product dvdrw(ProductCreator productCreator) {
+    return productCreator.createProduct("dvdrw");
+  }
 }

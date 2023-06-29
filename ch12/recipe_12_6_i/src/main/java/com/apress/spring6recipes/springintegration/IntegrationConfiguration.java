@@ -13,30 +13,30 @@ import org.springframework.jms.connection.CachingConnectionFactory;
 @EnableIntegration
 public class IntegrationConfiguration {
 
-	@Bean
-	public CachingConnectionFactory connectionFactory() {
-		var connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
-		return new CachingConnectionFactory(connectionFactory);
-	}
+  @Bean
+  public CachingConnectionFactory connectionFactory() {
+    var connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    return new CachingConnectionFactory(connectionFactory);
+  }
 
-	@Bean
-	public InboundJMSMessageToCustomerTransformer customerTransformer() {
-		return new InboundJMSMessageToCustomerTransformer();
-	}
+  @Bean
+  public InboundJMSMessageToCustomerTransformer customerTransformer() {
+    return new InboundJMSMessageToCustomerTransformer();
+  }
 
-	@Bean
-	public InboundCustomerServiceActivator customerServiceActivator() {
-		return new InboundCustomerServiceActivator();
-	}
+  @Bean
+  public InboundCustomerServiceActivator customerServiceActivator() {
+    return new InboundCustomerServiceActivator();
+  }
 
-	@Bean
-	public IntegrationFlow jmsInbound(ConnectionFactory connectionFactory) {
-		return IntegrationFlow
-						.from(Jms.messageDrivenChannelAdapter(connectionFactory)
-										.extractPayload(true).destination("recipe-12-6")
-										.errorChannel("errorChannel"))
-						.transform(customerTransformer())
-						.handle(customerServiceActivator())
-						.get();
-	}
+  @Bean
+  public IntegrationFlow jmsInbound(ConnectionFactory connectionFactory) {
+    return IntegrationFlow
+      .from(Jms.messageDrivenChannelAdapter(connectionFactory)
+        .extractPayload(true).destination("recipe-12-6")
+        .errorChannel("errorChannel"))
+      .transform(customerTransformer())
+      .handle(customerServiceActivator())
+      .get();
+  }
 }

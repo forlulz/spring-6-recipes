@@ -6,13 +6,13 @@ import java.nio.file.Path;
 
 public class NioFileCopier implements FileCopier {
 
-	@Override
-	public void copyFile(Path srcFile, Path destDir) {
-		var destFile = destDir.resolve(srcFile.getFileName());
-		try {
-			Files.copy(srcFile, destFile);
-		} catch (IOException ex) {
-			throw new IllegalStateException("Cannot copy file.", ex);
-		}
-	}
+  @Override
+  public void copyFile(Path srcFile, Path destDir) {
+    var destFile = destDir.resolve(srcFile.getFileName());
+    try {
+      Files.copy(srcFile, destFile);
+    } catch (IOException ex) {
+      throw new IllegalStateException("Cannot copy file.", ex);
+    }
+  }
 }

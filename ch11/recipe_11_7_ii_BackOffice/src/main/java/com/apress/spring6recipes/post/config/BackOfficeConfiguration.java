@@ -20,31 +20,31 @@ import java.util.Map;
 @EnableKafka
 public class BackOfficeConfiguration {
 
-	@Bean
-	public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<Integer, String>> kafkaListenerContainerFactory(
-					ConsumerFactory<Integer, String> cf) {
-		var factory = new ConcurrentKafkaListenerContainerFactory<Integer, String>();
-		factory.setConsumerFactory(cf);
-		factory.setMessageConverter(new StringJsonMessageConverter());
-		return factory;
-	}
+  @Bean
+  public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<Integer, String>> kafkaListenerContainerFactory(
+    ConsumerFactory<Integer, String> cf) {
+    var factory = new ConcurrentKafkaListenerContainerFactory<Integer, String>();
+    factory.setConsumerFactory(cf);
+    factory.setMessageConverter(new StringJsonMessageConverter());
+    return factory;
+  }
 
-	@Bean
-	public ConsumerFactory<Integer, String> consumerFactory() {
-		return new DefaultKafkaConsumerFactory<>(consumerConfiguration());
-	}
+  @Bean
+  public ConsumerFactory<Integer, String> consumerFactory() {
+    return new DefaultKafkaConsumerFactory<>(consumerConfiguration());
+  }
 
-	@Bean
-	public Map<String, Object> consumerConfiguration() {
-		return Map.<String, Object>of(
-						ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
-						ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class,
-						ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-						ConsumerConfig.GROUP_ID_CONFIG, "group1");
-	}
+  @Bean
+  public Map<String, Object> consumerConfiguration() {
+    return Map.<String, Object>of(
+      ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
+      ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class,
+      ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
+      ConsumerConfig.GROUP_ID_CONFIG, "group1");
+  }
 
-	@Bean
-	public MailListener mailListener() {
-		return new MailListener();
-	}
+  @Bean
+  public MailListener mailListener() {
+    return new MailListener();
+  }
 }

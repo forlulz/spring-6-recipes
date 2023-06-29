@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface VehicleRepository extends ReactiveMongoRepository<Vehicle, String> {
 
-	Mono<Vehicle> findByVehicleNo(String vehicleNo);
+  Mono<Vehicle> findByVehicleNo(String vehicleNo);
 
 }

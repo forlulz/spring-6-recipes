@@ -6,50 +6,50 @@ import java.util.List;
 
 public class Character {
 
-	private final String name;
-	private final List<Character> friends = new ArrayList<>();
+  private final String name;
+  private final List<Character> friends = new ArrayList<>();
 
-	private String id;
-	private Planet location;
-	private Character apprentice;
+  private String id;
+  private Planet location;
+  private Character apprentice;
 
-	public Character(String name) {
-		this.name=name;
-	}
+  public Character(String name) {
+    this.name = name;
+  }
 
-	public String getId() {
-		return id;
-	}
+  public String getId() {
+    return id;
+  }
 
-	void setId(String id) {
-		this.id=id;
-	}
+  void setId(String id) {
+    this.id = id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public Planet getLocation() {
-		return location;
-	}
+  public Planet getLocation() {
+    return location;
+  }
 
-	public void setLocation(Planet location) {
-		this.location = location;
-	}
+  public void setLocation(Planet location) {
+    this.location = location;
+  }
 
-	public Character getApprentice() {
-		return apprentice;
-	}
+  public Character getApprentice() {
+    return apprentice;
+  }
 
-	public void setApprentice(Character apprentice) {
-		this.apprentice = apprentice;
-	}
+  public void setApprentice(Character apprentice) {
+    this.apprentice = apprentice;
+  }
 
-	public List<Character> getFriends() {
-		return Collections.unmodifiableList(friends);
-	}
+  public List<Character> getFriends() {
+    return Collections.unmodifiableList(friends);
+  }
 
-	public void addFriend(Character friend) {
-		friends.add(friend);
-	}
+  public void addFriend(Character friend) {
+    friends.add(friend);
+  }
 }

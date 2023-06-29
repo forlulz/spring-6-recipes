@@ -5,14 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 public class DatePrefixGenerator implements PrefixGenerator {
 
-	private DateTimeFormatter formatter;
+  private DateTimeFormatter formatter;
 
-	public void setPattern(String pattern) {
-		this.formatter = DateTimeFormatter.ofPattern(pattern);
-	}
+  public void setPattern(String pattern) {
+    this.formatter = DateTimeFormatter.ofPattern(pattern);
+  }
 
-	public String getPrefix() {
-		return formatter.format(LocalDateTime.now());
-	}
+  public String getPrefix() {
+    return formatter.format(LocalDateTime.now());
+  }
 
 }

@@ -11,13 +11,13 @@ import java.time.format.DateTimeFormatter;
  */
 class DatePrefixGenerator implements PrefixGenerator {
 
-	private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-	public DatePrefixGenerator(String pattern) {
-		this.formatter = DateTimeFormatter.ofPattern(pattern);
-	}
+  public DatePrefixGenerator(String pattern) {
+    this.formatter = DateTimeFormatter.ofPattern(pattern);
+  }
 
-	public String getPrefix() {
-		return formatter.format(LocalDateTime.now());
-	}
+  public String getPrefix() {
+    return formatter.format(LocalDateTime.now());
+  }
 }

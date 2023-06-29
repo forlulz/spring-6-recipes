@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 @Component
 public class DemonstrationRunnable implements Runnable {
 
-	public void run() {
-		Utils.sleep(50);
-		System.out.printf("%s : Hello at %s%n", Thread.currentThread().getName(), LocalDateTime.now());
-	}
+  public void run() {
+    Utils.sleep(50);
+    System.out.printf("%s : Hello at %s%n", Thread.currentThread().getName(), LocalDateTime.now());
+  }
 
 }

@@ -1,4 +1,4 @@
-description='Spring Recipes :: Chapter 7 :: Spring Transaction Management'
+description = 'Spring Recipes :: Chapter 7 :: Spring Transaction Management'
 
 subprojects { subproject ->
     // Define dependencies
@@ -54,4 +54,3 @@ project('recipe_7_10_i') {
         implementation group: 'org.aspectj', name: 'aspectjweaver'
     }
 }
-

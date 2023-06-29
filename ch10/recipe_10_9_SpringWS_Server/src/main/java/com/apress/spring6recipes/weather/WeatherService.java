@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface WeatherService {
 
-	List<TemperatureInfo> getTemperatures(String city, List<LocalDate> dates);
+  List<TemperatureInfo> getTemperatures(String city, List<LocalDate> dates);
 }

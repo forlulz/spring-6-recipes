@@ -6,11 +6,11 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 
 public class InboundCustomerServiceActivator {
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@ServiceActivator
-	public void doSomethingWithCustomer(Message<Customer> customerMessage) {
-		var customer = customerMessage.getPayload();
-		logger.debug("Received: {}", customer);
-	}
+  @ServiceActivator
+  public void doSomethingWithCustomer(Message<Customer> customerMessage) {
+    var customer = customerMessage.getPayload();
+    logger.debug("Received: {}", customer);
+  }
 }

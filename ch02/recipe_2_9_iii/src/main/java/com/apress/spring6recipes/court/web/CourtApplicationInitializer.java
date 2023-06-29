@@ -5,19 +5,19 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class CourtApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return null;
-	}
+  @Override
+  protected Class<?>[] getRootConfigClasses() {
+    return null;
+  }
 
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { CourtConfiguration.class };
-	}
+  @Override
+  protected Class<?>[] getServletConfigClasses() {
+    return new Class<?>[]{CourtConfiguration.class};
+  }
 
-	@Override
-	protected String[] getServletMappings() {
-		return new String[] { "/", "/welcome" };
-	}
+  @Override
+  protected String[] getServletMappings() {
+    return new String[]{"/", "/welcome"};
+  }
 
 }

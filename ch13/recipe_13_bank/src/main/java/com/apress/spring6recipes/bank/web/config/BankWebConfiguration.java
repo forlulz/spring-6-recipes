@@ -12,11 +12,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = "com.apress.spring6recipes.bank.web")
 public class BankWebConfiguration {
 
-	@Bean
-	public ViewResolver viewResolver() {
-		var viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/WEB-INF/views/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
+  @Bean
+  public ViewResolver viewResolver() {
+    var viewResolver = new InternalResourceViewResolver();
+    viewResolver.setPrefix("/WEB-INF/views/");
+    viewResolver.setSuffix(".jsp");
+    return viewResolver;
+  }
 }

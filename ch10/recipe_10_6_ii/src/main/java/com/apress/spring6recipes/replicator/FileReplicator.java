@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface FileReplicator {
 
-	void replicate() throws IOException;
+  void replicate() throws IOException;
 }

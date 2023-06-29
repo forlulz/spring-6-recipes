@@ -18,43 +18,43 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class TodoSecurityConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("login");
-		registry.addViewController("/logout-success").setViewName("logout-success");
-	}
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/login").setViewName("login");
+    registry.addViewController("/logout-success").setViewName("logout-success");
+  }
 
-	@Bean
-	public DefaultSpringSecurityContextSource contextSource() {
-		var url = "ldap://ldap-server:389/dc=spring6recipes,dc=com";
-		return new DefaultSpringSecurityContextSource(url);
-	}
+  @Bean
+  public DefaultSpringSecurityContextSource contextSource() {
+    var url = "ldap://ldap-server:389/dc=spring6recipes,dc=com";
+    return new DefaultSpringSecurityContextSource(url);
+  }
 
-	@Bean
-	public AuthenticationManager authenticationManager(
-					DefaultSpringSecurityContextSource contextSource) {
-		var populator = new DefaultLdapAuthoritiesPopulator(contextSource, "ou=groups");
-		populator.setRolePrefix("");
+  @Bean
+  public AuthenticationManager authenticationManager(
+    DefaultSpringSecurityContextSource contextSource) {
+    var populator = new DefaultLdapAuthoritiesPopulator(contextSource, "ou=groups");
+    populator.setRolePrefix("");
 
-		var factory = new LdapBindAuthenticationManagerFactory(contextSource);
-		factory.setUserDnPatterns("uid={0},ou=people");
-		factory.setLdapAuthoritiesPopulator(populator);
-		return factory.createAuthenticationManager();
-	}
+    var factory = new LdapBindAuthenticationManagerFactory(contextSource);
+    factory.setUserDnPatterns("uid={0},ou=people");
+    factory.setLdapAuthoritiesPopulator(populator);
+    return factory.createAuthenticationManager();
+  }
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.httpBasic().disable();
-		http.formLogin()
-						.loginPage("/login").permitAll()
-						.defaultSuccessUrl("/todos")
-						.failureUrl("/login?error=true");
-		http.logout().logoutSuccessUrl("/logout-success").permitAll();
-		http.authorizeHttpRequests(auth ->
-						auth
-										.requestMatchers(HttpMethod.DELETE, "/todos/*").hasAuthority("ADMIN")
-										.requestMatchers("/todos", "/todos/*").hasAuthority("USER"));
-		return http.build();
-	}
+    http.httpBasic().disable();
+    http.formLogin()
+      .loginPage("/login").permitAll()
+      .defaultSuccessUrl("/todos")
+      .failureUrl("/login?error=true");
+    http.logout().logoutSuccessUrl("/logout-success").permitAll();
+    http.authorizeHttpRequests(auth ->
+      auth
+        .requestMatchers(HttpMethod.DELETE, "/todos/*").hasAuthority("ADMIN")
+        .requestMatchers("/todos", "/todos/*").hasAuthority("USER"));
+    return http.build();
+  }
 }

@@ -9,16 +9,15 @@ import org.springframework.integration.dsl.IntegrationFlow;
 @EnableIntegration
 public class AdditionConfiguration {
 
-    @Bean
-    public AdditionService additionService() {
-        return new AdditionService();
-    }
+  @Bean
+  public AdditionService additionService() {
+    return new AdditionService();
+  }
 
-    @Bean
-    public IntegrationFlow additionFlow() {
-        return IntegrationFlow.from("request")
-                .handle(additionService(), "add")
-                .channel("response").get();
-    }
+  @Bean
+  public IntegrationFlow additionFlow() {
+    return IntegrationFlow.from("request")
+      .handle(additionService(), "add")
+      .channel("response").get();
+  }
 }
-

@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @RequestMapping("/welcome")
 public class WelcomeController {
 
-	@GetMapping
-	public String welcome(Model model) {
-		model.addAttribute("today", Mono.just(LocalDate.now()));
-		return "welcome";
-	}
+  @GetMapping
+  public String welcome(Model model) {
+    model.addAttribute("today", Mono.just(LocalDate.now()));
+    return "welcome";
+  }
 
 }

@@ -13,22 +13,22 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 @EnableJms
 public class BackOfficeConfiguration {
 
-	@Bean
-	public ConnectionFactory connectionFactory() {
-		return new ActiveMQConnectionFactory("tcp://localhost:61616");
-	}
+  @Bean
+  public ConnectionFactory connectionFactory() {
+    return new ActiveMQConnectionFactory("tcp://localhost:61616");
+  }
 
-	@Bean
-	public MailListener mailListener() {
-		return new MailListener();
-	}
+  @Bean
+  public MailListener mailListener() {
+    return new MailListener();
+  }
 
-	@Bean
-	public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory cf) {
-		var listenerContainerFactory = new DefaultJmsListenerContainerFactory();
-		listenerContainerFactory.setConnectionFactory(cf);
-		listenerContainerFactory.setMessageConverter(new MailMessageConverter());
-		listenerContainerFactory.setSessionTransacted(true);
-		return listenerContainerFactory;
-	}
+  @Bean
+  public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(ConnectionFactory cf) {
+    var listenerContainerFactory = new DefaultJmsListenerContainerFactory();
+    listenerContainerFactory.setConnectionFactory(cf);
+    listenerContainerFactory.setMessageConverter(new MailMessageConverter());
+    listenerContainerFactory.setSessionTransacted(true);
+    return listenerContainerFactory;
+  }
 }

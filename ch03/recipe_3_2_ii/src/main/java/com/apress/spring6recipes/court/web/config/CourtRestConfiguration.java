@@ -21,28 +21,28 @@ import static jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 @ComponentScan(basePackages = "com.apress.spring6recipes.court")
 public class CourtRestConfiguration {
 
-	@Bean
-	public MappingJackson2JsonView jsonmembertemplate() {
-		var view = new MappingJackson2JsonView();
-		view.setPrettyPrint(true);
-		return view;
-	}
+  @Bean
+  public MappingJackson2JsonView jsonmembertemplate() {
+    var view = new MappingJackson2JsonView();
+    view.setPrettyPrint(true);
+    return view;
+  }
 
-	@Bean
-	public MarshallingView xmlmembertemplate() {
-		return new MarshallingView(jaxb2Marshaller());
-	}
+  @Bean
+  public MarshallingView xmlmembertemplate() {
+    return new MarshallingView(jaxb2Marshaller());
+  }
 
-	@Bean
-	public Marshaller jaxb2Marshaller() {
-		var marshaller = new Jaxb2Marshaller();
-		marshaller.setClassesToBeBound(Members.class, Member.class);
-		marshaller.setMarshallerProperties(Map.of(JAXB_FORMATTED_OUTPUT, Boolean.TRUE));
-		return marshaller;
-	}
+  @Bean
+  public Marshaller jaxb2Marshaller() {
+    var marshaller = new Jaxb2Marshaller();
+    marshaller.setClassesToBeBound(Members.class, Member.class);
+    marshaller.setMarshallerProperties(Map.of(JAXB_FORMATTED_OUTPUT, Boolean.TRUE));
+    return marshaller;
+  }
 
-	@Bean
-	public BeanNameViewResolver viewResolver() {
-		return new BeanNameViewResolver();
-	}
+  @Bean
+  public BeanNameViewResolver viewResolver() {
+    return new BeanNameViewResolver();
+  }
 }

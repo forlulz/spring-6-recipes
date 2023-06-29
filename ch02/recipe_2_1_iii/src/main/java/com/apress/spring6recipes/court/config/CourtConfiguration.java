@@ -12,12 +12,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("com.apress.spring6recipes.court.web")
 public class CourtConfiguration {
 
-	@Bean
-	public ViewResolver internalResourceViewResolver() {
-		var viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
+  @Bean
+  public ViewResolver internalResourceViewResolver() {
+    var viewResolver = new InternalResourceViewResolver();
+    viewResolver.setPrefix("/WEB-INF/jsp/");
+    viewResolver.setSuffix(".jsp");
+    return viewResolver;
+  }
 
 }

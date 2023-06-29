@@ -9,13 +9,13 @@ import java.util.List;
 @Component
 public class ShoppingCart {
 
-	private final List<Product> items = new ArrayList<>();
+  private final List<Product> items = new ArrayList<>();
 
-	public void addItem(Product item) {
-		this.items.add(item);
-	}
+  public void addItem(Product item) {
+    this.items.add(item);
+  }
 
-	public List<Product> getItems() {
-		return Collections.unmodifiableList(this.items);
-	}
+  public List<Product> getItems() {
+    return Collections.unmodifiableList(this.items);
+  }
 }

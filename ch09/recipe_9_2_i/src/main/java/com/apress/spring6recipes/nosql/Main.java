@@ -6,10 +6,10 @@ import static redis.clients.jedis.Protocol.DEFAULT_PORT;
 
 public class Main {
 
-	public static void main(String[] args) {
-		try (var jedis = new Jedis("localhost", DEFAULT_PORT)) {
-			jedis.set("msg", "Hello World, from Redis!");
-			System.out.println(jedis.get("msg"));
-		}
-	}
+  public static void main(String[] args) {
+    try (var jedis = new Jedis("localhost", DEFAULT_PORT)) {
+      jedis.set("msg", "Hello World, from Redis!");
+      System.out.println(jedis.get("msg"));
+    }
+  }
 }

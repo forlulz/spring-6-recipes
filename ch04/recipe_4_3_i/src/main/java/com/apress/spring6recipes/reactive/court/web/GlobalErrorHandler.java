@@ -10,17 +10,18 @@ import reactor.core.publisher.Flux;
 @ControllerAdvice
 public class GlobalErrorHandler {
 
-	@ExceptionHandler(WebExchangeBindException.class)
-	@ResponseBody
-	public Flux<ErrorMessage> handleValidationErrors(WebExchangeBindException ex) {
-		return Flux.fromIterable(ex.getFieldErrors())
-						.map(this::toErrorMessage);
-	}
+  @ExceptionHandler(WebExchangeBindException.class)
+  @ResponseBody
+  public Flux<ErrorMessage> handleValidationErrors(WebExchangeBindException ex) {
+    return Flux.fromIterable(ex.getFieldErrors())
+      .map(this::toErrorMessage);
+  }
 
-	private ErrorMessage toErrorMessage(FieldError fe) {
-		return new ErrorMessage(fe.getField(), fe.getDefaultMessage());
-	}
+  private ErrorMessage toErrorMessage(FieldError fe) {
+    return new ErrorMessage(fe.getField(), fe.getDefaultMessage());
+  }
 
-	record ErrorMessage(String field, String message) { }
+  record ErrorMessage(String field, String message) {
+  }
 
 }

@@ -10,38 +10,38 @@ import java.util.Optional;
 @Transactional
 class TodoServiceImpl implements TodoService {
 
-	private final TodoRepository todoRepository;
+  private final TodoRepository todoRepository;
 
-	TodoServiceImpl(TodoRepository todoRepository) {
-		this.todoRepository = todoRepository;
-	}
+  TodoServiceImpl(TodoRepository todoRepository) {
+    this.todoRepository = todoRepository;
+  }
 
-	@Override
-	public List<Todo> listTodos() {
-		return todoRepository.findAll();
-	}
+  @Override
+  public List<Todo> listTodos() {
+    return todoRepository.findAll();
+  }
 
-	@Override
-	public void save(Todo todo) {
-		this.todoRepository.save(todo);
-	}
+  @Override
+  public void save(Todo todo) {
+    this.todoRepository.save(todo);
+  }
 
-	@Override
-	public void complete(long id) {
-		findById(id)
-						.ifPresent((todo) -> {
-							todo.setCompleted(true);
-							todoRepository.save(todo);
-						});
-	}
+  @Override
+  public void complete(long id) {
+    findById(id)
+      .ifPresent((todo) -> {
+        todo.setCompleted(true);
+        todoRepository.save(todo);
+      });
+  }
 
-	@Override
-	public void remove(long id) {
-		todoRepository.remove(id);
-	}
+  @Override
+  public void remove(long id) {
+    todoRepository.remove(id);
+  }
 
-	@Override
-	public Optional<Todo> findById(long id) {
-		return todoRepository.findOne(id);
-	}
+  @Override
+  public Optional<Todo> findById(long id) {
+    return todoRepository.findOne(id);
+  }
 }

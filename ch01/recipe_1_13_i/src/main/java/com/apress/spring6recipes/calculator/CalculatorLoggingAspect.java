@@ -13,12 +13,12 @@ import java.util.Arrays;
 @Component
 public class CalculatorLoggingAspect {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+  private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Before("execution(* *.*(..))")
-	public void logBefore(JoinPoint joinPoint) {
-		var name = joinPoint.getSignature().getName();
-		var args = Arrays.toString(joinPoint.getArgs());
-		log.info("The method {}() begins with {} ", name , args);
-	}
+  @Before("execution(* *.*(..))")
+  public void logBefore(JoinPoint joinPoint) {
+    var name = joinPoint.getSignature().getName();
+    var args = Arrays.toString(joinPoint.getArgs());
+    log.info("The method {}() begins with {} ", name, args);
+  }
 }

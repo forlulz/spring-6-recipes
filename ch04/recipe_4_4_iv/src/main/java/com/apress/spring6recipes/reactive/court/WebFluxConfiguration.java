@@ -19,42 +19,42 @@ import org.thymeleaf.templatemode.TemplateMode;
 @ComponentScan
 public class WebFluxConfiguration implements WebFluxConfigurer {
 
-	private final SportTypeConverter sportTypeConverter;
+  private final SportTypeConverter sportTypeConverter;
 
-	public WebFluxConfiguration(SportTypeConverter sportTypeConverter) {
-		this.sportTypeConverter = sportTypeConverter;
-	}
+  public WebFluxConfiguration(SportTypeConverter sportTypeConverter) {
+    this.sportTypeConverter = sportTypeConverter;
+  }
 
-	@Bean
-	public SpringResourceTemplateResolver thymeleafTemplateResolver() {
-		var resolver = new SpringResourceTemplateResolver();
-		resolver.setPrefix("classpath:/templates/");
-		resolver.setSuffix(".html");
-		resolver.setTemplateMode(TemplateMode.HTML);
-		return resolver;
-	}
+  @Bean
+  public SpringResourceTemplateResolver thymeleafTemplateResolver() {
+    var resolver = new SpringResourceTemplateResolver();
+    resolver.setPrefix("classpath:/templates/");
+    resolver.setSuffix(".html");
+    resolver.setTemplateMode(TemplateMode.HTML);
+    return resolver;
+  }
 
-	@Bean
-	public ISpringWebFluxTemplateEngine thymeleafTemplateEngine() {
-		var templateEngine = new SpringWebFluxTemplateEngine();
-		templateEngine.setTemplateResolver(thymeleafTemplateResolver());
-		return templateEngine;
-	}
+  @Bean
+  public ISpringWebFluxTemplateEngine thymeleafTemplateEngine() {
+    var templateEngine = new SpringWebFluxTemplateEngine();
+    templateEngine.setTemplateResolver(thymeleafTemplateResolver());
+    return templateEngine;
+  }
 
-	@Bean
-	public ThymeleafReactiveViewResolver thymeleafReactiveViewResolver() {
-		var viewResolver = new ThymeleafReactiveViewResolver();
-		viewResolver.setTemplateEngine(thymeleafTemplateEngine());
-		return viewResolver;
-	}
+  @Bean
+  public ThymeleafReactiveViewResolver thymeleafReactiveViewResolver() {
+    var viewResolver = new ThymeleafReactiveViewResolver();
+    viewResolver.setTemplateEngine(thymeleafTemplateEngine());
+    return viewResolver;
+  }
 
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.viewResolver(thymeleafReactiveViewResolver());
-	}
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+    registry.viewResolver(thymeleafReactiveViewResolver());
+  }
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(this.sportTypeConverter);
-	}
+  @Override
+  public void addFormatters(FormatterRegistry registry) {
+    registry.addConverter(this.sportTypeConverter);
+  }
 }

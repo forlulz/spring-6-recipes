@@ -23,36 +23,36 @@ import java.time.Duration;
 @EnableTransactionManagement
 public class CustomerConfiguration {
 
-	@Bean
-	public CacheManager cacheManager() {
-		var caffeine = Caffeine.newBuilder()
-						.maximumSize(1000)
-						.expireAfterWrite(Duration.ofMinutes(5));
-		var cacheManager = new CaffeineCacheManager();
-		cacheManager.setCaffeine(caffeine);
-		return new TransactionAwareCacheManagerProxy(cacheManager);
-	}
+  @Bean
+  public CacheManager cacheManager() {
+    var caffeine = Caffeine.newBuilder()
+      .maximumSize(1000)
+      .expireAfterWrite(Duration.ofMinutes(5));
+    var cacheManager = new CaffeineCacheManager();
+    cacheManager.setCaffeine(caffeine);
+    return new TransactionAwareCacheManagerProxy(cacheManager);
+  }
 
-	@Bean
-	public CustomerRepository customerRepository(JdbcTemplate jdbc) {
-		return new JdbcCustomerRepository(jdbc);
-	}
+  @Bean
+  public CustomerRepository customerRepository(JdbcTemplate jdbc) {
+    return new JdbcCustomerRepository(jdbc);
+  }
 
-	@Bean
-	public DataSourceTransactionManager transactionManager(DataSource dataSource) {
-		return new DataSourceTransactionManager(dataSource);
-	}
+  @Bean
+  public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
+  }
 
-	@Bean
-	public DataSource dataSource() {
-		return new EmbeddedDatabaseBuilder()
-						.setType(EmbeddedDatabaseType.H2)
-						.setName("customers")
-						.addScript("classpath:/schema.sql").build();
-	}
+  @Bean
+  public DataSource dataSource() {
+    return new EmbeddedDatabaseBuilder()
+      .setType(EmbeddedDatabaseType.H2)
+      .setName("customers")
+      .addScript("classpath:/schema.sql").build();
+  }
 
-	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource ds) {
-		return new JdbcTemplate(ds);
-	}
+  @Bean
+  public JdbcTemplate jdbcTemplate(DataSource ds) {
+    return new JdbcTemplate(ds);
+  }
 }

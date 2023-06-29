@@ -16,28 +16,28 @@ import java.time.Duration;
 @EnableScheduling
 public class SchedulingConfiguration implements SchedulingConfigurer {
 
-	private final FileReplicator fileReplicator;
+  private final FileReplicator fileReplicator;
 
-	public SchedulingConfiguration(FileReplicator fileReplicator) {
-		this.fileReplicator = fileReplicator;
-	}
+  public SchedulingConfiguration(FileReplicator fileReplicator) {
+    this.fileReplicator = fileReplicator;
+  }
 
-	@Override
-	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		taskRegistrar.addFixedDelayTask(() -> {
-			try {
-				fileReplicator.replicate();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}, Duration.ofSeconds(60));
-	}
+  @Override
+  public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+    taskRegistrar.addFixedDelayTask(() -> {
+      try {
+        fileReplicator.replicate();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }, Duration.ofSeconds(60));
+  }
 
-	@Bean
-	public TaskScheduler taskScheduler() {
-		var taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setThreadNamePrefix("s6r-scheduler-");
-		taskScheduler.setPoolSize(10);
-		return taskScheduler;
-	}
+  @Bean
+  public TaskScheduler taskScheduler() {
+    var taskScheduler = new ThreadPoolTaskScheduler();
+    taskScheduler.setThreadNamePrefix("s6r-scheduler-");
+    taskScheduler.setPoolSize(10);
+    return taskScheduler;
+  }
 }

@@ -23,60 +23,60 @@ import javax.sql.DataSource;
 @Configuration
 public class UserJob {
 
-	private static final String INSERT_REGISTRATION_QUERY = """						
-					insert into USER_REGISTRATION (FIRST_NAME, LAST_NAME, COMPANY, ADDRESS,CITY,STATE,ZIP,COUNTY,URL,PHONE_NUMBER,FAX)
-					 values
-					(:firstName,:lastName,:company,:address,:city,:state,:zip,:county,:url,:phoneNumber,:fax)""";
+  private static final String INSERT_REGISTRATION_QUERY = """						
+    insert into USER_REGISTRATION (FIRST_NAME, LAST_NAME, COMPANY, ADDRESS,CITY,STATE,ZIP,COUNTY,URL,PHONE_NUMBER,FAX)
+     values
+    (:firstName,:lastName,:company,:address,:city,:state,:zip,:county,:url,:phoneNumber,:fax)""";
 
-	private final JobBuilderFactory jobs;
-	private final StepBuilderFactory steps;
-	private final Resource input;
+  private final JobBuilderFactory jobs;
+  private final StepBuilderFactory steps;
+  private final Resource input;
 
-	public UserJob(JobBuilderFactory jobs, StepBuilderFactory steps,
-								 @Value("file:${user.home}/batches/registrations.csv") Resource input) {
-		this.jobs = jobs;
-		this.steps = steps;
-		this.input = input;
-	}
+  public UserJob(JobBuilderFactory jobs, StepBuilderFactory steps,
+                 @Value("file:${user.home}/batches/registrations.csv") Resource input) {
+    this.jobs = jobs;
+    this.steps = steps;
+    this.input = input;
+  }
 
-	@Bean
-	public Job insertIntoDbFromCsvJob(Step step1) {
-		return jobs.get("User Registration Import Job")
-						.start(step1)
-						.build();
-	}
+  @Bean
+  public Job insertIntoDbFromCsvJob(Step step1) {
+    return jobs.get("User Registration Import Job")
+      .start(step1)
+      .build();
+  }
 
-	@Bean
-	public Step step1(ItemReader<UserRegistration> itemReader, ItemWriter<UserRegistration> itemWriter) {
-		return steps.get("User Registration CSV To DB Step")
-						.<UserRegistration, UserRegistration>chunk(5)
-						.faultTolerant()
+  @Bean
+  public Step step1(ItemReader<UserRegistration> itemReader, ItemWriter<UserRegistration> itemWriter) {
+    return steps.get("User Registration CSV To DB Step")
+      .<UserRegistration, UserRegistration>chunk(5)
+      .faultTolerant()
 //                        .noRollback(com.yourdomain.exceptions.YourBusinessException.class)
 //                .retry()
-						.reader(itemReader)
-						.writer(itemWriter)
-						.transactionManager(new DataSourceTransactionManager())
-						.build();
-	}
+      .reader(itemReader)
+      .writer(itemWriter)
+      .transactionManager(new DataSourceTransactionManager())
+      .build();
+  }
 
-	@Bean
-	public FlatFileItemReader<UserRegistration> csvFileReader() {
+  @Bean
+  public FlatFileItemReader<UserRegistration> csvFileReader() {
 
-		return new FlatFileItemReaderBuilder<UserRegistration>()
-						.name(ClassUtils.getShortName(FlatFileItemReader.class))
-						.resource(input)
-						.targetType(UserRegistration.class)
-						.delimited()
-						.names(new String[]{"firstName", "lastName", "company", "address", "city", "state", "zip", "county", "url", "phoneNumber", "fax"})
-						.build();
-	}
+    return new FlatFileItemReaderBuilder<UserRegistration>()
+      .name(ClassUtils.getShortName(FlatFileItemReader.class))
+      .resource(input)
+      .targetType(UserRegistration.class)
+      .delimited()
+      .names(new String[]{"firstName", "lastName", "company", "address", "city", "state", "zip", "county", "url", "phoneNumber", "fax"})
+      .build();
+  }
 
-	@Bean
-	public JdbcBatchItemWriter<UserRegistration> jdbcItemWriter(DataSource dataSource) {
-		return new JdbcBatchItemWriterBuilder<UserRegistration>()
-						.dataSource(dataSource)
-						.sql(INSERT_REGISTRATION_QUERY)
-						.beanMapped()
-						.build();
-	}
+  @Bean
+  public JdbcBatchItemWriter<UserRegistration> jdbcItemWriter(DataSource dataSource) {
+    return new JdbcBatchItemWriterBuilder<UserRegistration>()
+      .dataSource(dataSource)
+      .sql(INSERT_REGISTRATION_QUERY)
+      .beanMapped()
+      .build();
+  }
 }

@@ -11,15 +11,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @ComponentScan
 public class CalculatorConfiguration {
 
-	@Bean
-	public ComplexCachingAspect complexCachingAspect() {
+  @Bean
+  public ComplexCachingAspect complexCachingAspect() {
 
-		var cache = new ConcurrentHashMap<String, Complex>();
-		cache.put("2,3", new Complex(2, 3));
-		cache.put("3,5", new Complex(3, 5));
+    var cache = new ConcurrentHashMap<String, Complex>();
+    cache.put("2,3", new Complex(2, 3));
+    cache.put("3,5", new Complex(3, 5));
 
-		var complexCachingAspect = Aspects.aspectOf(ComplexCachingAspect.class);
-		complexCachingAspect.setCache(cache);
-		return complexCachingAspect;
-	}
+    var complexCachingAspect = Aspects.aspectOf(ComplexCachingAspect.class);
+    complexCachingAspect.setCache(cache);
+    return complexCachingAspect;
+  }
 }

@@ -13,9 +13,9 @@ import org.springframework.context.weaving.AspectJWeavingEnabler;
 @ComponentScan
 public class CalculatorConfiguration {
 
-	@Bean
-	public static AspectJWeavingEnabler aspectJWeavingEnabler() {
-		return new AspectJWeavingEnabler();
-	}
+  @Bean
+  public static AspectJWeavingEnabler aspectJWeavingEnabler() {
+    return new AspectJWeavingEnabler();
+  }
 
 }

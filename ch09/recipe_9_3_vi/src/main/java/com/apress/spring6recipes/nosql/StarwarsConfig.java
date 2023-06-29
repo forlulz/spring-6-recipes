@@ -22,33 +22,33 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableNeo4jRepositories
 public class StarwarsConfig {
 
-	@Bean
-	public Driver driver(@Value("${neo4j.url}") String url) {
-		return GraphDatabase.driver(url);
-	}
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer pspc() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
-	@Bean
-	public Neo4jClient neo4jClient(Driver driver) {
-		return Neo4jClient.create(driver);
-	}
+  @Bean
+  public Driver driver(@Value("${neo4j.url}") String url) {
+    return GraphDatabase.driver(url);
+  }
 
-	@Bean
-	public Neo4jTemplate neo4jTemplate(Neo4jClient neo4jClient) {
-		return new Neo4jTemplate(neo4jClient);
-	}
+  @Bean
+  public Neo4jClient neo4jClient(Driver driver) {
+    return Neo4jClient.create(driver);
+  }
 
-	@Bean
-	public Neo4jTransactionManager transactionManager(Driver driver) {
-		return Neo4jTransactionManager.with(driver).build();
-	}
+  @Bean
+  public Neo4jTemplate neo4jTemplate(Neo4jClient neo4jClient) {
+    return new Neo4jTemplate(neo4jClient);
+  }
 
-	@Bean
-	public Neo4jMappingContext neo4jMappingContext() {
-		return new Neo4jMappingContext();
-	}
+  @Bean
+  public Neo4jTransactionManager transactionManager(Driver driver) {
+    return Neo4jTransactionManager.with(driver).build();
+  }
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer pspc() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+  @Bean
+  public Neo4jMappingContext neo4jMappingContext() {
+    return new Neo4jMappingContext();
+  }
 }

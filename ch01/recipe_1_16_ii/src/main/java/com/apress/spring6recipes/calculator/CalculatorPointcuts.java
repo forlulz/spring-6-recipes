@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class CalculatorPointcuts {
 
-	@Pointcut("execution(* *.*(..))")
-	public void loggingOperation() {}
+  @Pointcut("execution(* *.*(..))")
+  public void loggingOperation() {
+  }
 }

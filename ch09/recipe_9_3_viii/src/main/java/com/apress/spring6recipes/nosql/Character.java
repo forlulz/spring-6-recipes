@@ -14,60 +14,60 @@ import java.util.List;
 @Node
 public class Character {
 
-	private final String name;
-	@Relationship(type="FRIENDS_WITH")
-	private @AccessType(AccessType.Type.FIELD) List<Character> friends = new ArrayList<>();
+  private final String name;
+  @Relationship(type = "FRIENDS_WITH")
+  private @AccessType(AccessType.Type.FIELD) List<Character> friends = new ArrayList<>();
 
-	@Id
-	@GeneratedValue(UUIDStringGenerator.class)
-	private String id;
-	@Relationship(type = "LOCATION")
-	private Planet location;
-	@Relationship(type = "MASTER_OF")
-	private Character apprentice;
+  @Id
+  @GeneratedValue(UUIDStringGenerator.class)
+  private String id;
+  @Relationship(type = "LOCATION")
+  private Planet location;
+  @Relationship(type = "MASTER_OF")
+  private Character apprentice;
 
-	public Character(String name) {
-		this.name=name;
-	}
+  public Character(String name) {
+    this.name = name;
+  }
 
-	public String getId() {
-		return id;
-	}
+  public String getId() {
+    return id;
+  }
 
-	void setId(String id) {
-		this.id=id;
-	}
+  void setId(String id) {
+    this.id = id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public Planet getLocation() {
-		return location;
-	}
+  public Planet getLocation() {
+    return location;
+  }
 
-	public void setLocation(Planet location) {
-		this.location = location;
-	}
+  public void setLocation(Planet location) {
+    this.location = location;
+  }
 
-	public Character getApprentice() {
-		return apprentice;
-	}
+  public Character getApprentice() {
+    return apprentice;
+  }
 
-	public void setApprentice(Character apprentice) {
-		this.apprentice = apprentice;
-	}
+  public void setApprentice(Character apprentice) {
+    this.apprentice = apprentice;
+  }
 
-	public List<Character> getFriends() {
-		return Collections.unmodifiableList(friends);
-	}
+  public List<Character> getFriends() {
+    return Collections.unmodifiableList(friends);
+  }
 
-	public void addFriend(Character friend) {
-		friends.add(friend);
-	}
+  public void addFriend(Character friend) {
+    friends.add(friend);
+  }
 
-	@Override
-	public String toString() {
-		return String.format("Character[name=%s, planet=%s]", this.name, this.location != null ? this.location.getName() : "");
-	}
+  @Override
+  public String toString() {
+    return String.format("Character[name=%s, planet=%s]", this.name, this.location != null ? this.location.getName() : "");
+  }
 }

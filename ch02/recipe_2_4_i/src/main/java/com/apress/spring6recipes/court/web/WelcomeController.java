@@ -14,20 +14,20 @@ import java.util.Date;
 @RequestMapping("/welcome")
 public class WelcomeController {
 
-	// Controller will always look for a default GET method to call first, irrespective of
-	// name
-	// In this case, named welcome to ease identification
-	@RequestMapping(method = RequestMethod.GET)
-	// Method contains Model input to setup date object
-	// NOTE: Model is a Java 5 interface -- newer than the older ModelMap and still older
-	// ModelAndView
-	public String welcome(Model model) {
-		Date today = new Date();
-		// Add date to model so it can be display in view
-		model.addAttribute("today", today);
-		// Return view welcome. Via resolver the view
-		// will be mapped to /WEB-INF/jsp/welcome.jsp
-		return "welcome";
-	}
+  // Controller will always look for a default GET method to call first, irrespective of
+  // name
+  // In this case, named welcome to ease identification
+  @RequestMapping(method = RequestMethod.GET)
+  // Method contains Model input to setup date object
+  // NOTE: Model is a Java 5 interface -- newer than the older ModelMap and still older
+  // ModelAndView
+  public String welcome(Model model) {
+    Date today = new Date();
+    // Add date to model so it can be display in view
+    model.addAttribute("today", today);
+    // Return view welcome. Via resolver the view
+    // will be mapped to /WEB-INF/jsp/welcome.jsp
+    return "welcome";
+  }
 
 }

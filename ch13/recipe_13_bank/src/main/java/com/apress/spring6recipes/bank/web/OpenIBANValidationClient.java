@@ -5,15 +5,15 @@ import org.springframework.web.client.support.RestGatewaySupport;
 
 @Service
 class OpenIBANValidationClient extends RestGatewaySupport
-				implements IBANValidationClient {
+  implements IBANValidationClient {
 
-	private static final String URL_TEMPLATE =
-		"https://openiban.com/validate/{IBAN_NUMBER}?getBIC=true&validateBankCode=true";
+  private static final String URL_TEMPLATE =
+    "https://openiban.com/validate/{IBAN_NUMBER}?getBIC=true&validateBankCode=true";
 
-	@Override
-	public IBANValidationResult validate(String iban) {
+  @Override
+  public IBANValidationResult validate(String iban) {
 
-		return getRestTemplate()
-						.getForObject(URL_TEMPLATE, IBANValidationResult.class, iban);
-	}
+    return getRestTemplate()
+      .getForObject(URL_TEMPLATE, IBANValidationResult.class, iban);
+  }
 }

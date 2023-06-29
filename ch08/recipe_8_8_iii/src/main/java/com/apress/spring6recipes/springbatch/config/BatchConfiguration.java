@@ -21,36 +21,36 @@ import javax.sql.DataSource;
 @PropertySource("classpath:/batch.properties")
 public class BatchConfiguration {
 
-	@Bean
-	public DataSource dataSource(Environment env) {
-		var dataSource = new DriverManagerDataSource();
-		dataSource.setUrl(env.getRequiredProperty("dataSource.url"));
-		dataSource.setUsername(env.getProperty("dataSource.username"));
-		dataSource.setPassword(env.getProperty("dataSource.password"));
-		return dataSource;
-	}
+  @Bean
+  public DataSource dataSource(Environment env) {
+    var dataSource = new DriverManagerDataSource();
+    dataSource.setUrl(env.getRequiredProperty("dataSource.url"));
+    dataSource.setUsername(env.getProperty("dataSource.username"));
+    dataSource.setPassword(env.getProperty("dataSource.password"));
+    return dataSource;
+  }
 
-	@Bean
-	public DataSourceTransactionManager transactionManager(DataSource ds) {
-		return new DataSourceTransactionManager(ds);
-	}
+  @Bean
+  public DataSourceTransactionManager transactionManager(DataSource ds) {
+    return new DataSourceTransactionManager(ds);
+  }
 
-	@Bean
-	public DataSourceInitializer databasePopulator(DataSource dataSource) {
-		var populator = new ResourceDatabasePopulator();
-		populator.addScript(new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
-		populator.addScript(new ClassPathResource("sql/reset_user_registration.sql"));
-		populator.setContinueOnError(true);
-		populator.setIgnoreFailedDrops(true);
+  @Bean
+  public DataSourceInitializer databasePopulator(DataSource dataSource) {
+    var populator = new ResourceDatabasePopulator();
+    populator.addScript(new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
+    populator.addScript(new ClassPathResource("sql/reset_user_registration.sql"));
+    populator.setContinueOnError(true);
+    populator.setIgnoreFailedDrops(true);
 
-		var initializer = new DataSourceInitializer();
-		initializer.setDatabasePopulator(populator);
-		initializer.setDataSource(dataSource);
-		return initializer;
-	}
+    var initializer = new DataSourceInitializer();
+    initializer.setDatabasePopulator(populator);
+    initializer.setDataSource(dataSource);
+    return initializer;
+  }
 
-	@Bean
-	public SimpleAsyncTaskExecutor customTaskExecutor() {
-		return new SimpleAsyncTaskExecutor();
-	}
+  @Bean
+  public SimpleAsyncTaskExecutor customTaskExecutor() {
+    return new SimpleAsyncTaskExecutor();
+  }
 }

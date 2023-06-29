@@ -6,29 +6,29 @@ import org.springframework.kafka.core.KafkaOperations;
 
 public class FrontDeskImpl implements FrontDesk {
 
-	private final KafkaOperations<Integer, String> kafkaOperations;
+  private final KafkaOperations<Integer, String> kafkaOperations;
 
-	public FrontDeskImpl(KafkaOperations<Integer, String> kafkaOperations) {
-		this.kafkaOperations = kafkaOperations;
-	}
+  public FrontDeskImpl(KafkaOperations<Integer, String> kafkaOperations) {
+    this.kafkaOperations = kafkaOperations;
+  }
 
-	public void sendMail(final Mail mail) {
+  public void sendMail(final Mail mail) {
 
-		var result = kafkaOperations.send("mails", convertToJson(mail));
-		result.whenComplete((sendResult, ex) -> {
-			if (ex == null) {
-				System.out.println("Result (success): " + sendResult.getRecordMetadata());
-			} else {
-				ex.printStackTrace();
-			}
-		});
-	}
+    var result = kafkaOperations.send("mails", convertToJson(mail));
+    result.whenComplete((sendResult, ex) -> {
+      if (ex == null) {
+        System.out.println("Result (success): " + sendResult.getRecordMetadata());
+      } else {
+        ex.printStackTrace();
+      }
+    });
+  }
 
-	private String convertToJson(Mail mail) {
-		try {
-			return new ObjectMapper().writeValueAsString(mail);
-		} catch (JsonProcessingException ex) {
-			throw new IllegalArgumentException(ex);
-		}
-	}
+  private String convertToJson(Mail mail) {
+    try {
+      return new ObjectMapper().writeValueAsString(mail);
+    } catch (JsonProcessingException ex) {
+      throw new IllegalArgumentException(ex);
+    }
+  }
 }

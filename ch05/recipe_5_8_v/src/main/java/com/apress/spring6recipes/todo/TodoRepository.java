@@ -5,10 +5,14 @@ import reactor.core.publisher.Mono;
 
 public interface TodoRepository {
 
-	Flux<Todo> findAll();
-	Mono<Todo> findOne(long id);
-	Mono<Void> remove(long id);
-	Mono<Todo> save(Todo todo);
-	Flux<Todo> findByOwner(String author);
+  Flux<Todo> findAll();
+
+  Mono<Todo> findOne(long id);
+
+  Mono<Void> remove(long id);
+
+  Mono<Todo> save(Todo todo);
+
+  Flux<Todo> findByOwner(String author);
 
 }

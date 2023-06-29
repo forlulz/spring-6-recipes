@@ -1,6 +1,6 @@
 description = 'Spring 6 Recipes :: Chapter 4 :: Spring Webflux'
 
-configure(subprojects.findAll { !it.name.contains('shared')}) {
+configure(subprojects.findAll { !it.name.contains('shared') }) {
 
     apply plugin: 'java'
     apply plugin: 'com.github.johnrengelman.shadow'

@@ -14,18 +14,18 @@ import org.springframework.xml.xsd.XsdSchema;
 @ComponentScan("com.apress.spring6recipes.weather")
 public class SpringWsConfiguration {
 
-	@Bean
-	public DefaultWsdl11Definition temperature() {
-		var temperature = new DefaultWsdl11Definition();
-		temperature.setPortTypeName("Weather");
-		temperature.setLocationUri("/");
-		temperature.setSchema(temperatureSchema());
-		return temperature;
-	}
+  @Bean
+  public DefaultWsdl11Definition temperature() {
+    var temperature = new DefaultWsdl11Definition();
+    temperature.setPortTypeName("Weather");
+    temperature.setLocationUri("/");
+    temperature.setSchema(temperatureSchema());
+    return temperature;
+  }
 
-	@Bean
-	public XsdSchema temperatureSchema() {
-		var xsd = new ClassPathResource("/META-INF/xsd/temperature.xsd");
-		return new SimpleXsdSchema(xsd);
-	}
+  @Bean
+  public XsdSchema temperatureSchema() {
+    var xsd = new ClassPathResource("/META-INF/xsd/temperature.xsd");
+    return new SimpleXsdSchema(xsd);
+  }
 }

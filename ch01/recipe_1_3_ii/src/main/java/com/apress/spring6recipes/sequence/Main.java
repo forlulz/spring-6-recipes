@@ -4,13 +4,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Main {
 
-	public static void main(String[] args) {
-		try (var context =
-							new AnnotationConfigApplicationContext("com.apress.spring6recipes.sequence")) {
+  public static void main(String[] args) {
+    try (var context =
+           new AnnotationConfigApplicationContext("com.apress.spring6recipes.sequence")) {
 
-			var sequenceService = context.getBean(SequenceService.class);
-			System.out.println(sequenceService.generate("IT"));
-			System.out.println(sequenceService.generate("IT"));
-		}
-	}
+      var sequenceService = context.getBean(SequenceService.class);
+      System.out.println(sequenceService.generate("IT"));
+      System.out.println(sequenceService.generate("IT"));
+    }
+  }
 }

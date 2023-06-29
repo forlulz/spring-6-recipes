@@ -11,13 +11,13 @@ import java.io.File;
 
 public class InboundFileMessageServiceActivator {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @ServiceActivator
-    public void interrogateMessage(
-            @Header(MessageHeaders.ID) String uuid,
-            @Header(FileHeaders.FILENAME) String fileName, File file) {
-			var msg = "the id of the message is {}, and name of the file payload is {}";
-      logger.debug(msg, uuid, fileName);
-    }
+  @ServiceActivator
+  public void interrogateMessage(
+    @Header(MessageHeaders.ID) String uuid,
+    @Header(FileHeaders.FILENAME) String fileName, File file) {
+    var msg = "the id of the message is {}, and name of the file payload is {}";
+    logger.debug(msg, uuid, fileName);
+  }
 }

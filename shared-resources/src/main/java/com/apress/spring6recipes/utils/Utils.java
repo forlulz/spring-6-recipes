@@ -27,36 +27,36 @@ import java.util.concurrent.TimeUnit;
  */
 public final class Utils {
 
-	private Utils() {
-	}
+  private Utils() {
+  }
 
-	/**
-	 * Let the current thread wait for @{code millis}.
-	 * @param millis time to sleep in milliseconds.
-	 */
-	public static void sleep(long millis) {
-		sleep(Duration.ofMillis(millis));
-	}
+  /**
+   * Let the current thread wait for @{code millis}.
+   *
+   * @param millis time to sleep in milliseconds.
+   */
+  public static void sleep(long millis) {
+    sleep(Duration.ofMillis(millis));
+  }
 
-	public static void sleep(Duration duration) {
-		try {
-			Thread.sleep(duration);
-		}
-		catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
-		}
-	}
+  public static void sleep(Duration duration) {
+    try {
+      Thread.sleep(duration);
+    } catch (InterruptedException ex) {
+      Thread.currentThread().interrupt();
+    }
+  }
 
-	public static void sleep(long duration, TimeUnit unit) {
-		sleep(Duration.of(duration, unit.toChronoUnit()));
-	}
+  public static void sleep(long duration, TimeUnit unit) {
+    sleep(Duration.of(duration, unit.toChronoUnit()));
+  }
 
-	public static void quitOnEnterKey() {
-		System.out.println("Press [ENTER] to stop.");
-		try {
-			System.in.read();
-		} catch (IOException ex) {
-			throw new IllegalStateException(ex);
-		}
-	}
+  public static void quitOnEnterKey() {
+    System.out.println("Press [ENTER] to stop.");
+    try {
+      System.in.read();
+    } catch (IOException ex) {
+      throw new IllegalStateException(ex);
+    }
+  }
 }

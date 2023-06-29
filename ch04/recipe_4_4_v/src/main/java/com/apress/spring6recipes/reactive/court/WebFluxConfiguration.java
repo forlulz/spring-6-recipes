@@ -17,37 +17,36 @@ import org.thymeleaf.templatemode.TemplateMode;
 @ComponentScan
 public class WebFluxConfiguration implements WebFluxConfigurer {
 
-	@Bean
-	public SpringResourceTemplateResolver thymeleafTemplateResolver() {
+  @Bean
+  public SpringResourceTemplateResolver thymeleafTemplateResolver() {
 
-		var resolver = new SpringResourceTemplateResolver();
-		resolver.setPrefix("classpath:/templates/");
-		resolver.setSuffix(".html");
-		resolver.setTemplateMode(TemplateMode.HTML);
-		return resolver;
-	}
+    var resolver = new SpringResourceTemplateResolver();
+    resolver.setPrefix("classpath:/templates/");
+    resolver.setSuffix(".html");
+    resolver.setTemplateMode(TemplateMode.HTML);
+    return resolver;
+  }
 
-	@Bean
-	public ISpringWebFluxTemplateEngine thymeleafTemplateEngine() {
+  @Bean
+  public ISpringWebFluxTemplateEngine thymeleafTemplateEngine() {
 
-		var templateEngine = new SpringWebFluxTemplateEngine();
-		templateEngine.setTemplateResolver(thymeleafTemplateResolver());
-		return templateEngine;
-	}
+    var templateEngine = new SpringWebFluxTemplateEngine();
+    templateEngine.setTemplateResolver(thymeleafTemplateResolver());
+    return templateEngine;
+  }
 
-	@Bean
-	public ThymeleafReactiveViewResolver thymeleafReactiveViewResolver() {
+  @Bean
+  public ThymeleafReactiveViewResolver thymeleafReactiveViewResolver() {
 
-		var viewResolver = new ThymeleafReactiveViewResolver();
-		viewResolver.setTemplateEngine(thymeleafTemplateEngine());
-		return viewResolver;
-	}
+    var viewResolver = new ThymeleafReactiveViewResolver();
+    viewResolver.setTemplateEngine(thymeleafTemplateEngine());
+    return viewResolver;
+  }
 
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.viewResolver(thymeleafReactiveViewResolver());
-	}
-
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+    registry.viewResolver(thymeleafReactiveViewResolver());
+  }
 
 
 }

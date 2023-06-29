@@ -13,25 +13,25 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 public class BackOfficeConfiguration {
 
-	@Bean
-	public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory cf) {
-		var containerFactory = new SimpleRabbitListenerContainerFactory();
-		containerFactory.setConnectionFactory(cf);
-		containerFactory.setMessageConverter(new Jackson2JsonMessageConverter());
-		return containerFactory;
-	}
+  @Bean
+  public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory cf) {
+    var containerFactory = new SimpleRabbitListenerContainerFactory();
+    containerFactory.setConnectionFactory(cf);
+    containerFactory.setMessageConverter(new Jackson2JsonMessageConverter());
+    return containerFactory;
+  }
 
-	@Bean
-	public ConnectionFactory connectionFactory() {
-		var connectionFactory = new CachingConnectionFactory("127.0.0.1");
-		connectionFactory.setUsername("guest");
-		connectionFactory.setPassword("guest");
-		connectionFactory.setPort(5672);
-		return connectionFactory;
-	}
+  @Bean
+  public ConnectionFactory connectionFactory() {
+    var connectionFactory = new CachingConnectionFactory("127.0.0.1");
+    connectionFactory.setUsername("guest");
+    connectionFactory.setPassword("guest");
+    connectionFactory.setPort(5672);
+    return connectionFactory;
+  }
 
-	@Bean
-	public MailListener mailListener() {
-		return new MailListener();
-	}
+  @Bean
+  public MailListener mailListener() {
+    return new MailListener();
+  }
 }

@@ -13,18 +13,18 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 @EnableCaching
 public class CustomerConfiguration {
 
-	@Bean
-	public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
-		return RedisCacheManager.create(connectionFactory);
-	}
+  @Bean
+  public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+    return RedisCacheManager.create(connectionFactory);
+  }
 
-	@Bean
-	public RedisConnectionFactory redisConnectionFactory() {
-		return new JedisConnectionFactory();
-	}
+  @Bean
+  public RedisConnectionFactory redisConnectionFactory() {
+    return new JedisConnectionFactory();
+  }
 
-	@Bean
-	public CustomerRepository customerRepository() {
-		return new MapBasedCustomerRepository();
-	}
+  @Bean
+  public CustomerRepository customerRepository() {
+    return new MapBasedCustomerRepository();
+  }
 }

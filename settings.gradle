@@ -2,20 +2,20 @@ import static groovy.io.FileType.DIRECTORIES
 import static groovy.io.FileVisitResult.SKIP_SUBTREE
 
 pluginManagement {
-	repositories {
-		mavenCentral()
-		gradlePluginPortal()
-		maven {
-			url 'https://repo.spring.io/release'
-		}
-	}
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            url 'https://repo.spring.io/release'
+        }
+    }
 }
 
 plugins {
-	id "com.gradle.enterprise" version "3.10.2"
+    id "com.gradle.enterprise" version "3.10.2"
 }
 
-rootProject.name="Spring 6 Recipes - Sources"
+rootProject.name = "Spring 6 Recipes - Sources"
 
 include 'spring-6-recipes-dependencies'
 include 'shared-resources'
@@ -43,7 +43,7 @@ def getProjectName(String dir) {
     return projName
 }
 
-file("${rootDir}").traverse( type: DIRECTORIES, preDir: preDir) { dir ->
+file("${rootDir}").traverse(type: DIRECTORIES, preDir: preDir) { dir ->
 
     def dstr = dir.toString()
 

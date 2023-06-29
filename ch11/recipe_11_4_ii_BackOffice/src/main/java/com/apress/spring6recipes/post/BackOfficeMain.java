@@ -5,10 +5,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class BackOfficeMain {
 
-	public static void main(String[] args) throws Exception {
-		var cfg = BackOfficeConfiguration.class;
-		try (var ctx = new AnnotationConfigApplicationContext(cfg)) {
-			System.in.read();
-		}
-	}
+  public static void main(String[] args) throws Exception {
+    var cfg = BackOfficeConfiguration.class;
+    try (var ctx = new AnnotationConfigApplicationContext(cfg)) {
+      System.in.read();
+    }
+  }
 }

@@ -12,23 +12,23 @@ import org.springframework.jms.core.JmsTemplate;
 @Configuration
 public class FrontOfficeConfiguration {
 
-	@Bean
-	public ConnectionFactory connectionFactory() {
-		return new ActiveMQConnectionFactory("tcp://localhost:61616");
-	}
+  @Bean
+  public ConnectionFactory connectionFactory() {
+    return new ActiveMQConnectionFactory("tcp://localhost:61616");
+  }
 
-	@Bean
-	public Queue mailDestination() {
-		return new ActiveMQQueue("mail.queue");
-	}
+  @Bean
+  public Queue mailDestination() {
+    return new ActiveMQQueue("mail.queue");
+  }
 
-	@Bean
-	public JmsTemplate jmsTemplate(ConnectionFactory cf) {
-		return new JmsTemplate(cf);
-	}
+  @Bean
+  public JmsTemplate jmsTemplate(ConnectionFactory cf) {
+    return new JmsTemplate(cf);
+  }
 
-	@Bean
-	public FrontDeskImpl frontDesk(JmsTemplate jms, Queue destination) {
-		return new FrontDeskImpl(jms, destination);
-	}
+  @Bean
+  public FrontDeskImpl frontDesk(JmsTemplate jms, Queue destination) {
+    return new FrontDeskImpl(jms, destination);
+  }
 }

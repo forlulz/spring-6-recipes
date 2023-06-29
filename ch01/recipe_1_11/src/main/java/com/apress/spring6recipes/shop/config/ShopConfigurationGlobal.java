@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.apress.spring6recipes.shop")
 public class ShopConfigurationGlobal {
 
-	@Bean(initMethod = "openFile", destroyMethod = "closeFile")
-	public Cashier cashier() {
-		var path = System.getProperty("java.io.tmpdir") + "/cashier";
-		return new Cashier("checkout", path);
-	}
+  @Bean(initMethod = "openFile", destroyMethod = "closeFile")
+  public Cashier cashier() {
+    var path = System.getProperty("java.io.tmpdir") + "/cashier";
+    return new Cashier("checkout", path);
+  }
 }

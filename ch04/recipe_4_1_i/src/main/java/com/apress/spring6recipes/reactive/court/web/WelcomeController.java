@@ -10,8 +10,8 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/welcome")
 public class WelcomeController {
 
-	@GetMapping
-	public Mono<String> welcome(@RequestParam(defaultValue = "World") String name) {
-		return Mono.just("Hello " + name+" from Spring WebFlux!");
-	}
+  @GetMapping
+  public Mono<String> welcome(@RequestParam(defaultValue = "World") String name) {
+    return Mono.just("Hello " + name + " from Spring WebFlux!");
+  }
 }

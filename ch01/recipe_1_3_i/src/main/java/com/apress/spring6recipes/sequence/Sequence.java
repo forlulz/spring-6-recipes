@@ -4,21 +4,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Sequence {
 
-	private final AtomicInteger counter = new AtomicInteger();
-	private final String suffix;
+  private final AtomicInteger counter = new AtomicInteger();
+  private final String suffix;
 
-	private PrefixGenerator prefixGenerator = () -> "";
+  private PrefixGenerator prefixGenerator = () -> "";
 
-	public Sequence(String suffix, int initial) {
-		this.suffix = suffix;
-		this.counter.set(initial);
-	}
+  public Sequence(String suffix, int initial) {
+    this.suffix = suffix;
+    this.counter.set(initial);
+  }
 
-	public void setPrefixGenerator(PrefixGenerator prefixGenerator) {
-		this.prefixGenerator = prefixGenerator;
-	}
+  public void setPrefixGenerator(PrefixGenerator prefixGenerator) {
+    this.prefixGenerator = prefixGenerator;
+  }
 
-	public String getSequence() {
-		return prefixGenerator.getPrefix() + counter.getAndIncrement() + suffix;
-	}
+  public String getSequence() {
+    return prefixGenerator.getPrefix() + counter.getAndIncrement() + suffix;
+  }
 }

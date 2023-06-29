@@ -18,25 +18,25 @@ import java.time.Duration;
 @EnableCaching
 public class CalculationConfiguration implements CachingConfigurer {
 
-	@Bean
-	@Override
-	public CacheManager cacheManager() {
-		var caffeine = Caffeine.newBuilder()
-						.maximumSize(1000)
-						.expireAfterWrite(Duration.ofMinutes(5));
-		var cacheManager = new CaffeineCacheManager();
-		cacheManager.setCaffeine(caffeine);
-		return cacheManager;
-	}
+  @Bean
+  @Override
+  public CacheManager cacheManager() {
+    var caffeine = Caffeine.newBuilder()
+      .maximumSize(1000)
+      .expireAfterWrite(Duration.ofMinutes(5));
+    var cacheManager = new CaffeineCacheManager();
+    cacheManager.setCaffeine(caffeine);
+    return cacheManager;
+  }
 
-	@Bean
-	@Override
-	public KeyGenerator keyGenerator() {
-		return new CustomKeyGenerator();
-	}
+  @Bean
+  @Override
+  public KeyGenerator keyGenerator() {
+    return new CustomKeyGenerator();
+  }
 
-	@Bean
-	public CalculationService calculationService() {
-		return new PlainCalculationService();
-	}
+  @Bean
+  public CalculationService calculationService() {
+    return new PlainCalculationService();
+  }
 }

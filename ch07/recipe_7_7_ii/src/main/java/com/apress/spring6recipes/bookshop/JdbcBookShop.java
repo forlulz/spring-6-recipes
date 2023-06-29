@@ -9,50 +9,51 @@ import javax.sql.DataSource;
 
 public class JdbcBookShop extends JdbcDaoSupport implements BookShop {
 
-	public JdbcBookShop(DataSource dataSource) {
-		setDataSource(dataSource);
-	}
-	@Transactional
-	public void purchase(String isbn, String username) {
-		int price = getJdbcTemplate().queryForObject("SELECT PRICE FROM BOOK WHERE ISBN = ?", Integer.class, isbn);
+  public JdbcBookShop(DataSource dataSource) {
+    setDataSource(dataSource);
+  }
 
-		getJdbcTemplate().update("UPDATE BOOK_STOCK SET STOCK = STOCK - 1 WHERE ISBN = ?", isbn);
+  @Transactional
+  public void purchase(String isbn, String username) {
+    int price = getJdbcTemplate().queryForObject("SELECT PRICE FROM BOOK WHERE ISBN = ?", Integer.class, isbn);
 
-		getJdbcTemplate().update("UPDATE ACCOUNT SET BALANCE = BALANCE - ? WHERE USERNAME = ?", price, username);
-	}
+    getJdbcTemplate().update("UPDATE BOOK_STOCK SET STOCK = STOCK - 1 WHERE ISBN = ?", isbn);
 
-	@Transactional
-	public void increaseStock(String isbn, int stock) {
-		String threadName = Thread.currentThread().getName();
-		System.out.println(threadName + " - Prepare to increase book stock");
+    getJdbcTemplate().update("UPDATE ACCOUNT SET BALANCE = BALANCE - ? WHERE USERNAME = ?", price, username);
+  }
 
-		getJdbcTemplate().update("UPDATE BOOK_STOCK SET STOCK = STOCK + ? WHERE ISBN = ?", stock, isbn);
+  @Transactional
+  public void increaseStock(String isbn, int stock) {
+    String threadName = Thread.currentThread().getName();
+    System.out.println(threadName + " - Prepare to increase book stock");
 
-		System.out.println(threadName + " - Book stock increased by " + stock);
-		sleep(threadName);
+    getJdbcTemplate().update("UPDATE BOOK_STOCK SET STOCK = STOCK + ? WHERE ISBN = ?", stock, isbn);
 
-		System.out.println(threadName + " - Book stock rolled back");
-		throw new RuntimeException("Increased by mistake");
-	}
+    System.out.println(threadName + " - Book stock increased by " + stock);
+    sleep(threadName);
 
-	@Transactional(isolation = Isolation.READ_COMMITTED)
-	public int checkStock(String isbn) {
-		String threadName = Thread.currentThread().getName();
-		System.out.println(threadName + " - Prepare to check book stock");
+    System.out.println(threadName + " - Book stock rolled back");
+    throw new RuntimeException("Increased by mistake");
+  }
 
-		int stock = getJdbcTemplate().queryForObject("SELECT STOCK FROM BOOK_STOCK WHERE ISBN = ?", Integer.class,
-				isbn);
+  @Transactional(isolation = Isolation.READ_COMMITTED)
+  public int checkStock(String isbn) {
+    String threadName = Thread.currentThread().getName();
+    System.out.println(threadName + " - Prepare to check book stock");
 
-		System.out.println(threadName + " - Book stock is " + stock);
-		sleep(threadName);
+    int stock = getJdbcTemplate().queryForObject("SELECT STOCK FROM BOOK_STOCK WHERE ISBN = ?", Integer.class,
+      isbn);
 
-		return stock;
-	}
+    System.out.println(threadName + " - Book stock is " + stock);
+    sleep(threadName);
 
-	private void sleep(String threadName) {
-		System.out.println(threadName + " - Sleeping");
-		Utils.sleep(10000);
-		System.out.println(threadName + " - Wake up");
-	}
+    return stock;
+  }
+
+  private void sleep(String threadName) {
+    System.out.println(threadName + " - Sleeping");
+    Utils.sleep(10000);
+    System.out.println(threadName + " - Wake up");
+  }
 
 }

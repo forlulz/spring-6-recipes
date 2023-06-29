@@ -21,52 +21,52 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/todos")
 public class TodoController {
 
-	private final TodoService todoService;
+  private final TodoService todoService;
 
-	public TodoController(TodoService todoService) {
-		this.todoService = todoService;
-	}
+  public TodoController(TodoService todoService) {
+    this.todoService = todoService;
+  }
 
-	@GetMapping
-	public Mono<String> list(Model model) {
-		var todos = todoService.listTodos();
-		model.addAttribute("todos", todos);
-		return Mono.just("todos");
-	}
+  @GetMapping
+  public Mono<String> list(Model model) {
+    var todos = todoService.listTodos();
+    model.addAttribute("todos", todos);
+    return Mono.just("todos");
+  }
 
-	@GetMapping("/new")
-	public Mono<String> create(Model model) {
-		model.addAttribute("todo", new Todo());
-		return Mono.just("todo-create");
-	}
+  @GetMapping("/new")
+  public Mono<String> create(Model model) {
+    model.addAttribute("todo", new Todo());
+    return Mono.just("todo-create");
+  }
 
-	@PostMapping
-	public Mono<String> newTodo(@ModelAttribute @Valid Todo todo, BindingResult errors) {
+  @PostMapping
+  public Mono<String> newTodo(@ModelAttribute @Valid Todo todo, BindingResult errors) {
 
-		if (errors.hasErrors()) {
-			return Mono.just("todo-create");
-		}
-		var owner = "marten@deinum.biz";
-		todo.setOwner(owner);
-		return todoService.save(todo)
-						.then(Mono.just("redirect:/todos"));
-	}
+    if (errors.hasErrors()) {
+      return Mono.just("todo-create");
+    }
+    var owner = "marten@deinum.biz";
+    todo.setOwner(owner);
+    return todoService.save(todo)
+      .then(Mono.just("redirect:/todos"));
+  }
 
-	@PutMapping("/{todoId}/completed")
-	public Mono<String> complete(@PathVariable("todoId") long todoId) {
-		return this.todoService.complete(todoId)
-						.then(Mono.just("redirect:/todos"));
-	}
+  @PutMapping("/{todoId}/completed")
+  public Mono<String> complete(@PathVariable("todoId") long todoId) {
+    return this.todoService.complete(todoId)
+      .then(Mono.just("redirect:/todos"));
+  }
 
-	@DeleteMapping("/{todoId}")
-	public Mono<String> delete(@PathVariable("todoId") long todoId) {
-		return this.todoService.remove(todoId).then(Mono.just("redirect:/todos"));
-	}
+  @DeleteMapping("/{todoId}")
+  public Mono<String> delete(@PathVariable("todoId") long todoId) {
+    return this.todoService.remove(todoId).then(Mono.just("redirect:/todos"));
+  }
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		// We don't want to bind the id and owner fields as we control them in this
-		// controller and service instead.
-		binder.setDisallowedFields("id", "owner");
-	}
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    // We don't want to bind the id and owner fields as we control them in this
+    // controller and service instead.
+    binder.setDisallowedFields("id", "owner");
+  }
 }

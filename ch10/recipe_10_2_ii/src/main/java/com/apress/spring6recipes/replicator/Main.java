@@ -7,9 +7,9 @@ import java.io.IOException;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
-		try (var ctx = new AnnotationConfigApplicationContext(FileReplicator.class, JmxConfig.class)) {
-			System.in.read();
-		}
-	}
+  public static void main(String[] args) throws IOException {
+    try (var ctx = new AnnotationConfigApplicationContext(FileReplicator.class, JmxConfig.class)) {
+      System.in.read();
+    }
+  }
 }

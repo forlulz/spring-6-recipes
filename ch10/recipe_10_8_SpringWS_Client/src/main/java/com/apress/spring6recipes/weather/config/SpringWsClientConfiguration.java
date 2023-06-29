@@ -10,20 +10,20 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 @Configuration
 public class SpringWsClientConfiguration {
 
-	@Bean
-	public WeatherServiceClient weatherServiceClient(WeatherService weatherService) {
-		return new WeatherServiceClient(weatherService);
-	}
+  @Bean
+  public WeatherServiceClient weatherServiceClient(WeatherService weatherService) {
+    return new WeatherServiceClient(weatherService);
+  }
 
-	@Bean
-	public WeatherServiceProxy weatherServiceProxy(WebServiceTemplate wst) {
-		return new WeatherServiceProxy(wst);
-	}
+  @Bean
+  public WeatherServiceProxy weatherServiceProxy(WebServiceTemplate wst) {
+    return new WeatherServiceProxy(wst);
+  }
 
-	@Bean
-	public WebServiceTemplate webServiceTemplate() {
-		var webServiceTemplate = new WebServiceTemplate();
-		webServiceTemplate.setDefaultUri("http://localhost:8080/springws/services");
-		return webServiceTemplate;
-	}
+  @Bean
+  public WebServiceTemplate webServiceTemplate() {
+    var webServiceTemplate = new WebServiceTemplate();
+    webServiceTemplate.setDefaultUri("http://localhost:8080/springws/services");
+    return webServiceTemplate;
+  }
 }

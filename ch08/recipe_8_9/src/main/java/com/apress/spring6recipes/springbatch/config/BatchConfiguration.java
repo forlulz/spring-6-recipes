@@ -27,51 +27,51 @@ import javax.sql.DataSource;
 @EnableAsync
 public class BatchConfiguration {
 
-	@Autowired
-	private Environment env;
+  @Autowired
+  private Environment env;
 
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUrl(env.getRequiredProperty("dataSource.url"));
-		dataSource.setUsername(env.getProperty("dataSource.username"));
-		dataSource.setPassword(env.getProperty("dataSource.password"));
-		return dataSource;
-	}
+  @Bean
+  public DataSource dataSource() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setUrl(env.getRequiredProperty("dataSource.url"));
+    dataSource.setUsername(env.getProperty("dataSource.username"));
+    dataSource.setPassword(env.getProperty("dataSource.password"));
+    return dataSource;
+  }
 
-	@Bean
-	public DataSourceInitializer databasePopulator() {
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.addScript(new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
-		populator.addScript(new ClassPathResource("sql/reset_user_registration.sql"));
-		populator.setContinueOnError(true);
-		populator.setIgnoreFailedDrops(true);
+  @Bean
+  public DataSourceInitializer databasePopulator() {
+    ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+    populator.addScript(new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
+    populator.addScript(new ClassPathResource("sql/reset_user_registration.sql"));
+    populator.setContinueOnError(true);
+    populator.setIgnoreFailedDrops(true);
 
-		DataSourceInitializer initializer = new DataSourceInitializer();
-		initializer.setDatabasePopulator(populator);
-		initializer.setDataSource(dataSource());
-		return initializer;
-	}
+    DataSourceInitializer initializer = new DataSourceInitializer();
+    initializer.setDatabasePopulator(populator);
+    initializer.setDataSource(dataSource());
+    return initializer;
+  }
 
-	@Bean
-	public DataSourceTransactionManager transactionManager(DataSource ds) {
-		return new DataSourceTransactionManager(ds);
-	}
+  @Bean
+  public DataSourceTransactionManager transactionManager(DataSource ds) {
+    return new DataSourceTransactionManager(ds);
+  }
 
-	@Bean
-	public ThreadPoolTaskExecutor taskExecutor() {
-		ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-		taskExecutor.setThreadGroupName("batch-executor");
-		taskExecutor.setMaxPoolSize(10);
-		return taskExecutor;
-	}
+  @Bean
+  public ThreadPoolTaskExecutor taskExecutor() {
+    ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+    taskExecutor.setThreadGroupName("batch-executor");
+    taskExecutor.setMaxPoolSize(10);
+    return taskExecutor;
+  }
 
-	@Bean
-	public ThreadPoolTaskScheduler taskScheduler() {
-		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setThreadGroupName("batch-scheduler");
-		taskScheduler.setPoolSize(10);
-		return taskScheduler;
-	}
+  @Bean
+  public ThreadPoolTaskScheduler taskScheduler() {
+    ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+    taskScheduler.setThreadGroupName("batch-scheduler");
+    taskScheduler.setPoolSize(10);
+    return taskScheduler;
+  }
 
 }

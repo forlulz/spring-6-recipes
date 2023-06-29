@@ -26,48 +26,48 @@ import javax.sql.DataSource;
 @EnableAsync
 public class BatchConfiguration {
 
-	@Bean
-	public DataSource dataSource(Environment env) {
-		var dataSource = new DriverManagerDataSource();
-		dataSource.setUrl(env.getRequiredProperty("datasource.url"));
-		dataSource.setUsername(env.getProperty("datasource.username"));
-		dataSource.setPassword(env.getProperty("datasource.password"));
-		return dataSource;
-	}
+  @Bean
+  public DataSource dataSource(Environment env) {
+    var dataSource = new DriverManagerDataSource();
+    dataSource.setUrl(env.getRequiredProperty("datasource.url"));
+    dataSource.setUsername(env.getProperty("datasource.username"));
+    dataSource.setPassword(env.getProperty("datasource.password"));
+    return dataSource;
+  }
 
-	@Bean
-	public DataSourceTransactionManager transactionManager(DataSource ds) {
-		return new DataSourceTransactionManager(ds);
-	}
+  @Bean
+  public DataSourceTransactionManager transactionManager(DataSource ds) {
+    return new DataSourceTransactionManager(ds);
+  }
 
-	@Bean
-	public DataSourceInitializer databasePopulator(DataSource dataSource) {
-		var populator = new ResourceDatabasePopulator();
-		populator.addScript(new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
-		populator.addScript(new ClassPathResource("sql/reset_user_registration.sql"));
-		populator.setContinueOnError(true);
-		populator.setIgnoreFailedDrops(true);
+  @Bean
+  public DataSourceInitializer databasePopulator(DataSource dataSource) {
+    var populator = new ResourceDatabasePopulator();
+    populator.addScript(new ClassPathResource("org/springframework/batch/core/schema-h2.sql"));
+    populator.addScript(new ClassPathResource("sql/reset_user_registration.sql"));
+    populator.setContinueOnError(true);
+    populator.setIgnoreFailedDrops(true);
 
-		var initializer = new DataSourceInitializer();
-		initializer.setDatabasePopulator(populator);
-		initializer.setDataSource(dataSource);
-		return initializer;
-	}
+    var initializer = new DataSourceInitializer();
+    initializer.setDatabasePopulator(populator);
+    initializer.setDataSource(dataSource);
+    return initializer;
+  }
 
-	@Bean
-	public ThreadPoolTaskExecutor taskExecutor() {
-		var taskExecutor = new ThreadPoolTaskExecutor();
-		taskExecutor.setThreadGroupName("batch-executor");
-		taskExecutor.setMaxPoolSize(10);
-		return taskExecutor;
-	}
+  @Bean
+  public ThreadPoolTaskExecutor taskExecutor() {
+    var taskExecutor = new ThreadPoolTaskExecutor();
+    taskExecutor.setThreadGroupName("batch-executor");
+    taskExecutor.setMaxPoolSize(10);
+    return taskExecutor;
+  }
 
-	@Bean
-	public ThreadPoolTaskScheduler taskScheduler() {
-		var taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setThreadGroupName("batch-scheduler");
-		taskScheduler.setPoolSize(10);
-		return taskScheduler;
-	}
+  @Bean
+  public ThreadPoolTaskScheduler taskScheduler() {
+    var taskScheduler = new ThreadPoolTaskScheduler();
+    taskScheduler.setThreadGroupName("batch-scheduler");
+    taskScheduler.setPoolSize(10);
+    return taskScheduler;
+  }
 
 }

@@ -24,47 +24,47 @@ import javax.sql.DataSource;
 @ComponentScan("com.apress.spring6recipes.board")
 public class TodoWebConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("redirect:/todos");
-	}
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/").setViewName("redirect:/todos");
+  }
 
-	@Bean
-	public ThymeleafViewResolver viewResolver(SpringTemplateEngine templateEngine) {
-		var viewResolver = new ThymeleafViewResolver();
-		viewResolver.setTemplateEngine(templateEngine);
-		return viewResolver;
-	}
+  @Bean
+  public ThymeleafViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+    var viewResolver = new ThymeleafViewResolver();
+    viewResolver.setTemplateEngine(templateEngine);
+    return viewResolver;
+  }
 
-	@Bean
-	public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
-		var templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(templateResolver);
-		templateEngine.addDialect(new SpringSecurityDialect());
-		return templateEngine;
-	}
+  @Bean
+  public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
+    var templateEngine = new SpringTemplateEngine();
+    templateEngine.setTemplateResolver(templateResolver);
+    templateEngine.addDialect(new SpringSecurityDialect());
+    return templateEngine;
+  }
 
-	@Bean
-	public SpringResourceTemplateResolver templateResolver() {
-		var templateResolver = new SpringResourceTemplateResolver();
-		templateResolver.setPrefix("classpath:/templates/");
-		templateResolver.setSuffix(".html");
-		templateResolver.setTemplateMode("HTML");
-		return templateResolver;
-	}
+  @Bean
+  public SpringResourceTemplateResolver templateResolver() {
+    var templateResolver = new SpringResourceTemplateResolver();
+    templateResolver.setPrefix("classpath:/templates/");
+    templateResolver.setSuffix(".html");
+    templateResolver.setTemplateMode("HTML");
+    return templateResolver;
+  }
 
-	@Bean
-	public DataSource dataSource() {
-		return new EmbeddedDatabaseBuilder()
-						.setType(EmbeddedDatabaseType.H2)
-						.setName("todos")
-						.addScript("classpath:/schema.sql")
-						.addScript("classpath:/data.sql")
-						.build();
-	}
+  @Bean
+  public DataSource dataSource() {
+    return new EmbeddedDatabaseBuilder()
+      .setType(EmbeddedDatabaseType.H2)
+      .setName("todos")
+      .addScript("classpath:/schema.sql")
+      .addScript("classpath:/data.sql")
+      .build();
+  }
 
-	@Bean
-	public DataSourceTransactionManager transactionManager(DataSource dataSource) {
-		return new DataSourceTransactionManager(dataSource);
-	}
+  @Bean
+  public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
+  }
 }

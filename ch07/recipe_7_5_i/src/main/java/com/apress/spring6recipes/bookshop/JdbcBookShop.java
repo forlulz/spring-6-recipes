@@ -7,20 +7,20 @@ import javax.sql.DataSource;
 
 public class JdbcBookShop extends JdbcDaoSupport implements BookShop {
 
-	public JdbcBookShop(DataSource dataSource) {
-		setDataSource(dataSource);
-	}
+  public JdbcBookShop(DataSource dataSource) {
+    setDataSource(dataSource);
+  }
 
-	@Transactional
-	public void purchase(final String isbn, final String username) {
+  @Transactional
+  public void purchase(final String isbn, final String username) {
 
-		var BOOK_SQL = "SELECT PRICE FROM BOOK WHERE ISBN = ?";
-		int price = getJdbcTemplate().queryForObject(BOOK_SQL, Integer.class, isbn);
+    var BOOK_SQL = "SELECT PRICE FROM BOOK WHERE ISBN = ?";
+    int price = getJdbcTemplate().queryForObject(BOOK_SQL, Integer.class, isbn);
 
-		var STOCK_SQL = "UPDATE BOOK_STOCK SET STOCK = STOCK - 1 WHERE ISBN = ?";
-		getJdbcTemplate().update(STOCK_SQL, isbn);
+    var STOCK_SQL = "UPDATE BOOK_STOCK SET STOCK = STOCK - 1 WHERE ISBN = ?";
+    getJdbcTemplate().update(STOCK_SQL, isbn);
 
-		var BALANCE_SQL = "UPDATE ACCOUNT SET BALANCE = BALANCE - ? WHERE USERNAME = ?";
-		getJdbcTemplate().update(BALANCE_SQL, price, username);
-	}
+    var BALANCE_SQL = "UPDATE ACCOUNT SET BALANCE = BALANCE - ? WHERE USERNAME = ?";
+    getJdbcTemplate().update(BALANCE_SQL, price, username);
+  }
 }

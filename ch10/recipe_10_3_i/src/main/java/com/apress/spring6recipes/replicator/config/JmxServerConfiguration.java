@@ -9,11 +9,11 @@ import org.springframework.jmx.support.ConnectorServerFactoryBean;
 @Import(FileReplicatorConfig.class)
 public class JmxServerConfiguration {
 
-	@Bean
-	public ConnectorServerFactoryBean connectorServerFactoryBean() {
-		var url ="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/replicator";
-		var connectorServer = new ConnectorServerFactoryBean();
-		connectorServer.setServiceUrl(url);
-		return connectorServer;
-	}
+  @Bean
+  public ConnectorServerFactoryBean connectorServerFactoryBean() {
+    var url = "service:jmx:rmi://localhost/jndi/rmi://localhost:1099/replicator";
+    var connectorServer = new ConnectorServerFactoryBean();
+    connectorServer.setServiceUrl(url);
+    return connectorServer;
+  }
 }

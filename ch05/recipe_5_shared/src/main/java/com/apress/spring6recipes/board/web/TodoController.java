@@ -20,53 +20,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/todos")
 public class TodoController {
 
-	private final TodoService todoService;
+  private final TodoService todoService;
 
-	public TodoController(TodoService todoService) {
-		this.todoService = todoService;
-	}
+  public TodoController(TodoService todoService) {
+    this.todoService = todoService;
+  }
 
-	@GetMapping
-	public String list(Model model) {
-		var todos = todoService.listTodos();
-		model.addAttribute("todos", todos);
-		return "todos";
-	}
+  @GetMapping
+  public String list(Model model) {
+    var todos = todoService.listTodos();
+    model.addAttribute("todos", todos);
+    return "todos";
+  }
 
-	@GetMapping("/new")
-	public String create(Model model) {
-		model.addAttribute("todo", new Todo());
-		return "todo-create";
-	}
+  @GetMapping("/new")
+  public String create(Model model) {
+    model.addAttribute("todo", new Todo());
+    return "todo-create";
+  }
 
-	@PostMapping
-	public String newTodo(@ModelAttribute @Valid Todo todo, BindingResult errors) {
+  @PostMapping
+  public String newTodo(@ModelAttribute @Valid Todo todo, BindingResult errors) {
 
-		if (errors.hasErrors()) {
-			return "todo-create";
-		}
-		var owner = "marten@deinum.biz";
-		todo.setOwner(owner);
-		todoService.save(todo);
-		return "redirect:/todos";
-	}
+    if (errors.hasErrors()) {
+      return "todo-create";
+    }
+    var owner = "marten@deinum.biz";
+    todo.setOwner(owner);
+    todoService.save(todo);
+    return "redirect:/todos";
+  }
 
-	@PutMapping("/{todoId}/completed")
-	public String complete(@PathVariable("todoId") long todoId) {
-		this.todoService.complete(todoId);
-		return "redirect:/todos";
-	}
+  @PutMapping("/{todoId}/completed")
+  public String complete(@PathVariable("todoId") long todoId) {
+    this.todoService.complete(todoId);
+    return "redirect:/todos";
+  }
 
-	@DeleteMapping("/{todoId}")
-	public String delete(@PathVariable("todoId") long todoId) {
-		this.todoService.remove(todoId);
-		return "redirect:/todos";
-	}
+  @DeleteMapping("/{todoId}")
+  public String delete(@PathVariable("todoId") long todoId) {
+    this.todoService.remove(todoId);
+    return "redirect:/todos";
+  }
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		// We don't want to bind the id and owner fields as we control them in this
-		// controller and service instead.
-		binder.setDisallowedFields("id", "owner");
-	}
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    // We don't want to bind the id and owner fields as we control them in this
+    // controller and service instead.
+    binder.setDisallowedFields("id", "owner");
+  }
 }

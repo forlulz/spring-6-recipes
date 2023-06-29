@@ -16,41 +16,41 @@ import java.util.Map;
 @Configuration
 public class ViewResolverConfiguration implements WebMvcConfigurer {
 
-	@Override
-	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		Map<String, MediaType> mediatypes = new HashMap<>();
-		mediatypes.put("html", MediaType.TEXT_HTML);
-		mediatypes.put("pdf", MediaType.valueOf("application/json"));
-		mediatypes.put("xls", MediaType.valueOf("application/vnd.ms-excel"));
-		mediatypes.put("xml", MediaType.APPLICATION_XML);
-		mediatypes.put("json", MediaType.APPLICATION_JSON);
-		configurer.mediaTypes(mediatypes);
-	}
+  @Override
+  public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    Map<String, MediaType> mediatypes = new HashMap<>();
+    mediatypes.put("html", MediaType.TEXT_HTML);
+    mediatypes.put("pdf", MediaType.valueOf("application/json"));
+    mediatypes.put("xls", MediaType.valueOf("application/vnd.ms-excel"));
+    mediatypes.put("xml", MediaType.APPLICATION_XML);
+    mediatypes.put("json", MediaType.APPLICATION_JSON);
+    configurer.mediaTypes(mediatypes);
+  }
 
-	@Bean
-	public ResourceBundleViewResolver viewResolver() {
+  @Bean
+  public ResourceBundleViewResolver viewResolver() {
 
-		ResourceBundleViewResolver viewResolver = new ResourceBundleViewResolver();
-		viewResolver.setBasename("court-views");
-		return viewResolver;
-	}
+    ResourceBundleViewResolver viewResolver = new ResourceBundleViewResolver();
+    viewResolver.setBasename("court-views");
+    return viewResolver;
+  }
 
-	@Bean
-	public InternalResourceViewResolver internalResourceViewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setOrder(1);
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
+  @Bean
+  public InternalResourceViewResolver internalResourceViewResolver() {
+    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+    viewResolver.setOrder(1);
+    viewResolver.setPrefix("/WEB-INF/jsp/");
+    viewResolver.setSuffix(".jsp");
+    return viewResolver;
+  }
 
-	@Bean
-	public ContentNegotiatingViewResolver contentNegotiatingViewResolver(
-			ContentNegotiationManager contentNegotiationManager) {
+  @Bean
+  public ContentNegotiatingViewResolver contentNegotiatingViewResolver(
+    ContentNegotiationManager contentNegotiationManager) {
 
-		ContentNegotiatingViewResolver viewResolver = new ContentNegotiatingViewResolver();
-		viewResolver.setContentNegotiationManager(contentNegotiationManager);
-		return viewResolver;
-	}
+    ContentNegotiatingViewResolver viewResolver = new ContentNegotiatingViewResolver();
+    viewResolver.setContentNegotiationManager(contentNegotiationManager);
+    return viewResolver;
+  }
 
 }

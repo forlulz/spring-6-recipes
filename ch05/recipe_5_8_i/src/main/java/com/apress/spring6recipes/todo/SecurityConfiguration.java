@@ -10,12 +10,12 @@ import org.springframework.security.core.userdetails.User;
 @EnableWebFluxSecurity
 public class SecurityConfiguration {
 
-	@Bean
-	public MapReactiveUserDetailsService userDetailsRepository() {
-		var marten = User.withDefaultPasswordEncoder()
-						.username("marten").password("secret").authorities("USER").build();
-		var admin = User.withDefaultPasswordEncoder()
-						.username("admin").password("admin").authorities("USER", "ADMIN").build();
-		return new MapReactiveUserDetailsService(marten, admin);
-	}
+  @Bean
+  public MapReactiveUserDetailsService userDetailsRepository() {
+    var marten = User.withDefaultPasswordEncoder()
+      .username("marten").password("secret").authorities("USER").build();
+    var admin = User.withDefaultPasswordEncoder()
+      .username("admin").password("admin").authorities("USER", "ADMIN").build();
+    return new MapReactiveUserDetailsService(marten, admin);
+  }
 }

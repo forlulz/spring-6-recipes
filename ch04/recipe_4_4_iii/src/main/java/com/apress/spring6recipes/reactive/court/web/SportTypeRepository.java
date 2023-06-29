@@ -10,16 +10,16 @@ import java.util.Optional;
 @Repository
 public class SportTypeRepository {
 
-	private final List<SportType> sportTypes = List.of(
-					new SportType(1, "Tennis"),
-					new SportType(2, "Soccer"),
-					new SportType(3, "Swimming"));
+  private final List<SportType> sportTypes = List.of(
+    new SportType(1, "Tennis"),
+    new SportType(2, "Soccer"),
+    new SportType(3, "Swimming"));
 
-	public Flux<SportType> findAll() {
-		return Flux.fromIterable(this.sportTypes);
-	}
+  public Flux<SportType> findAll() {
+    return Flux.fromIterable(this.sportTypes);
+  }
 
-	public Optional<SportType> findById(int id) {
-		return sportTypes.stream().filter( (type) -> type.id() == id).findFirst();
-	}
+  public Optional<SportType> findById(int id) {
+    return sportTypes.stream().filter((type) -> type.id() == id).findFirst();
+  }
 }

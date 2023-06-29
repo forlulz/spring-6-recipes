@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface MemberService {
 
-	void add(Member member);
-	void remove(String memberName);
-	List<Member> list();
+  void add(Member member);
+
+  void remove(String memberName);
+
+  List<Member> list();
 
 }

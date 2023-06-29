@@ -11,18 +11,18 @@ import org.springframework.context.annotation.Profile;
 @Profile("spring")
 public class ShopConfigurationSpr {
 
-	@Bean
-	public Product aaa() {
-		return new Battery("AAA", 2.5, true);
-	}
+  @Bean
+  public Product aaa() {
+    return new Battery("AAA", 2.5, true);
+  }
 
-	@Bean
-	public Product cdrw() {
-		return new Disc("CD-RW", 1.5, 700);
-	}
+  @Bean
+  public Product cdrw() {
+    return new Disc("CD-RW", 1.5, 700);
+  }
 
-	@Bean
-	public Product dvdrw() {
-		return new Disc("DVD-RW", 3.0, 4700);
-	}
+  @Bean
+  public Product dvdrw() {
+    return new Disc("DVD-RW", 3.0, 4700);
+  }
 }

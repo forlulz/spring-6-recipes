@@ -9,11 +9,11 @@ import org.springframework.context.weaving.DefaultContextLoadTimeWeaver;
  * Needed to eagerly regsiter the loadtime weaving classloader in standalone scenarios
  */
 public class LoadTimeWeaverApplicationContextInitializer
-				implements ApplicationContextInitializer<AnnotationConfigApplicationContext> {
-	@Override
-	public void initialize(AnnotationConfigApplicationContext applicationContext) {
-		var beanClassLoader = applicationContext.getBeanFactory().getBeanClassLoader();
-		var ltw = new DefaultContextLoadTimeWeaver(beanClassLoader);
-		AspectJWeavingEnabler.enableAspectJWeaving(ltw, beanClassLoader);
-	}
+  implements ApplicationContextInitializer<AnnotationConfigApplicationContext> {
+  @Override
+  public void initialize(AnnotationConfigApplicationContext applicationContext) {
+    var beanClassLoader = applicationContext.getBeanFactory().getBeanClassLoader();
+    var ltw = new DefaultContextLoadTimeWeaver(beanClassLoader);
+    AspectJWeavingEnabler.enableAspectJWeaving(ltw, beanClassLoader);
+  }
 }

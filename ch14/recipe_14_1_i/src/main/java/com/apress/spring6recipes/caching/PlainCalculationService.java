@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 
 class PlainCalculationService implements CalculationService {
 
-	@Override
-	public BigDecimal heavyCalculation(BigDecimal base, int power) {
-		return calculate(base, power);
-	}
+  @Override
+  public BigDecimal heavyCalculation(BigDecimal base, int power) {
+    return calculate(base, power);
+  }
 
-	private BigDecimal calculate(BigDecimal base, int power) {
-		Utils.sleep(500);
-		return base.pow(power);
-	}
+  private BigDecimal calculate(BigDecimal base, int power) {
+    Utils.sleep(500);
+    return base.pow(power);
+  }
 }

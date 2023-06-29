@@ -7,11 +7,11 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 @Configuration
 public class ShopConfiguration {
 
-	@Bean
-	public ReloadableResourceBundleMessageSource messageSource() {
-		var messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasenames("classpath:messages");
-		messageSource.setCacheSeconds(1);
-		return messageSource;
-	}
+  @Bean
+  public ReloadableResourceBundleMessageSource messageSource() {
+    var messageSource = new ReloadableResourceBundleMessageSource();
+    messageSource.setBasenames("classpath:messages");
+    messageSource.setCacheSeconds(1);
+    return messageSource;
+  }
 }

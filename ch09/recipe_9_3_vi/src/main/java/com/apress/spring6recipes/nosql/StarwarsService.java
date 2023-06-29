@@ -5,10 +5,10 @@ package com.apress.spring6recipes.nosql;
  */
 public interface StarwarsService {
 
-	Planet save(Planet planet);
+  Planet save(Planet planet);
 
-	Character save(Character charachter);
+  Character save(Character charachter);
 
-	void printAll();
+  void printAll();
 
 }

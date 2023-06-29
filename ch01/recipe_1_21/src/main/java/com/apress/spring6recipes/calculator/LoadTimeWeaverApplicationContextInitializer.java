@@ -6,10 +6,10 @@ import org.springframework.context.weaving.AspectJWeavingEnabler;
 import org.springframework.context.weaving.DefaultContextLoadTimeWeaver;
 
 public class LoadTimeWeaverApplicationContextInitializer implements ApplicationContextInitializer<AnnotationConfigApplicationContext> {
-	@Override
-	public void initialize(AnnotationConfigApplicationContext applicationContext) {
-		var beanClassLoader = applicationContext.getBeanFactory().getBeanClassLoader();
-		var ltw = new DefaultContextLoadTimeWeaver(beanClassLoader);
-		AspectJWeavingEnabler.enableAspectJWeaving(ltw, beanClassLoader);
-	}
+  @Override
+  public void initialize(AnnotationConfigApplicationContext applicationContext) {
+    var beanClassLoader = applicationContext.getBeanFactory().getBeanClassLoader();
+    var ltw = new DefaultContextLoadTimeWeaver(beanClassLoader);
+    AspectJWeavingEnabler.enableAspectJWeaving(ltw, beanClassLoader);
+  }
 }

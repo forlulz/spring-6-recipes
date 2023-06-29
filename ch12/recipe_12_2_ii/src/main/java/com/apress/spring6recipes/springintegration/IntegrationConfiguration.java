@@ -16,27 +16,27 @@ import org.springframework.jms.core.JmsTemplate;
 @ComponentScan
 public class IntegrationConfiguration {
 
-    @Bean
-    public CachingConnectionFactory connectionFactory() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
-        return new CachingConnectionFactory(connectionFactory);
-    }
+  @Bean
+  public CachingConnectionFactory connectionFactory() {
+    ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    return new CachingConnectionFactory(connectionFactory);
+  }
 
-    @Bean
-    public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
-        return new JmsTemplate(connectionFactory);
-    }
+  @Bean
+  public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
+    return new JmsTemplate(connectionFactory);
+  }
 
-    @Bean
-    public InboundHelloWorldJMSMessageProcessor messageProcessor() {
-        return new InboundHelloWorldJMSMessageProcessor();
-    }
+  @Bean
+  public InboundHelloWorldJMSMessageProcessor messageProcessor() {
+    return new InboundHelloWorldJMSMessageProcessor();
+  }
 
-    @Bean
-    public IntegrationFlow jmsInbound(ConnectionFactory connectionFactory) {
-        return IntegrationFlow
-                .from(Jms.messageDrivenChannelAdapter(connectionFactory).extractPayload(false).destination("recipe-16-2"))
-                .handle(messageProcessor())
-                .get();
-    }
+  @Bean
+  public IntegrationFlow jmsInbound(ConnectionFactory connectionFactory) {
+    return IntegrationFlow
+      .from(Jms.messageDrivenChannelAdapter(connectionFactory).extractPayload(false).destination("recipe-16-2"))
+      .handle(messageProcessor())
+      .get();
+  }
 }

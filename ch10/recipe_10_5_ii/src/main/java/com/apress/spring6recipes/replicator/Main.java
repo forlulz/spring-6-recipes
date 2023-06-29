@@ -12,31 +12,31 @@ import java.util.Date;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		try (var ctx =
-								 new AnnotationConfigApplicationContext(FileReplicatorConfig.class)) {
+  public static void main(String[] args) throws Exception {
+    try (var ctx =
+           new AnnotationConfigApplicationContext(FileReplicatorConfig.class)) {
 
-			var documentReplicator = ctx.getBean(FileReplicator.class);
+      var documentReplicator = ctx.getBean(FileReplicator.class);
 
-			var jobDataMap = new JobDataMap();
-			jobDataMap.put("fileReplicator", documentReplicator);
+      var jobDataMap = new JobDataMap();
+      jobDataMap.put("fileReplicator", documentReplicator);
 
-			var job = JobBuilder.newJob(FileReplicationJob.class)
-							.withIdentity("documentReplicationJob")
-							.storeDurably()
-							.usingJobData(jobDataMap)
-							.build();
+      var job = JobBuilder.newJob(FileReplicationJob.class)
+        .withIdentity("documentReplicationJob")
+        .storeDurably()
+        .usingJobData(jobDataMap)
+        .build();
 
-			var trigger = TriggerBuilder.newTrigger()
-							.withIdentity("documentReplicationTrigger")
-							.startAt(new Date(System.currentTimeMillis() + 5000))
-							.forJob(job)
-							.withSchedule(CronScheduleBuilder.cronSchedule("0/60 * * * * ?"))
-							.build();
+      var trigger = TriggerBuilder.newTrigger()
+        .withIdentity("documentReplicationTrigger")
+        .startAt(new Date(System.currentTimeMillis() + 5000))
+        .forJob(job)
+        .withSchedule(CronScheduleBuilder.cronSchedule("0/60 * * * * ?"))
+        .build();
 
-			var scheduler = new StdSchedulerFactory().getScheduler();
-			scheduler.start();
-			scheduler.scheduleJob(job, trigger);
-		}
-	}
+      var scheduler = new StdSchedulerFactory().getScheduler();
+      scheduler.start();
+      scheduler.scheduleJob(job, trigger);
+    }
+  }
 }

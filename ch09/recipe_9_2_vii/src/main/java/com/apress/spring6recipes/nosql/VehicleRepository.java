@@ -4,5 +4,5 @@ import org.springframework.data.repository.ListCrudRepository;
 
 public interface VehicleRepository extends ListCrudRepository<Vehicle, String> {
 
-	Vehicle findByVehicleNo(String vehicleNo);
+  Vehicle findByVehicleNo(String vehicleNo);
 }

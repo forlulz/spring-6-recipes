@@ -4,11 +4,13 @@ import java.io.IOException;
 
 public interface FileReplicator {
 
-	String getSrcDir();
-	void setSrcDir(String srcDir);
+  String getSrcDir();
 
-	String getDestDir();
-	void setDestDir(String destDir);
+  void setSrcDir(String srcDir);
 
-	void replicate() throws IOException;
+  String getDestDir();
+
+  void setDestDir(String destDir);
+
+  void replicate() throws IOException;
 }

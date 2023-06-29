@@ -9,12 +9,12 @@ import java.util.Map;
 @Configuration
 public class JmxConfig {
 
-	@Bean
-	public MBeanExporter mbeanExporter() {
-		var beansToExport = Map.<String, Object>of(
-						"bean:name=documentReplicator", "documentReplicator");
-		var mbeanExporter = new MBeanExporter();
-		mbeanExporter.setBeans(beansToExport);
-		return mbeanExporter;
-	}
+  @Bean
+  public MBeanExporter mbeanExporter() {
+    var beansToExport = Map.<String, Object>of(
+      "bean:name=documentReplicator", "documentReplicator");
+    var mbeanExporter = new MBeanExporter();
+    mbeanExporter.setBeans(beansToExport);
+    return mbeanExporter;
+  }
 }

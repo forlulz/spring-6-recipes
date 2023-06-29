@@ -8,4 +8,5 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @Configuration
 @EnableWebFlux
 @ComponentScan
-public class WebFluxConfiguration implements WebFluxConfigurer { }
+public class WebFluxConfiguration implements WebFluxConfigurer {
+}

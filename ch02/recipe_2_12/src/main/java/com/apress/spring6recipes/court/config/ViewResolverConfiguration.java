@@ -16,35 +16,35 @@ import java.util.Map;
 @Configuration
 public class ViewResolverConfiguration implements WebMvcConfigurer {
 
-	public static final MediaType APPLICATION_EXCEL = MediaType.valueOf("application/vnd.ms-excel");
+  public static final MediaType APPLICATION_EXCEL = MediaType.valueOf("application/vnd.ms-excel");
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/reservationSuccess").setViewName("reservationSuccess");
-	}
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/reservationSuccess").setViewName("reservationSuccess");
+  }
 
-	@Override
-	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		var mediatypes = Map.of(
-						"html", MediaType.TEXT_HTML,
-						"pdf", MediaType.APPLICATION_PDF,
-						"xls", APPLICATION_EXCEL);
-		configurer.mediaTypes(mediatypes);
-	}
+  @Override
+  public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    var mediatypes = Map.of(
+      "html", MediaType.TEXT_HTML,
+      "pdf", MediaType.APPLICATION_PDF,
+      "xls", APPLICATION_EXCEL);
+    configurer.mediaTypes(mediatypes);
+  }
 
-	@Bean(name = "reservationSummary.pdf")
-	public PdfReservationSummary pdfReservationSummaryView() {
-		return new PdfReservationSummary();
-	}
+  @Bean(name = "reservationSummary.pdf")
+  public PdfReservationSummary pdfReservationSummaryView() {
+    return new PdfReservationSummary();
+  }
 
-	@Bean(name = "reservationSummary.xls")
-	public ExcelReservationSummary excelReservationSummaryView() {
-		return new ExcelReservationSummary();
-	}
+  @Bean(name = "reservationSummary.xls")
+  public ExcelReservationSummary excelReservationSummaryView() {
+    return new ExcelReservationSummary();
+  }
 
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.jsp("/WEB-INF/jsp/", ".jsp");
-		registry.viewResolver(new BeanNameViewResolver());
-	}
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+    registry.jsp("/WEB-INF/jsp/", ".jsp");
+    registry.viewResolver(new BeanNameViewResolver());
+  }
 }

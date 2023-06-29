@@ -6,8 +6,10 @@ import reactor.core.publisher.Mono;
 
 public interface MemberService {
 
-	Flux<Member> findAll();
-	Mono<Member> findById(long id);
-	Mono<Member> save(Member member);
+  Flux<Member> findAll();
+
+  Mono<Member> findById(long id);
+
+  Mono<Member> save(Member member);
 
 }

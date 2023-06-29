@@ -10,16 +10,16 @@ import org.springframework.jms.core.JmsTemplate;
 @Configuration
 public class ClientConfiguration {
 
-	@Bean
-	public CachingConnectionFactory connectionFactory() {
-		var connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
-		return new CachingConnectionFactory(connectionFactory);
-	}
+  @Bean
+  public CachingConnectionFactory connectionFactory() {
+    var connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    return new CachingConnectionFactory(connectionFactory);
+  }
 
-	@Bean
-	public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
-		return new JmsTemplate(connectionFactory);
-	}
+  @Bean
+  public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
+    return new JmsTemplate(connectionFactory);
+  }
 
 
 }

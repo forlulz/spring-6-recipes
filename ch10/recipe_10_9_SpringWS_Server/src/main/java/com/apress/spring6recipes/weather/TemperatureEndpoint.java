@@ -14,43 +14,43 @@ import java.time.LocalDate;
 @Endpoint
 public class TemperatureEndpoint {
 
-	private static final String namespaceUri = "http://spring6recipes.apress.com/weather/schemas";
-	private final WeatherService weatherService;
+  private static final String namespaceUri = "http://spring6recipes.apress.com/weather/schemas";
+  private final WeatherService weatherService;
 
-	public TemperatureEndpoint(WeatherService weatherService) {
-		this.weatherService = weatherService;
-	}
+  public TemperatureEndpoint(WeatherService weatherService) {
+    this.weatherService = weatherService;
+  }
 
-	@PayloadRoot(localPart = "GetTemperaturesRequest", namespace = namespaceUri)
-	@ResponsePayload
-	public GetTemperaturesResponse getTemperature(@RequestPayload GetTemperaturesRequest request) {
-		// Extract the service parameters from the request message
-		var city = request.getCity();
-		var dates = request.getDate().stream()
-						.map(ds -> LocalDate.of(ds.getYear(), ds.getMonth(), ds.getDay()))
-						.toList();
+  @PayloadRoot(localPart = "GetTemperaturesRequest", namespace = namespaceUri)
+  @ResponsePayload
+  public GetTemperaturesResponse getTemperature(@RequestPayload GetTemperaturesRequest request) {
+    // Extract the service parameters from the request message
+    var city = request.getCity();
+    var dates = request.getDate().stream()
+      .map(ds -> LocalDate.of(ds.getYear(), ds.getMonth(), ds.getDay()))
+      .toList();
 
-		// Invoke the back-end service to handle the request
-		var temperatures =
-						weatherService.getTemperatures(city, dates);
+    // Invoke the back-end service to handle the request
+    var temperatures =
+      weatherService.getTemperatures(city, dates);
 
-		// Build the response message from the result of back-end service
-		var response = new GetTemperaturesResponse();
-		temperatures.forEach(temp -> response.getTemperatureInfo().add(map(temp)));
-		return response;
-	}
+    // Build the response message from the result of back-end service
+    var response = new GetTemperaturesResponse();
+    temperatures.forEach(temp -> response.getTemperatureInfo().add(map(temp)));
+    return response;
+  }
 
-	private GetTemperaturesResponse.TemperatureInfo map(TemperatureInfo temperature) {
-		var temperatureInfo = new GetTemperaturesResponse.TemperatureInfo();
-		temperatureInfo.setCity(temperature.city());
-		temperatureInfo.setMax(temperature.max());
-		temperatureInfo.setMin(temperature.min());
-		temperatureInfo.setAverage(temperature.average());
-		try {
-			temperatureInfo.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(temperature.date().toString()));
-		} catch (DatatypeConfigurationException e) {
-			throw new IllegalStateException(e);
-		}
-		return temperatureInfo;
-	}
+  private GetTemperaturesResponse.TemperatureInfo map(TemperatureInfo temperature) {
+    var temperatureInfo = new GetTemperaturesResponse.TemperatureInfo();
+    temperatureInfo.setCity(temperature.city());
+    temperatureInfo.setMax(temperature.max());
+    temperatureInfo.setMin(temperature.min());
+    temperatureInfo.setAverage(temperature.average());
+    try {
+      temperatureInfo.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(temperature.date().toString()));
+    } catch (DatatypeConfigurationException e) {
+      throw new IllegalStateException(e);
+    }
+    return temperatureInfo;
+  }
 }

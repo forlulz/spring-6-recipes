@@ -11,16 +11,16 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 @EnableReactiveMongoRepositories(basePackages = "com.apress.spring6recipes.nosql")
 public class MongoConfiguration extends AbstractReactiveMongoConfiguration {
 
-	private static final String DB_NAME = "vehicledb";
+  private static final String DB_NAME = "vehicledb";
 
-	@Bean
-	@Override
-	public MongoClient reactiveMongoClient() {
-		return MongoClients.create();
-	}
+  @Bean
+  @Override
+  public MongoClient reactiveMongoClient() {
+    return MongoClients.create();
+  }
 
-	@Override
-	protected String getDatabaseName() {
-		return DB_NAME;
-	}
+  @Override
+  protected String getDatabaseName() {
+    return DB_NAME;
+  }
 }

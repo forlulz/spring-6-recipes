@@ -12,15 +12,15 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @ComponentScan(basePackages = "com.apress.spring6recipes.court")
 public class CourtRestConfiguration {
 
-	@Bean
-	public MappingJackson2JsonView jsonmembertemplate() {
-		var view = new MappingJackson2JsonView();
-		view.setPrettyPrint(true);
-		return view;
-	}
+  @Bean
+  public MappingJackson2JsonView jsonmembertemplate() {
+    var view = new MappingJackson2JsonView();
+    view.setPrettyPrint(true);
+    return view;
+  }
 
-	@Bean
-	public BeanNameViewResolver viewResolver() {
-		return new BeanNameViewResolver();
-	}
+  @Bean
+  public BeanNameViewResolver viewResolver() {
+    return new BeanNameViewResolver();
+  }
 }

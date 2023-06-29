@@ -10,30 +10,30 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class MapBasedCustomerRepository implements CustomerRepository {
 
-	private final AtomicLong idGenerator = new AtomicLong();
-	private final Map<Long, Customer> customers = new ConcurrentHashMap<>();
+  private final AtomicLong idGenerator = new AtomicLong();
+  private final Map<Long, Customer> customers = new ConcurrentHashMap<>();
 
-	@Override
-	@Cacheable(value = "customers")
-	public Customer find(long customerId) {
-		Utils.sleep(500);
-		return customers.get(customerId);
-	}
+  @Override
+  @Cacheable(value = "customers")
+  public Customer find(long customerId) {
+    Utils.sleep(500);
+    return customers.get(customerId);
+  }
 
-	@Override
-	public Customer create(String name) {
-		var id = idGenerator.incrementAndGet();
-		return customers.computeIfAbsent(id, key -> new Customer(key, name));
-	}
+  @Override
+  public Customer create(String name) {
+    var id = idGenerator.incrementAndGet();
+    return customers.computeIfAbsent(id, key -> new Customer(key, name));
+  }
 
-	@Override
-	public void update(Customer customer) {
-		customers.put(customer.id(), customer);
-	}
+  @Override
+  public void update(Customer customer) {
+    customers.put(customer.id(), customer);
+  }
 
-	@Override
-	@CacheEvict("customers")
-	public void remove(long customerId) {
-		customers.remove(customerId);
-	}
+  @Override
+  @CacheEvict("customers")
+  public void remove(long customerId) {
+    customers.remove(customerId);
+  }
 }

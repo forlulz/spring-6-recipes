@@ -7,20 +7,20 @@ import java.math.BigDecimal;
 
 class PlainCachingCalculationService implements CalculationService {
 
-	private final Cache<String, BigDecimal> cache;
+  private final Cache<String, BigDecimal> cache;
 
-	public PlainCachingCalculationService(Cache<String, BigDecimal> cache) {
-		this.cache = cache;
-	}
+  public PlainCachingCalculationService(Cache<String, BigDecimal> cache) {
+    this.cache = cache;
+  }
 
-	@Override
-	public BigDecimal heavyCalculation(BigDecimal base, int power) {
-		var key = base + "^" + power;
-		return cache.get(key, k -> this.calculate(base, power));
-	}
+  @Override
+  public BigDecimal heavyCalculation(BigDecimal base, int power) {
+    var key = base + "^" + power;
+    return cache.get(key, k -> this.calculate(base, power));
+  }
 
-	private BigDecimal calculate(BigDecimal base, int power) {
-		Utils.sleep(500);
-		return base.pow(power);
-	}
+  private BigDecimal calculate(BigDecimal base, int power) {
+    Utils.sleep(500);
+    return base.pow(power);
+  }
 }

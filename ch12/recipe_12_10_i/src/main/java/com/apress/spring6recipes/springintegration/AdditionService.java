@@ -6,8 +6,8 @@ package com.apress.spring6recipes.springintegration;
  */
 public class AdditionService {
 
-    public Number add(Operands ops) {
-        return (ops.a().floatValue() + ops.b().floatValue());
-    }
+  public Number add(Operands ops) {
+    return (ops.a().floatValue() + ops.b().floatValue());
+  }
 
 }

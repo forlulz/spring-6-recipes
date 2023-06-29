@@ -13,20 +13,20 @@ import org.springframework.jms.connection.CachingConnectionFactory;
 @EnableIntegration
 public class ClientIntegrationConfig {
 
-	@Bean
-	public CachingConnectionFactory connectionFactory() {
-		var connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
-		return new CachingConnectionFactory(connectionFactory);
-	}
+  @Bean
+  public CachingConnectionFactory connectionFactory() {
+    var connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    return new CachingConnectionFactory(connectionFactory);
+  }
 
-	@Bean
-	public IntegrationFlow vacationGatewayFlow() {
-			return IntegrationFlow
-							.from(VacationService.class)
-							.handle(
-									Jms.outboundGateway(connectionFactory())
-												.requestDestination("inboundHotelReservationSearchDestination")
-												.replyDestination("outboundHotelReservationSearchResultsDestination"))
-								.get();
-		}
+  @Bean
+  public IntegrationFlow vacationGatewayFlow() {
+    return IntegrationFlow
+      .from(VacationService.class)
+      .handle(
+        Jms.outboundGateway(connectionFactory())
+          .requestDestination("inboundHotelReservationSearchDestination")
+          .replyDestination("outboundHotelReservationSearchResultsDestination"))
+      .get();
+  }
 }

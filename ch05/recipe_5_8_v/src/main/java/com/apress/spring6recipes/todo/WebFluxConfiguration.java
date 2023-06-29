@@ -31,80 +31,80 @@ import reactor.core.publisher.Mono;
 @EnableWebFlux
 @EnableTransactionManagement
 @ComponentScan
-public class WebFluxConfiguration implements WebFluxConfigurer{
+public class WebFluxConfiguration implements WebFluxConfigurer {
 
-	@Bean
-	public SpringResourceTemplateResolver thymeleafTemplateResolver() {
-		var resolver = new SpringResourceTemplateResolver();
-		resolver.setPrefix("classpath:/templates/");
-		resolver.setSuffix(".html");
-		resolver.setTemplateMode(TemplateMode.HTML);
-		return resolver;
-	}
+  @Bean
+  public SpringResourceTemplateResolver thymeleafTemplateResolver() {
+    var resolver = new SpringResourceTemplateResolver();
+    resolver.setPrefix("classpath:/templates/");
+    resolver.setSuffix(".html");
+    resolver.setTemplateMode(TemplateMode.HTML);
+    return resolver;
+  }
 
-	@Bean
-	public ISpringWebFluxTemplateEngine thymeleafTemplateEngine() {
-		var templateEngine = new SpringWebFluxTemplateEngine();
-		templateEngine.setTemplateResolver(thymeleafTemplateResolver());
-		return templateEngine;
-	}
+  @Bean
+  public ISpringWebFluxTemplateEngine thymeleafTemplateEngine() {
+    var templateEngine = new SpringWebFluxTemplateEngine();
+    templateEngine.setTemplateResolver(thymeleafTemplateResolver());
+    return templateEngine;
+  }
 
-	@Bean
-	public ThymeleafReactiveViewResolver thymeleafReactiveViewResolver() {
-		var viewResolver = new ThymeleafReactiveViewResolver();
-		viewResolver.setTemplateEngine(thymeleafTemplateEngine());
-		viewResolver.setResponseMaxChunkSizeBytes(16384);
-		return viewResolver;
-	}
+  @Bean
+  public ThymeleafReactiveViewResolver thymeleafReactiveViewResolver() {
+    var viewResolver = new ThymeleafReactiveViewResolver();
+    viewResolver.setTemplateEngine(thymeleafTemplateEngine());
+    viewResolver.setResponseMaxChunkSizeBytes(16384);
+    return viewResolver;
+  }
 
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.viewResolver(thymeleafReactiveViewResolver());
-	}
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+    registry.viewResolver(thymeleafReactiveViewResolver());
+  }
 
-	@Bean
-	public RouterFunction<ServerResponse> securityPages() {
-		return RouterFunctions
-						.route().filter(csrfToken())
-						.GET("/login", (req) -> ServerResponse.ok().render("login")).build();
-	}
+  @Bean
+  public RouterFunction<ServerResponse> securityPages() {
+    return RouterFunctions
+      .route().filter(csrfToken())
+      .GET("/login", (req) -> ServerResponse.ok().render("login")).build();
+  }
 
-	public HandlerFilterFunction<ServerResponse, ServerResponse> csrfToken() {
-		var name = CsrfToken.class.getName();
-		return (req, next) -> req.exchange()
-						.getAttributeOrDefault(name, Mono.empty().ofType(CsrfToken.class))
-						.flatMap(token -> {
-							req.exchange()
-									.getAttributes()
-									.put(CsrfRequestDataValueProcessor.DEFAULT_CSRF_ATTR_NAME, token);
-							return next.handle(req);
-						});
-	}
+  public HandlerFilterFunction<ServerResponse, ServerResponse> csrfToken() {
+    var name = CsrfToken.class.getName();
+    return (req, next) -> req.exchange()
+      .getAttributeOrDefault(name, Mono.empty().ofType(CsrfToken.class))
+      .flatMap(token -> {
+        req.exchange()
+          .getAttributes()
+          .put(CsrfRequestDataValueProcessor.DEFAULT_CSRF_ATTR_NAME, token);
+        return next.handle(req);
+      });
+  }
 
-	@Bean
-	public ConnectionFactory connectionFactory() {
-		return ConnectionFactories.get("r2dbc:h2:mem:///todos?options=DB_CLOSE_DELAY=-1;");
-	}
+  @Bean
+  public ConnectionFactory connectionFactory() {
+    return ConnectionFactories.get("r2dbc:h2:mem:///todos?options=DB_CLOSE_DELAY=-1;");
+  }
 
-	@Bean
-	public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory connectionFactory) {
-		var populator = new ResourceDatabasePopulator();
-		populator.setScripts(new ClassPathResource("schema.sql"),
-						             new ClassPathResource("data.sql"));
+  @Bean
+  public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory connectionFactory) {
+    var populator = new ResourceDatabasePopulator();
+    populator.setScripts(new ClassPathResource("schema.sql"),
+      new ClassPathResource("data.sql"));
 
-		var initializer = new ConnectionFactoryInitializer();
-		initializer.setConnectionFactory(connectionFactory);
-		initializer.setDatabasePopulator(populator);
-		return initializer;
-	}
+    var initializer = new ConnectionFactoryInitializer();
+    initializer.setConnectionFactory(connectionFactory);
+    initializer.setDatabasePopulator(populator);
+    return initializer;
+  }
 
-	@Bean
-	public DatabaseClient databaseClient(ConnectionFactory connectionFactory) {
-		return DatabaseClient.create(connectionFactory);
-	}
+  @Bean
+  public DatabaseClient databaseClient(ConnectionFactory connectionFactory) {
+    return DatabaseClient.create(connectionFactory);
+  }
 
-	@Bean
-	public R2dbcTransactionManager transactionManager(ConnectionFactory connectionFactory) {
-		return new R2dbcTransactionManager(connectionFactory);
-	}
+  @Bean
+  public R2dbcTransactionManager transactionManager(ConnectionFactory connectionFactory) {
+    return new R2dbcTransactionManager(connectionFactory);
+  }
 }

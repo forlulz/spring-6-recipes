@@ -13,19 +13,19 @@ import java.time.Duration;
 @Configuration
 public class CalculationConfiguration {
 
-	@Bean
-	public CacheManager cacheManager() {
-		var caffeine = Caffeine.newBuilder()
-						.maximumSize(1000)
-						.expireAfterWrite(Duration.ofMinutes(5));
-		var cacheManager = new CaffeineCacheManager();
-		cacheManager.setCaffeine(caffeine);
-		return cacheManager;
-	}
+  @Bean
+  public CacheManager cacheManager() {
+    var caffeine = Caffeine.newBuilder()
+      .maximumSize(1000)
+      .expireAfterWrite(Duration.ofMinutes(5));
+    var cacheManager = new CaffeineCacheManager();
+    cacheManager.setCaffeine(caffeine);
+    return cacheManager;
+  }
 
-	@Bean
-	public CalculationService calculationService(CacheManager cacheManager) {
-		var cache = cacheManager.getCache("calculations");
-		return new PlainCachingCalculationService(cache);
-	}
+  @Bean
+  public CalculationService calculationService(CacheManager cacheManager) {
+    var cache = cacheManager.getCache("calculations");
+    return new PlainCachingCalculationService(cache);
+  }
 }

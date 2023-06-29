@@ -13,21 +13,19 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 @EnableRedisRepositories(basePackages = "com.apress.spring6recipes.nosql")
 public class RedisConfig {
 
-	@Bean
-	public RedisTemplate<String, Vehicle> redisTemplate(
-					RedisConnectionFactory connectionFactory) {
-		var template = new RedisTemplate<String, Vehicle>();
-		template.setConnectionFactory(connectionFactory);
-		template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
-		template.setEnableTransactionSupport(true);
-		return template;
-	}
+  @Bean
+  public RedisTemplate<String, Vehicle> redisTemplate(
+    RedisConnectionFactory connectionFactory) {
+    var template = new RedisTemplate<String, Vehicle>();
+    template.setConnectionFactory(connectionFactory);
+    template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
+    template.setEnableTransactionSupport(true);
+    return template;
+  }
 
-	@Bean
-	public RedisConnectionFactory redisConnectionFactory() {
-		return new JedisConnectionFactory();
-	}
+  @Bean
+  public RedisConnectionFactory redisConnectionFactory() {
+    return new JedisConnectionFactory();
+  }
 
 }
-
-

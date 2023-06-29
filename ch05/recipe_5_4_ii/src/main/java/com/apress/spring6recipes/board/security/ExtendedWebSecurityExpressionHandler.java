@@ -9,23 +9,23 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 
 public class ExtendedWebSecurityExpressionHandler extends DefaultWebSecurityExpressionHandler {
 
-	private AuthenticationTrustResolver trustResolver = new AuthenticationTrustResolverImpl();
+  private AuthenticationTrustResolver trustResolver = new AuthenticationTrustResolverImpl();
 
-	@Override
-	protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-			FilterInvocation fi) {
+  @Override
+  protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
+                                                                      FilterInvocation fi) {
 
-		ExtendedWebSecurityExpressionRoot root = new ExtendedWebSecurityExpressionRoot(authentication, fi);
-		root.setPermissionEvaluator(getPermissionEvaluator());
-		root.setTrustResolver(trustResolver);
-		root.setRoleHierarchy(getRoleHierarchy());
-		return root;
-	}
+    ExtendedWebSecurityExpressionRoot root = new ExtendedWebSecurityExpressionRoot(authentication, fi);
+    root.setPermissionEvaluator(getPermissionEvaluator());
+    root.setTrustResolver(trustResolver);
+    root.setRoleHierarchy(getRoleHierarchy());
+    return root;
+  }
 
-	@Override
-	public void setTrustResolver(AuthenticationTrustResolver trustResolver) {
-		this.trustResolver = trustResolver;
-		super.setTrustResolver(trustResolver);
-	}
+  @Override
+  public void setTrustResolver(AuthenticationTrustResolver trustResolver) {
+    this.trustResolver = trustResolver;
+    super.setTrustResolver(trustResolver);
+  }
 
 }

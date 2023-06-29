@@ -10,30 +10,30 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Complex {
 
-	private final int real;
-	private final int imaginary;
-	private ComplexFormatter formatter;
+  private final int real;
+  private final int imaginary;
+  private ComplexFormatter formatter;
 
-	public Complex(int real, int imaginary) {
-		this.real = real;
-		this.imaginary = imaginary;
-	}
+  public Complex(int real, int imaginary) {
+    this.real = real;
+    this.imaginary = imaginary;
+  }
 
-	public int imaginary() {
-		return imaginary;
-	}
+  public int imaginary() {
+    return imaginary;
+  }
 
-	public int real() {
-		return real;
-	}
+  public int real() {
+    return real;
+  }
 
-	@Autowired
-	public void setFormatter(ComplexFormatter formatter) {
-		this.formatter = formatter;
-	}
+  @Autowired
+  public void setFormatter(ComplexFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-	@Override
-	public String toString() {
-		return formatter.format(this);
-	}
+  @Override
+  public String toString() {
+    return formatter.format(this);
+  }
 }
