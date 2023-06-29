@@ -19,7 +19,7 @@ allprojects {
     }
 
     configurations {
-        all {
+        configureEach {
             exclude group: 'commons-logging', module: 'commons-logging'
             // We want only to use JUnit Jupiter, so exclude JUnit4 artifacts
             exclude group: 'junit', module: 'junit'
@@ -36,7 +36,7 @@ allprojects {
 
         matching {
             it.name.endsWith('Classpath') || it.name.contains('providedCompile')
-        }.all { it.extendsFrom(dependencyManagement) }
+        }.configureEach { it.extendsFrom(dependencyManagement) }
     }
 
 }
