@@ -43,12 +43,10 @@ public class SpringExecutorsDemo {
     taskExecutorAdapter.submit(task);
     asyncTaskExecutor.submit(task);
 
-    for (int i = 0; i < 500; i++) {
+    for (int i = 0; i < 500; i++)
       virtualThreadsTaskExecutor.submit(task);
-    }
 
-    for (int i = 0; i < 500; i++) {
+    for (int i = 0; i < 500; i++)
       threadPoolTaskExecutor.submit(task);
-    }
   }
 }
