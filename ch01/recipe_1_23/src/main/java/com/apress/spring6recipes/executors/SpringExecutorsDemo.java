@@ -7,11 +7,17 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.SyncTaskExecutor;
 import org.springframework.core.task.support.TaskExecutorAdapter;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
+import org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ScheduledExecutorService;
+
 @Component
 public class SpringExecutorsDemo {
+
+  @Autowired
+  private TaskExecutorAdapter taskExecutorAdapter;
 
   @Autowired
   private SimpleAsyncTaskExecutor asyncTaskExecutor;
@@ -20,16 +26,13 @@ public class SpringExecutorsDemo {
   private SyncTaskExecutor syncTaskExecutor;
 
   @Autowired
-  private TaskExecutorAdapter taskExecutorAdapter;
-
-  @Autowired
   private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @Autowired
-  private DemonstrationRunnable task;
+  private ConcurrentTaskExecutor virtualThreadsTaskExecutor;
 
   @Autowired
-  private ConcurrentTaskExecutor virtualThreadsTaskExecutor;
+  private DemonstrationRunnable task;
 
   public static void main(String[] args) {
     var cfg = ExecutorsConfiguration.class;
@@ -39,9 +42,9 @@ public class SpringExecutorsDemo {
 
   @PostConstruct
   public void submitJobs() {
-    syncTaskExecutor.execute(task);
     taskExecutorAdapter.submit(task);
     asyncTaskExecutor.submit(task);
+    syncTaskExecutor.execute(task);
 
     for (int i = 0; i < 500; i++)
       virtualThreadsTaskExecutor.submit(task);
