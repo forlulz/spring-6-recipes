@@ -24,6 +24,7 @@ public class BookstoreConfiguration {
 
   @Bean
   public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+    // Because single data source & accessing it with JDBC
     return new DataSourceTransactionManager(dataSource);
   }
 
