@@ -19,7 +19,7 @@ rootProject.name = "Spring 6 Recipes - Sources"
 
 include 'spring-6-recipes-dependencies'
 include 'shared-resources'
-
+include '_recipe-misc'
 
 def includeDirs = ~/^(?i)(ch|recipe|appendix).*$/
 def preDir = {

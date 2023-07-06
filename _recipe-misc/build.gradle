@@ -1,0 +1,5 @@
+description = 'Spring 6 Recipes :: Misc :: Custom stuff'
+
+dependencies {
+    implementation group: 'org.springframework', name: 'spring-context'
+}
